@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<specialPack name="A">
+    <specials>
+        <special name="Burpees" duration="2" difficulty="2" type="1">
+                <endurance skill="0"/>
+                <standard skill="0"/>
+                <strength skill="0"/>
+                <units>
+                    <unit quantity="100" name="Burpees" exercise="20" />
+                    <unit quantity="50" name="Burpees" exercise="20" />
+                    <unit quantity="25" name="Burpees" exercise="20" />
+                    <unit quantity="10" name="Burpees" exercise="20" />
+                </units>
+        </special>
+    <special name="Burpees" duration="2" difficulty="2" type="1">
+        <endurance skill="0"/>
+        <standard skill="0"/>
+        <strength skill="0"/>
+        <units>
+            <unit quantity="100" name="Burpees" exercise="20" />
+            <unit quantity="50" name="Burpees" exercise="20" />
+        </units>
+    </special>
+    <special name="Burpees" duration="1" difficulty="2" type="1">
+        <endurance skill="0"/>
+        <standard skill="0"/>
+        <strength skill="0"/>
+        <units>
+            <unit quantity="100" name="Burpees" exercise="20" />
+        </units>
+    </special>
+    <special name="Toes to Bar" duration="2" difficulty="3" type="2">
+        <endurance skill="8"/>
+        <standard skill="8"/>
+        <strength skill="8"/>
+        <units>
+            <unit quantity="100" name="Toes to Bar" exercise="2" />
+        </units>
+    </special>
+    <special name="Toes to Bar" duration="1" difficulty="3" type="2">
+        <endurance skill="8"/>
+        <standard skill="8"/>
+        <strength skill="8"/>
+        <units>
+            <unit quantity="50" name="Toes to Bar" exercise="2" />
+        </units>
+    </special>
+    <special name="Squats" duration="1" difficulty="2" type="1">
+        <endurance skill="0"/>
+        <standard skill="0"/>
+        <strength skill="0"/>
+        <units>
+            <unit quantity="50" name="Squats" exercise="29" />
+        </units>
+    </special>
+    <special name="Squats" duration="1" difficulty="2" type="1">
+        <endurance skill="0"/>
+        <standard skill="0"/>
+        <strength skill="0"/>
+        <units>
+            <unit quantity="100" name="Squats" exercise="29" />
+        </units>
+    </special>
+    <special name="Strict HS Pushups" duration="2" difficulty="3" type="2">
+        <endurance skill="2"/>
+        <standard skill="2"/>
+        <strength skill="2"/>
+        <units>
+            <unit quantity="50" name="Strict HS Pushups" exercise="40" />
+        </units>
+    </special>
+        <special name="Strict HS Pushups" duration="1" difficulty="3" type="2">
+            <endurance skill="2"/>
+            <standard skill="2"/>
+            <strength skill="2"/>
+            <units>
+                <unit quantity="25" name="Strict HS Pushups" exercise="40" />
+            </units>
+        </special>
+        <special name="Strict HS Pushups" duration="1" difficulty="3" type="2">
+            <endurance skill="2"/>
+            <standard skill="2"/>
+            <strength skill="2"/>
+            <units>
+                <unit quantity="10" name="Strict HS Pushups" exercise="40" />
+            </units>
+        </special>
+        <special name="Sprint" duration="1" difficulty="1" type="0">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="100" name="Sprint" exercise="41" />
+            </units>
+        </special>
+        <special name="Sprint" duration="1" difficulty="1" type="0">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="100" name="Sprint" exercise="41" />
+                <unit quantity="100" name="Sprint" exercise="41" />
+            </units>
+        </special>
+        <special name="Sprint" duration="2" difficulty="1" type="0">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="400" name="Sprint" exercise="41" />
+                <unit quantity="200" name="Sprint" exercise="41" />
+                <unit quantity="100" name="Sprint" exercise="41" />
+            </units>
+        </special>
+        <special name="Sprint" duration="2" difficulty="1" type="0">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="400" name="Sprint" exercise="41" />
+                <unit quantity="400" name="Sprint" exercise="41" />
+            </units>
+        </special>
+        <special name="Sprint" duration="3" difficulty="1" type="0">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="400" name="Sprint" exercise="41" />
+                <unit quantity="400" name="Sprint" exercise="41" />
+                <unit quantity="400" name="Sprint" exercise="41" />
+            </units>
+        </special>
+        <special name="Mixed" duration="2" difficulty="2" type="1">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="50" name="Burpees" exercise="20" />
+                <unit quantity="50" name="Squats" exercise="29" />
+                <unit quantity="50" name="Situps" exercise="1" />
+            </units>
+        </special>
+        <special name="Mixed" duration="2" difficulty="2" type="1">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="100" name="Burpees" exercise="20" />
+                <unit quantity="250" name="Squats" exercise="29" />
+            </units>
+        </special>
+        <special name="OH Pushups" duration="2" difficulty="3" type="2">
+            <endurance skill="4"/>
+            <standard skill="4"/>
+            <strength skill="4"/>
+            <units>
+                <unit quantity="100" name="OH Pushups" exercise="36" />
+            </units>
+        </special>
+        <special name="OH Pushups" duration="2" difficulty="3" type="2">
+            <endurance skill="4"/>
+            <standard skill="4"/>
+            <strength skill="4"/>
+            <units>
+                <unit quantity="50" name="OH Pushups" exercise="36" />
+            </units>
+        </special>
+    </specials>
+</specialPack>

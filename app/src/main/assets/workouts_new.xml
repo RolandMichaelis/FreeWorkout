@@ -1,0 +1,2528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workoutPack name="A">
+    <workouts>
+        <workout name="Aphrodite" duration="2" difficulty="2" type="1">
+            <endurance skill="0" points="350">
+                <rounds>
+                    <round>
+                        <exercise name="Sprawls" quantity="50"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Crunches" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="40"/>
+                        <exercise name="HH Squats" quantity="40"/>
+                        <exercise name="Crunches" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="30"/>
+                        <exercise name="HH Squats" quantity="30"/>
+                        <exercise name="Crunches" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="20"/>
+                        <exercise name="HH Squats" quantity="20"/>
+                        <exercise name="Crunches" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="10"/>
+                        <exercise name="HH Squats" quantity="10"/>
+                        <exercise name="Crunches" quantity="10"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="500">
+                <rounds>
+                    <round>
+                        <exercise name="Burpees" quantity="50"/>
+                        <exercise name="Squats" quantity="50"/>
+                        <exercise name="Situps" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="40"/>
+                        <exercise name="Squats" quantity="40"/>
+                        <exercise name="Situps" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="30"/>
+                        <exercise name="Squats" quantity="30"/>
+                        <exercise name="Situps" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="20"/>
+                        <exercise name="Squats" quantity="20"/>
+                        <exercise name="Situps" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="10"/>
+                        <exercise name="Squats" quantity="10"/>
+                        <exercise name="Situps" quantity="10"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="16" points="750">
+                <rounds>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="50"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Jackknifes" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="40"/>
+                        <exercise name="Pistol Squats" quantity="40"/>
+                        <exercise name="Jackknifes" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="30"/>
+                        <exercise name="Pistol Squats" quantity="30"/>
+                        <exercise name="Jackknifes" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="20"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="10"/>
+                        <exercise name="Pistol Squats" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="10"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Appollon" duration="2" difficulty="2" type="0">
+            <endurance skill="0" points="350">
+                <rounds>
+                    <round>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                </rounds>
+            </endurance>
+
+            <standard skill="0" points="525">
+                <rounds>
+                    <round>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Deep Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Deep Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Deep Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="16" points="700">
+                <rounds>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Sprint" quantity="400"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Ares" duration="1" difficulty="3" type="0">
+            <endurance skill="0" points="300">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="7"/>
+                        <exercise name="Crunches" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="7"/>
+                        <exercise name="Crunches" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="7"/>
+                        <exercise name="Crunches" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="7"/>
+                        <exercise name="Crunches" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="7"/>
+                        <exercise name="Crunches" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="1" points="450">
+                <rounds>
+                    <round>
+                        <exercise name="Pullups" quantity="7"/>
+                        <exercise name="Situps" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="7"/>
+                        <exercise name="Situps" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="7"/>
+                        <exercise name="Situps" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="7"/>
+                        <exercise name="Situps" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="7"/>
+                        <exercise name="Situps" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="32" points="">
+                <rounds>
+                    <round>
+                        <exercise name="Muscleups" quantity="7"/>
+                        <exercise name="Jackknifes" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="7"/>
+                        <exercise name="Jackknifes" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="7"/>
+                        <exercise name="Jackknifes" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="7"/>
+                        <exercise name="Jackknifes" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="7"/>
+                        <exercise name="Jackknifes" quantity="7"/>
+                        <exercise name="Sprint" quantity="80"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Artemis" duration="2" difficulty="3"  type="1">
+            <endurance skill="0" points="325">
+                <rounds>
+                    <round>
+                        <exercise name="Sprawls" quantity="50"/>
+                        <exercise name="Jumping Pullups" quantity="50"/>
+                        <exercise name="Knee Pushups" quantity="100"/>
+                        <exercise name="HH Squats" quantity="150"/>
+                        <exercise name="Sprawls" quantity="50"/>
+                    </round>
+                </rounds>
+                </endurance>
+            <standard skill="1" points="525">
+                <rounds>
+                    <round>
+                        <exercise name="Burpees" quantity="50"/>
+                        <exercise name="Pullups" quantity="50"/>
+                        <exercise name="Pushups" quantity="100"/>
+                        <exercise name="Squats" quantity="150"/>
+                        <exercise name="Burpees" quantity="50"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="52" points="800">
+                <rounds>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="50"/>
+                        <exercise name="Muscleups" quantity="50"/>
+                        <exercise name="OH Pushups" quantity="100"/>
+                        <exercise name="Pistol Squats" quantity="150"/>
+                        <exercise name="Burpee Squat Jumps" quantity="50"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Athena" duration="1" difficulty="1" type="1">
+            <endurance skill="0" points="229">
+                <rounds>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Crunches" quantity="25"/>
+                        <exercise name="HH Squats" quantity="25"/>
+                        <exercise name="Rest" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="HH Squats" quantity="20"/>
+                        <exercise name="Rest" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="15"/>
+                        <exercise name="Crunches" quantity="15"/>
+                        <exercise name="HH Squats" quantity="15"/>
+                        <exercise name="Rest" quantity="15"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="10"/>
+                        <exercise name="Crunches" quantity="10"/>
+                        <exercise name="HH Squats" quantity="10"/>
+                        <exercise name="Rest" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="5"/>
+                        <exercise name="Crunches" quantity="5"/>
+                        <exercise name="HH Squats" quantity="5"/>
+                        <exercise name="Rest" quantity="5"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="305">
+                <rounds>
+                    <round>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Situps" quantity="25"/>
+                        <exercise name="Squats" quantity="25"/>
+                        <exercise name="Rest" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Squats" quantity="20"/>
+                        <exercise name="Rest" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="15"/>
+                        <exercise name="Situps" quantity="15"/>
+                        <exercise name="Squats" quantity="15"/>
+                        <exercise name="Rest" quantity="15"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="10"/>
+                        <exercise name="Situps" quantity="10"/>
+                        <exercise name="Squats" quantity="10"/>
+                        <exercise name="Rest" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="5"/>
+                        <exercise name="Situps" quantity="5"/>
+                        <exercise name="Squats" quantity="5"/>
+                        <exercise name="Rest" quantity="5"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="16" points="519">
+                <rounds>
+                    <round>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Jackknifes" quantity="25"/>
+                        <exercise name="Pistol Squats" quantity="25"/>
+                        <exercise name="Rest" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="20"/>
+                        <exercise name="Rest" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="15"/>
+                        <exercise name="Jackknifes" quantity="15"/>
+                        <exercise name="Pistol Squats" quantity="15"/>
+                        <exercise name="Rest" quantity="15"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="10"/>
+                        <exercise name="Pistol Squats" quantity="10"/>
+                        <exercise name="Rest" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="5"/>
+                        <exercise name="Jackknifes" quantity="5"/>
+                        <exercise name="Pistol Squats" quantity="5"/>
+                        <exercise name="Rest" quantity="5"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Atlas" duration="2" difficulty="2"  type="0">
+            <endurance skill="0" points="425">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="2000"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Sprawls" quantity="50"/>
+                        <exercise name="Mountain Climbers" quantity="50"/>
+                        <exercise name="HH Leg Raises" quantity="50"/>
+                        <exercise name="High Knees" quantity="100"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="550">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="2000"/>
+                        <exercise name="Deep Squats" quantity="50"/>
+                        <exercise name="Burpees" quantity="50"/>
+                        <exercise name="Climbers" quantity="50"/>
+                        <exercise name="Leg Raises" quantity="50"/>
+                        <exercise name="Jumps" quantity="100"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="24" points="725">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="2000"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Burpee Squat Jumps" quantity="50"/>
+                        <exercise name="Froggers" quantity="50"/>
+                        <exercise name="Toes to Bar" quantity="50"/>
+                        <exercise name="High Jumps" quantity="100"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Dione" duration="3" difficulty="3"  type="1">
+            <endurance skill="0" points="350">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="HH Leg Raises" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Crunches" quantity="50"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="HH Leg Raises" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Crunches" quantity="50"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="HH Leg Raises" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Crunches" quantity="50"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="500">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Leg Raises" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Situps" quantity="50"/>
+                        <exercise name="Burpees" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Leg Raises" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Situps" quantity="50"/>
+                        <exercise name="Burpees" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Leg Raises" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Situps" quantity="50"/>
+                        <exercise name="Burpees" quantity="25"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="8" points="650">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Toes to Bar" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Jackknifes" quantity="50"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Toes to Bar" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Jackknifes" quantity="50"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Toes to Bar" quantity="50"/>
+                        <exercise name="Jumping Jacks" quantity="75"/>
+                        <exercise name="Jackknifes" quantity="50"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Gaia" duration="3" difficulty="3"  type="0">
+            <endurance skill="0" points="425">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Knees" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="600">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="Jumps" quantity="30"/>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="0" points="750">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                        <exercise name="High Jumps" quantity="30"/>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Hades" duration="2" difficulty="2"  type="1">
+            <endurance skill="0" points="255">
+                <rounds>
+                    <round>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Knee Pushups" quantity="15"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Knee Pushups" quantity="15"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Knee Pushups" quantity="15"/>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="1" points="425">
+                <rounds>
+                    <round>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Pushups" quantity="15"/>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Pushups" quantity="15"/>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Pushups" quantity="15"/>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="36" points="675">
+                <rounds>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="OH Pushups" quantity="15"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="OH Pushups" quantity="15"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="OH Pushups" quantity="15"/>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Sprint" quantity="80"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Helios" duration="3" difficulty="3"  type="0">
+            <endurance skill="0" points="400">
+                <rounds>
+                    <round>
+                        <exercise name="Sprawls" quantity="100"/>
+                        <exercise name="HH Lunges" quantity="125"/>
+                        <exercise name="Mountain Climbers" quantity="150"/>
+                        <exercise name="Crunches" quantity="125"/>
+                        <exercise name="Mountain Climbers" quantity="150"/>
+                        <exercise name="HH Lunges" quantity="125"/>
+                        <exercise name="Sprawls" quantity="100"/>
+                   </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="625">
+                <rounds>
+                    <round>
+                        <exercise name="Burpees" quantity="100"/>
+                        <exercise name="Lunges" quantity="125"/>
+                        <exercise name="Climbers" quantity="150"/>
+                        <exercise name="Situps" quantity="125"/>
+                        <exercise name="Climbers" quantity="150"/>
+                        <exercise name="Lunges" quantity="125"/>
+                        <exercise name="Burpees" quantity="100"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="0" points="800">
+                <rounds>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="100"/>
+                        <exercise name="Split Lunges" quantity="125"/>
+                        <exercise name="Froggers" quantity="150"/>
+                        <exercise name="Jackknifes" quantity="125"/>
+                        <exercise name="Froggers" quantity="150"/>
+                        <exercise name="Split Lunges" quantity="125"/>
+                        <exercise name="Burpee Squat Jumps" quantity="100"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Hera" duration="2" difficulty="1"  type="0">
+            <endurance skill="0" points="295">
+                <rounds>
+                    <round>
+                        <exercise name="High Knees" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Knees" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Knees" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Knees" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Knees" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="365">
+                <rounds>
+                    <round>
+                        <exercise name="Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="0" points="440">
+                <rounds>
+                    <round>
+                        <exercise name="High Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="High Jumps" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                        <exercise name="Sprint" quantity="400"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Hermes" duration="2" difficulty="1"  type="1">
+            <endurance skill="0" points="384">
+                <rounds>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="480">
+                <rounds>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="4" points="648">
+                <rounds>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Sprint" quantity="40"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Hyperion" duration="2" difficulty="3"  type="2">
+            <endurance skill="0" points="325">
+                <rounds>
+                    <round>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="HH Squats" quantity="25"/>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="High Knees" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="HH Squats" quantity="25"/>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="High Knees" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="HH Squats" quantity="25"/>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="High Knees" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="HH Squats" quantity="25"/>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="High Knees" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="HH Squats" quantity="25"/>
+                        <exercise name="Pikes" quantity="5"/>
+                        <exercise name="High Knees" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="4" points="450">
+                <rounds>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Squats" quantity="25"/>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Squats" quantity="25"/>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Squats" quantity="25"/>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Squats" quantity="25"/>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Squats" quantity="25"/>
+                        <exercise name="Kipping HS Pushups" quantity="5"/>
+                        <exercise name="Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="20" points="650">
+                <rounds>
+                    <round>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="Pistols" quantity="25"/>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="High Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="Pistols" quantity="25"/>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="High Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="Pistols" quantity="25"/>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="High Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="Pistols" quantity="25"/>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="High Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="Pistols" quantity="25"/>
+                        <exercise name="HS Pushups" quantity="5"/>
+                        <exercise name="High Jumps" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Iris" duration="3" difficulty="2" type="0" >
+            <endurance skill="0" points="440">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="1000"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Mountain Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Mountain Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Mountain Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Mountain Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Mountain Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Run" quantity="1000"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="510">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="1000"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Climbers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Run" quantity="1000"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="0" points="575">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="1000"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Froggers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Froggers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Froggers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Froggers" quantity="100"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Jacks" quantity="100"/>
+                        <exercise name="Froggers" quantity="100"/>
+                    </round>
+                  <round>
+                        <exercise name="Run" quantity="1000"/>
+                    </round>
+
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Kentauros" duration="3" difficulty="3"  type="1">
+            <endurance skill="0" points="450">
+                <rounds>
+                    <round>
+                        <exercise name="HH Lunge Walk" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                        <exercise name="Sprawl Frogs" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="HH Lunge Walk" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                        <exercise name="Sprawl Frogs" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="HH Lunge Walk" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                        <exercise name="Sprawl Frogs" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="HH Lunge Walk" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                        <exercise name="Sprawl Frogs" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="HH Lunge Walk" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                        <exercise name="Sprawl Frogs" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="HH Lunge Walk" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                        <exercise name="Sprawl Frogs" quantity="40"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="605">
+                <rounds>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                        <exercise name="Burpee Frogs" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                        <exercise name="Burpee Frogs" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                        <exercise name="Burpee Frogs" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                        <exercise name="Burpee Frogs" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                        <exercise name="Burpee Frogs" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                        <exercise name="Burpee Frogs" quantity="40"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="0" points="750">
+                <rounds>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                        <exercise name="Burpee Deepfrogs" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                        <exercise name="Burpee Deepfrogs" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                        <exercise name="Burpee Deepfrogs" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                        <exercise name="Burpee Deepfrogs" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                        <exercise name="Burpee Deepfrogs" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunge Walk" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                        <exercise name="Burpee Deepfrogs" quantity="40"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Krios" duration="1" difficulty="3"  type="2">
+            <endurance skill="0" points="263">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="10"/>
+                        <exercise name="HH Squats" quantity="10"/>
+                        <exercise name="Crunches" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="25"/>
+                        <exercise name="HH Squats" quantity="25"/>
+                        <exercise name="Crunches" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="10"/>
+                        <exercise name="HH Squats" quantity="10"/>
+                        <exercise name="Crunches" quantity="10"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="1" points="375">
+                <rounds>
+                    <round>
+                        <exercise name="Pullups" quantity="10"/>
+                        <exercise name="Squats" quantity="10"/>
+                        <exercise name="Situps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="25"/>
+                        <exercise name="Squats" quantity="25"/>
+                        <exercise name="Situps" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="10"/>
+                        <exercise name="Squats" quantity="10"/>
+                        <exercise name="Situps" quantity="10"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="48" points="563">
+                <rounds>
+                    <round>
+                        <exercise name="Muscleups" quantity="10"/>
+                        <exercise name="Pistol Squats" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="25"/>
+                        <exercise name="Pistol Squats" quantity="25"/>
+                        <exercise name="Jackknifes" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="10"/>
+                        <exercise name="Pistol Squats" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="10"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Kronos" duration="3" difficulty="3" type="2" >
+            <endurance skill="0" points="400">
+                <rounds>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="100"/>
+                        <exercise name="Crunches" quantity="200"/>
+                        <exercise name="HH Squats" quantity="300"/>
+                        <exercise name="HH Leg Raises" quantity="200"/>
+                        <exercise name="Jumping Pullups" quantity="100"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="1" points="640">
+                <rounds>
+                    <round>
+                        <exercise name="Pushups" quantity="100"/>
+                        <exercise name="Situps" quantity="200"/>
+                        <exercise name="Squats" quantity="300"/>
+                        <exercise name="Leg Raises" quantity="200"/>
+                        <exercise name="Pullups" quantity="100"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="52" points="1000">
+                <rounds>
+                    <round>
+                        <exercise name="OH Pushups" quantity="100"/>
+                        <exercise name="Jackknifes" quantity="200"/>
+                        <exercise name="Pistol Squats" quantity="300"/>
+                        <exercise name="Toes to Bar" quantity="200"/>
+                        <exercise name="Muscleups" quantity="100"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Metis" duration="1" difficulty="1" type="1" >
+            <endurance skill="0" points="250">
+                <rounds>
+                    <round>
+                        <exercise name="Sprawls" quantity="10"/>
+                        <exercise name="Mountain Climbers" quantity="10"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="25"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="High Knees" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Sprawls" quantity="10"/>
+                        <exercise name="Mountain Climbers" quantity="10"/>
+                        <exercise name="High Knees" quantity="10"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="325">
+                <rounds>
+                    <round>
+                        <exercise name="Burpees" quantity="10"/>
+                        <exercise name="Climbers" quantity="10"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="25"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Jumps" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpees" quantity="10"/>
+                        <exercise name="Climbers" quantity="10"/>
+                        <exercise name="Jumps" quantity="10"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="0" points="425">
+                <rounds>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="10"/>
+                        <exercise name="Froggers" quantity="10"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="25"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="High Jumps" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Burpee Squat Jumps" quantity="10"/>
+                        <exercise name="Froggers" quantity="10"/>
+                        <exercise name="High Jumps" quantity="10"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Morpheus" duration="1" difficulty="2" type="1" >
+            <endurance skill="0" points="168">
+                <rounds>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="5"/>
+                        <exercise name="HH Lunges" quantity="10"/>
+                        <exercise name="Jumping Jacks" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="7"/>
+                        <exercise name="HH Lunges" quantity="15"/>
+                        <exercise name="Jumping Jacks" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="HH Lunges" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="7"/>
+                        <exercise name="HH Lunges" quantity="15"/>
+                        <exercise name="Jumping Jacks" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="5"/>
+                        <exercise name="HH Lunges" quantity="10"/>
+                        <exercise name="Jumping Jacks" quantity="20"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="240">
+                <rounds>
+                    <round>
+                        <exercise name="Pushups" quantity="5"/>
+                        <exercise name="Lunges" quantity="10"/>
+                        <exercise name="Jumping Jacks" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="7"/>
+                        <exercise name="Lunges" quantity="15"/>
+                        <exercise name="Jumping Jacks" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Lunges" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="7"/>
+                        <exercise name="Lunges" quantity="15"/>
+                        <exercise name="Jumping Jacks" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="5"/>
+                        <exercise name="Lunges" quantity="10"/>
+                        <exercise name="Jumping Jacks" quantity="20"/>
+                    </round>
+
+                </rounds>
+            </standard>
+            <strength skill="4" points="336">
+                <round>
+                    <exercise name="OH Pushups" quantity="5"/>
+                    <exercise name="Split Lunges" quantity="10"/>
+                    <exercise name="Jumping Jacks" quantity="20"/>
+                </round>
+                <round>
+                    <exercise name="OH Pushups" quantity="7"/>
+                    <exercise name="Split Lunges" quantity="15"/>
+                    <exercise name="Jumping Jacks" quantity="30"/>
+                </round>
+                <round>
+                    <exercise name="OH Pushups" quantity="10"/>
+                    <exercise name="Split Lunges" quantity="20"/>
+                    <exercise name="Jumping Jacks" quantity="40"/>
+                </round>
+                <round>
+                    <exercise name="OH Pushups" quantity="7"/>
+                    <exercise name="Split Lunges" quantity="15"/>
+                    <exercise name="Jumping Jacks" quantity="30"/>
+                </round>
+                <round>
+                    <exercise name="OH Pushups" quantity="5"/>
+                    <exercise name="Split Lunges" quantity="10"/>
+                    <exercise name="Jumping Jacks" quantity="20"/>
+                </round>
+            </strength>
+        </workout>
+        <workout name="Nemesis" duration="1" difficulty="1" type="1" >
+            <endurance skill="0" points="203">
+                <rounds>
+                    <round>
+                        <exercise name="Crunches" quantity="50"/>
+                        <exercise name="Mountain Climbers" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Crunches" quantity="40"/>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Crunches" quantity="30"/>
+                        <exercise name="Mountain Climbers" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="Mountain Climbers" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Crunches" quantity="10"/>
+                        <exercise name="Mountain Climbers" quantity="50"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="270">
+                <rounds>
+                    <round>
+                        <exercise name="Situps" quantity="50"/>
+                        <exercise name="Climbers" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Situps" quantity="40"/>
+                        <exercise name="Climbers" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Situps" quantity="30"/>
+                        <exercise name="Climbers" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Climbers" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Situps" quantity="10"/>
+                        <exercise name="Climbers" quantity="50"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="0" points="459">
+                <rounds>
+                    <round>
+                        <exercise name="Jackknifes" quantity="50"/>
+                        <exercise name="Froggers" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jackknifes" quantity="40"/>
+                        <exercise name="Froggers" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Jackknifes" quantity="30"/>
+                        <exercise name="Froggers" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Froggers" quantity="40"/>
+                    </round>
+                    <round>
+                        <exercise name="Jackknifes" quantity="10"/>
+                        <exercise name="Froggers" quantity="50"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Nyx" duration="1" difficulty="2" type="1" >
+            <endurance skill="0" points="179">
+                <rounds>
+                    <round>
+                        <exercise name="Crunches" quantity="10"/>
+                        <exercise name="HH Leg Raises" quantity="10"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Crunches" quantity="25"/>
+                        <exercise name="HH Leg Raises" quantity="25"/>
+                        <exercise name="HH Standups" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Crunches" quantity="10"/>
+                        <exercise name="HH Leg Raises" quantity="10"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="275">
+                <rounds>
+                    <round>
+                        <exercise name="Situps" quantity="10"/>
+                        <exercise name="Leg Raises" quantity="10"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Situps" quantity="25"/>
+                        <exercise name="Leg Raises" quantity="25"/>
+                        <exercise name="Standups" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Situps" quantity="10"/>
+                        <exercise name="Leg Raises" quantity="10"/>
+                        <exercise name="Standups" quantity="10"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="8" points="459">
+                <rounds>
+                    <round>
+                        <exercise name="Jackknifes" quantity="10"/>
+                        <exercise name="Toes to Bar" quantity="10"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jackknifes" quantity="25"/>
+                        <exercise name="Toes to Bar" quantity="25"/>
+                        <exercise name="Standup Jumps" quantity="25"/>
+                    </round>
+                    <round>
+                        <exercise name="Jackknifes" quantity="10"/>
+                        <exercise name="Toes to Bar" quantity="10"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Persephone" duration="1" difficulty="2" type="1" >
+            <endurance skill="0" points="217">
+                <rounds>
+                    <round>
+                        <exercise name="HH Lunges" quantity="30"/>
+                        <exercise name="Sprawls" quantity="30"/>
+                        <exercise name="HH Leg Raises" quantity="30"/>
+                        <exercise name="Rest" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="HH Lunges" quantity="20"/>
+                        <exercise name="Sprawls" quantity="20"/>
+                        <exercise name="HH Leg Raises" quantity="20"/>
+                        <exercise name="Rest" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="HH Lunges" quantity="10"/>
+                        <exercise name="Sprawls" quantity="10"/>
+                        <exercise name="HH Leg Raises" quantity="10"/>
+                        <exercise name="Rest" quantity="10"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="310">
+                <rounds>
+                    <round>
+                        <exercise name="Lunges" quantity="30"/>
+                        <exercise name="Burpees" quantity="30"/>
+                        <exercise name="Leg Raises" quantity="30"/>
+                        <exercise name="Rest" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunges" quantity="20"/>
+                        <exercise name="Burpees" quantity="20"/>
+                        <exercise name="Leg Raises" quantity="20"/>
+                        <exercise name="Rest" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Lunges" quantity="10"/>
+                        <exercise name="Burpees" quantity="10"/>
+                        <exercise name="Leg Raises" quantity="10"/>
+                        <exercise name="Rest" quantity="10"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="8" points="527">
+                <rounds>
+                    <round>
+                        <exercise name="Split Lunges" quantity="30"/>
+                        <exercise name="Burpee Squat Jumps" quantity="30"/>
+                        <exercise name="Toes to Bar" quantity="30"/>
+                        <exercise name="Rest" quantity="30"/>
+                    </round>
+                    <round>
+                        <exercise name="Split Lunges" quantity="20"/>
+                        <exercise name="Burpee Squat Jumps" quantity="20"/>
+                        <exercise name="Toes to Bar" quantity="20"/>
+                        <exercise name="Rest" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Split Lunges" quantity="10"/>
+                        <exercise name="Burpee Squat Jumps" quantity="10"/>
+                        <exercise name="Toes to Bar" quantity="10"/>
+                        <exercise name="Rest" quantity="10"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Poseidon" duration="1" difficulty="3" type="1" >
+            <endurance skill="0" points="250">
+                <rounds>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="20"/>
+                        <exercise name="Knee Pushups" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Knee Pushups" quantity="15"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="10"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Jumping Pullups" quantity="5"/>
+                        <exercise name="Knee Pushups" quantity="5"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="1" points="365">
+                <rounds>
+                    <round>
+                        <exercise name="Pullups" quantity="20"/>
+                        <exercise name="Pushups" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Pushups" quantity="15"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="10"/>
+                        <exercise name="Pushups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Pullups" quantity="5"/>
+                        <exercise name="Pushups" quantity="5"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="36" points="550">
+                <rounds>
+                    <round>
+                        <exercise name="Muscleups" quantity="20"/>
+                        <exercise name="OH Pushups" quantity="20"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="OH Pushups" quantity="15"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="10"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                    </round>
+                    <round>
+                        <exercise name="Muscleups" quantity="5"/>
+                        <exercise name="OH Pushups" quantity="5"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Prometheus" duration="2" difficulty="2" type="1" >
+            <endurance skill="0" points="259">
+                <rounds>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="30"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Crunches" quantity="30"/>
+                        <exercise name="HH Squats" quantity="30"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="Knee Pushups" quantity="7"/>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="HH Squats" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="10"/>
+                        <exercise name="Knee Pushups" quantity="5"/>
+                        <exercise name="Crunches" quantity="10"/>
+                        <exercise name="HH Squats" quantity="10"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="20"/>
+                        <exercise name="Knee Pushups" quantity="7"/>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="HH Squats" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Mountain Climbers" quantity="30"/>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Crunches" quantity="30"/>
+                        <exercise name="HH Squats" quantity="30"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="370">
+                <rounds>
+                    <round>
+                        <exercise name="Climbers" quantity="30"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Situps" quantity="30"/>
+                        <exercise name="Squats" quantity="30"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Pushups" quantity="7"/>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Squats" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="10"/>
+                        <exercise name="Pushups" quantity="5"/>
+                        <exercise name="Situps" quantity="10"/>
+                        <exercise name="Squats" quantity="10"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="20"/>
+                        <exercise name="Pushups" quantity="7"/>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Squats" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Climbers" quantity="30"/>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Situps" quantity="30"/>
+                        <exercise name="Squats" quantity="30"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+
+                </rounds>
+            </standard>
+            <strength skill="20" points="666">
+                <rounds>
+                    <round>
+                        <exercise name="Froggers" quantity="30"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="30"/>
+                        <exercise name="Pistol Squats" quantity="30"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="OH Pushups" quantity="7"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="10"/>
+                        <exercise name="OH Pushups" quantity="5"/>
+                        <exercise name="Jackknifes" quantity="10"/>
+                        <exercise name="Pistol Squats" quantity="10"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="20"/>
+                        <exercise name="OH Pushups" quantity="7"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="20"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Froggers" quantity="30"/>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="30"/>
+                        <exercise name="Pistol Squats" quantity="30"/>
+                        <exercise name="Jumping Jacks" quantity="50"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Thanatos" duration="2" difficulty="2" type="2" >
+            <endurance skill="0" points="379">
+                <rounds>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Crunches" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                        <exercise name="Sprawls" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Crunches" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                        <exercise name="Sprawls" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Crunches" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                        <exercise name="Sprawls" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="10"/>
+                        <exercise name="Crunches" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="HH Standups" quantity="10"/>
+                        <exercise name="Sprawls" quantity="15"/>
+                        <exercise name="Mountain Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="505">
+                <rounds>
+                    <round>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Situps" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standups" quantity="10"/>
+                        <exercise name="Burpees" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Situps" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standups" quantity="10"/>
+                        <exercise name="Burpees" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Situps" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standups" quantity="10"/>
+                        <exercise name="Burpees" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="10"/>
+                        <exercise name="Situps" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standups" quantity="10"/>
+                        <exercise name="Burpees" quantity="15"/>
+                        <exercise name="Climbers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="4" points="859">
+                <rounds>
+                    <round>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                        <exercise name="Burpee Squat Jumps" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                        <exercise name="Burpee Squat Jumps" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                        <exercise name="Burpee Squat Jumps" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="OH Pushups" quantity="10"/>
+                        <exercise name="Jackknifes" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Standup Jumps" quantity="10"/>
+                        <exercise name="Burpee Squat Jumps" quantity="15"/>
+                        <exercise name="Froggers" quantity="25"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Triton" duration="2" difficulty="3" type="2" >
+            <endurance skill="0" points="296">
+                <rounds>
+                    <round>
+                        <exercise name="Pikes" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Knee Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Knee Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Knee Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Knee Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Jumping Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Knee Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="3" points="485">
+                <rounds>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pullups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="38" points="1091">
+                <rounds>
+                    <round>
+                        <exercise name="HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="OH Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="OH Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="OH Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="OH Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="7"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="Muscleups" quantity="15"/>
+                        <exercise name="Rest" quantity="30"/>
+                        <exercise name="OH Pushups" quantity="20"/>
+                        <exercise name="Rest" quantity="60"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Uranos" duration="3" difficulty="2" type="1" >
+            <endurance skill="0" points="400">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="2000"/>
+                        <exercise name="Sprawls" quantity="50"/>
+                        <exercise name="Jumping Pullups" quantity="50"/>
+                        <exercise name="Mountain Climbers" quantity="50"/>
+                        <exercise name="Knee Pushups" quantity="50"/>
+                        <exercise name="High Knees" quantity="100"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="1" points="565">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="2000"/>
+                        <exercise name="Burpees" quantity="50"/>
+                        <exercise name="Pullups" quantity="50"/>
+                        <exercise name="Climbers" quantity="50"/>
+                        <exercise name="Pushups" quantity="50"/>
+                        <exercise name="Jumps" quantity="100"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="36" points="750">
+                <rounds>
+                    <round>
+                        <exercise name="Run" quantity="2000"/>
+                        <exercise name="Burpee Squat Jumps" quantity="50"/>
+                        <exercise name="Muscleups" quantity="50"/>
+                        <exercise name="Froggers" quantity="50"/>
+                        <exercise name="OH Pushups" quantity="50"/>
+                        <exercise name="High Jumps" quantity="100"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Venus" duration="2" difficulty="3" type="1" >
+            <endurance skill="0" points="400">
+                <rounds>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="50"/>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="50"/>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="50"/>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Knee Pushups" quantity="50"/>
+                        <exercise name="Crunches" quantity="20"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="0" points="525">
+                <rounds>
+                    <round>
+                        <exercise name="Pushups" quantity="50"/>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="50"/>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="50"/>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="Pushups" quantity="50"/>
+                        <exercise name="Situps" quantity="20"/>
+                        <exercise name="Squats" quantity="50"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="20" points="700">
+                <rounds>
+                    <round>
+                        <exercise name="OH Pushups" quantity="50"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="OH Pushups" quantity="50"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="OH Pushups" quantity="50"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                    </round>
+                    <round>
+                        <exercise name="OH Pushups" quantity="50"/>
+                        <exercise name="Jackknifes" quantity="20"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+        <workout name="Zeus" duration="3" difficulty="3" type="2" >
+            <endurance skill="0" points="400">
+                <rounds>
+                    <round>
+                        <exercise name="Pikes" quantity="10"/>
+                        <exercise name="Jumping Pullups" quantity="20"/>
+                        <exercise name="Knee Pushups" quantity="30"/>
+                        <exercise name="Crunches" quantity="40"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="10"/>
+                        <exercise name="Jumping Pullups" quantity="20"/>
+                        <exercise name="Knee Pushups" quantity="30"/>
+                        <exercise name="Crunches" quantity="40"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="10"/>
+                        <exercise name="Jumping Pullups" quantity="20"/>
+                        <exercise name="Knee Pushups" quantity="30"/>
+                        <exercise name="Crunches" quantity="40"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="Pikes" quantity="10"/>
+                        <exercise name="Jumping Pullups" quantity="20"/>
+                        <exercise name="Knee Pushups" quantity="30"/>
+                        <exercise name="Crunches" quantity="40"/>
+                        <exercise name="HH Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                </rounds>
+            </endurance>
+            <standard skill="3" points="575">
+                <rounds>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="10"/>
+                        <exercise name="Pullups" quantity="20"/>
+                        <exercise name="Pushups" quantity="30"/>
+                        <exercise name="Situps" quantity="40"/>
+                        <exercise name="Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="10"/>
+                        <exercise name="Pullups" quantity="20"/>
+                        <exercise name="Pushups" quantity="30"/>
+                        <exercise name="Situps" quantity="40"/>
+                        <exercise name="Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="10"/>
+                        <exercise name="Pullups" quantity="20"/>
+                        <exercise name="Pushups" quantity="30"/>
+                        <exercise name="Situps" quantity="40"/>
+                        <exercise name="Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="Kipping HS Pushups" quantity="10"/>
+                        <exercise name="Pullups" quantity="20"/>
+                        <exercise name="Pushups" quantity="30"/>
+                        <exercise name="Situps" quantity="40"/>
+                        <exercise name="Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                </rounds>
+            </standard>
+            <strength skill="54" points="800">
+                <rounds>
+                    <round>
+                        <exercise name="HS Pushups" quantity="10"/>
+                        <exercise name="Muscleups" quantity="20"/>
+                        <exercise name="OH Pushups" quantity="30"/>
+                        <exercise name="Jackknifes" quantity="40"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="10"/>
+                        <exercise name="Muscleups" quantity="20"/>
+                        <exercise name="OH Pushups" quantity="30"/>
+                        <exercise name="Jackknifes" quantity="40"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="10"/>
+                        <exercise name="Muscleups" quantity="20"/>
+                        <exercise name="OH Pushups" quantity="30"/>
+                        <exercise name="Jackknifes" quantity="40"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                    <round>
+                        <exercise name="HS Pushups" quantity="10"/>
+                        <exercise name="Muscleups" quantity="20"/>
+                        <exercise name="OH Pushups" quantity="30"/>
+                        <exercise name="Jackknifes" quantity="40"/>
+                        <exercise name="Pistol Squats" quantity="50"/>
+                        <exercise name="Rest" quantity="120"/>
+                    </round>
+                </rounds>
+            </strength>
+        </workout>
+    </workouts>
+</workoutPack>
