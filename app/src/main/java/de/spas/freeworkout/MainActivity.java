@@ -1567,7 +1567,7 @@ Binärwerte für Skills:
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-
+//
             }
         });
         //Toast.makeText(MainActivity.this, "changeprefs = "+ String.valueOf(changeprefs), Toast.LENGTH_LONG).show();
