@@ -136,7 +136,7 @@ public class WorkoutMemo  extends BaseGameActivity {
         Date resultdate = new Date(ts);
         String formattedTime=sdf.format(resultdate);
 
-        String output = id + ". " + formattedTime + " " + quantity + "x " + name + " " + Types[type]+ " " + timeFormat((int)(duration/1000))+ " " + duration;
+        String output = id + ". " + formattedTime + " " + quantity + "x " + name + " " + Types[type]+ " " + timeFormat((int)(duration/1000));
 
         return output;
     }

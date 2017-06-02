@@ -183,7 +183,10 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         List<WorkoutMemo> workoutMemoList = new ArrayList<>();
 
         Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
-                columns, null, null, null, null, null);
+                columns,
+                null,
+                null,
+                null, null, null);
 /*int quantity=1;
 int type=2;
 String name="Metis";
@@ -203,26 +206,6 @@ String name="Metis";
 
         return workoutMemoList;
     }
-    public List<WorkoutMemo> getShortestWorkoutMemo() {
-        List<WorkoutMemo> workoutMemoList = new ArrayList<>();
-
-        /*Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
-                columns, WorkoutMemoDbHelper.COLUMN_ID + "=" +getMaxid(), null, null, null, null);
-        //Log.d(LOG_TAG, "Inhalt: " + cursor.toString());
-        cursor.moveToFirst();
-        WorkoutMemo workoutMemo;
-
-        while(!cursor.isAfterLast()) {
-            workoutMemo = cursorToWorkoutMemo(cursor);
-            workoutMemoList.add(workoutMemo);
-            Log.d(LOG_TAG, "ID: " + workoutMemo.getId() + ", Inhalt: " + workoutMemo.toString());
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-*/
-        return workoutMemoList;
-    }
     public String getMinDuration(int quantity,String name,int type){
 
         Cursor c = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { "min(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(quantity),name,String.valueOf(type)},
@@ -232,7 +215,7 @@ String name="Metis";
         c.close();
         if(rowID!=0) {
             Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
-                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" + rowID,
+                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" +  String.valueOf(rowID),
                     null, null, null, null);
             cursor.moveToFirst();
             WorkoutMemo workoutMemo;
@@ -253,7 +236,7 @@ String name="Metis";
         c.close();
         if(rowID!=0) {
             Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
-                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" + rowID,
+                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" +  String.valueOf(rowID),
                     null, null, null, null);
             cursor.moveToFirst();
             WorkoutMemo workoutMemo;
@@ -282,7 +265,7 @@ String name="Metis";
 
         if(rowID!=0 && rowIDcc!=rowID) {
             Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
-                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" + rowID,
+                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" +  String.valueOf(rowID),
                     null, null, null, null);
             cursor.moveToFirst();
             WorkoutMemo workoutMemo;
@@ -309,7 +292,7 @@ String name="Metis";
 
         if(rowID!=0 && rowIDcc!=rowID) {
             Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
-                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" + rowID,
+                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" + String.valueOf(rowID),
                     null, null, null, null);
             cursor.moveToFirst();
             WorkoutMemo workoutMemo;

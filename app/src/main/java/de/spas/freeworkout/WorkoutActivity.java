@@ -826,6 +826,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         text_lt="";
         datasGhost="";
         defaultPeriod=30;
+        hideView(R.id.time_pb);
+        hideView(R.id.time_lt);
 
         text_pb=dataSource.getMinDuration(quantity,TextName,type); //Abfrage DB kürzestes WO
         if(!text_pb.equals("")) {
@@ -835,7 +837,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             //Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         }
         text_lt=dataSource.getMaxStartTime(quantity,TextName,type); //Abfrage DB letztes WO
-        //Toast.makeText(this, "getMinDuration:"+String.valueOf(quantity)+TextName+String.valueOf(type), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "getMaxStartTime return:"+text_lt, Toast.LENGTH_LONG).show();
         if(!text_lt.equals("")) {
             showView(R.id.time_lt);
             ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
@@ -1044,11 +1046,11 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         colorList.add(getResources().getColor(R.color.colorWoTextViewRound));
         colorList.add(getResources().getColor(R.color.colorWoTextViewDone));
 
-        hideView(R.id.time_lt);
+        hideView(R.id.time_pb);
         hideView(R.id.time_lt);
 
         text_pb=dataSource.getMinDuration(quantity,TextName,type); //Abfrage DB kürzestes WO
-        Toast.makeText(this, "getMinDuration:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "getMinDuration:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         if(!text_pb.equals("")) {
             showView(R.id.time_pb);
             ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
@@ -1056,13 +1058,13 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         }
         text_lt=dataSource.getMaxStartTime(quantity,TextName,type); //Abfrage DB letztes WO
-        Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         if(!text_lt.equals("")) {
             showView(R.id.time_lt);
             ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
             if(datasGhost.equals(""))datasGhost=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
             else datasGhost2=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
-            Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
 
         }
         if(!datasGhost.equals(""))exDatasGhostString(datasGhost);//Toast.makeText(this, "Ghost:"+ghostList.get(1), Toast.LENGTH_LONG).show();
