@@ -672,7 +672,23 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                                 String time_pb_suffix="";
                                 time_pb_suffix=" "+minus+timeFormat(timeDiff_pb);
                                 ((TextView) findViewById(R.id.time_pb)).setText(text_pb+time_pb_suffix);
-                                long td=(timestampCurr-timestampStart)/1000;
+                                //long td=(timestampCurr-timestampStart)/1000;
+                                //Toast.makeText(this, "timestampStart|Curr: "+String.valueOf(td)+"|"+String.valueOf(timeDiff_pb), Toast.LENGTH_LONG).show();
+
+                            }
+                            if(!text_lt.equals("")) {
+                                long a=0;
+                                String minus;
+                                for(int x=0;x<=wo_pointer;x++){
+                                    a=a+(long)ghostList2.get(x);
+                                }
+                                int timeDiff_lt = (int)(a-(timestampCurr-timestampStart))/1000;
+                                if(timeDiff_lt<0){timeDiff_lt=timeDiff_lt*-1;minus="+";}
+                                else {minus="-";}
+                                String time_lt_suffix="";
+                                time_lt_suffix=" "+minus+timeFormat(timeDiff_lt);
+                                ((TextView) findViewById(R.id.time_lt)).setText(text_lt+time_lt_suffix);
+                                //long td=(timestampCurr-timestampStart)/1000;
                                 //Toast.makeText(this, "timestampStart|Curr: "+String.valueOf(td)+"|"+String.valueOf(timeDiff_pb), Toast.LENGTH_LONG).show();
 
                             }
