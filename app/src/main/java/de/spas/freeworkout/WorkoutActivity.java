@@ -825,9 +825,12 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         text_pb="";
         text_lt="";
         datasGhost="";
-        defaultPeriod=30;
+        datasGhost2="";
+        //defaultPeriod=30;
         hideView(R.id.time_pb);
         hideView(R.id.time_lt);
+        ghostList2.clear();
+        ghostList.clear();
 
         text_pb=dataSource.getMinDuration(quantity,TextName,type); //Abfrage DB kürzestes WO
         if(!text_pb.equals("")) {
@@ -846,19 +849,18 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
 
         }
         if(!datasGhost.equals("")){
-            ghostList.clear();
             exDatasGhostString(datasGhost);//Toast.makeText(this, "Ghost:"+ghostList.get(1), Toast.LENGTH_LONG).show();
         }
-/*        else {
+        if(!text_lt.equals("")){
             datasGhost2=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
-            ghostList2.clear();
-            exDatasGhostString2(datasGhost2);}*/
+            exDatasGhostString2(datasGhost2);}
 
         //TextView text = (TextView) this.findViewById(R.id.practice_1);//text.setTextColor(Color.parseColor("#999999"))
         //Toast.makeText(this, "TextView: "+String.valueOf(getResources().getColor(R.color.colorWoTextViewNormal)), Toast.LENGTH_LONG).show();
+        if(text_lt.equals("") && text_pb.equals(""))  defaultPeriod=30;
         list_view();
         calc_view();
-        if(!datasGhost.equals(""))run_view_ghost();
+        if(!datasGhost.equals(""))run_view_ghost(); else clear_run_view_ghost();
 
 
 }
@@ -980,7 +982,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
     private void calc_view() {
         //Breite der Balken berechnen: Balkenlänge=secondWidth*Zeit des WOs
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
-        int distanceLeft=tvList.get(7).getLeft();
+        int distanceLeft=tvList.get(0).getLeft();
         int calcWidth=screenWidth-distanceLeft-distanceLeft;
         if(distanceLeft==0)calcWidth=screenWidth*85/100;
         if(timestampStart!=0L) {
@@ -1012,6 +1014,10 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         container_ghost.removeAllViews();
         runViewGhost rvg = new runViewGhost(this);
         container_ghost.addView(rvg, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    }
+    private void clear_run_view_ghost() {
+        ViewGroup container_ghost = (ViewGroup) findViewById(R.id.container_ghost);
+        container_ghost.removeAllViews();
     }
 
     private void init_view() {
