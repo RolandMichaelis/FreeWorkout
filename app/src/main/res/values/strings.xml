@@ -87,4 +87,21 @@
         <item>1500x</item>
         <item>2000x</item>
     </string-array>
+    <string-array name="spinnerQuantityListTypeMeter">
+        <item>2x 10m</item>
+        <item>2x 20m</item>
+        <item>2x 40m</item>
+        <item>100m</item>
+        <item>200m</item>
+        <item>400m</item>
+        <item>800m</item>
+        <item>1000m</item>
+        <item>1500m</item>
+        <item>2000m</item>
+        <item>3000m</item>
+        <item>4000m</item>
+        <item>5000m</item>
+        <item>8000m</item>
+        <item>10000m</item>
+    </string-array>
 </resources>

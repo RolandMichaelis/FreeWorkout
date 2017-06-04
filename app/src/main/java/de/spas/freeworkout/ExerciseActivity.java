@@ -94,6 +94,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     final Context context = this;
     String roundlistLastRest = "";
     int counter_rounds_pre_add;
+    private String spinnerQuantityListType[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,12 +135,18 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         }
         Exercise w = exercisePack.getExercises().get(number);
         TextName = w.getName();
-        this.setTitle(quantity+"x "+TextName);
+        printTitle();
 
         if(fromWhere==1) {
             showView(R.id.edit_spinner_quantity);
             final Spinner spSpinnerType;
-            String spinnerQuantityListType[] = getResources().getStringArray(R.array.spinnerQuantityListType);
+            if(xmeter.equals(" x ")) {
+                spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListType);
+            }
+            else if(xmeter.equals(" m ")){
+                spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeMeter);
+
+            }
             ArrayAdapter<String> adapterSpinnerType;
             spSpinnerType = (Spinner) this.findViewById(R.id.edit_spinner_quantity);
             adapterSpinnerType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerQuantityListType);
@@ -148,9 +155,20 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             spSpinnerType.setAdapter(adapterSpinnerType);
 
 
-            int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity)+"x");
-            if (selectionPosition != -1) spSpinnerType.setSelection(selectionPosition);
+            if(xmeter.equals(" x ")) {
+                int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity) + "x");
+                if (selectionPosition != -1) spSpinnerType.setSelection(selectionPosition);
+            }
+            else if(xmeter.equals(" m ")){
+                if(quantity==20)spSpinnerType.setSelection(0);
+                else if(quantity==40)spSpinnerType.setSelection(1);
+                else if(quantity==80)spSpinnerType.setSelection(2);
+                else if(quantity>80){
+                    int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity) + "m");
+                    if (selectionPosition != -1) spSpinnerType.setSelection(selectionPosition);
+                }
 
+            }
             spSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapter, View v,
@@ -159,10 +177,15 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
 
                     String s1=adapter.getItemAtPosition(position).toString();
                     s1 = s1.substring(0, s1.length()-1);
+                    if(xmeter.equals(" m ")){
+                        if(s1.equals("2x 10"))s1="20";
+                        else if(s1.equals("2x 20"))s1="40";
+                        else if(s1.equals("2x 40"))s1="80";
+                    }
                     if (quantity != Integer.valueOf(s1)) {
                         quantity = Integer.valueOf(s1);
                         //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
-                        ExerciseActivity.this.setTitle(quantity + "x " + TextName);
+                        printTitle();
                     }
 
                 }
@@ -268,6 +291,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             handler.postDelayed(runnable, 1000);
             hideView(R.id.button_wo_start);
+            hideView(R.id.edit_spinner_quantity);
             tts = new TextToSpeech(ExerciseActivity.this,ExerciseActivity.this);
         }
         if(view.getId()==R.id.container) {
@@ -390,6 +414,24 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         if(timeHours>0) s=String.valueOf(timeHours)+":"+String.format("%02d",timeMinutes)+":"+String.format("%02d",timeSeconds);
         else s=String.format("%02d",timeMinutes)+":"+String.format("%02d",timeSeconds);
         return s;
+    }
+    private void printTitle(){
+        xmeter = " x ";
+        String xhalf = "";
+        int q = quantity;
+        if (TextName.equals("Sprint")) xmeter = " m ";
+        if (TextName.equals("Run")) xmeter = " m ";
+        if (TextName.equals("Lunge Walk"))  xmeter = " m ";
+        if (TextName.equals("HH Lunge Walk"))  xmeter = " m ";
+        if (TextName.equals("Sprawl Frogs"))  xmeter = " m ";
+        if (TextName.equals("Burpee Frogs"))  xmeter = " m ";
+        if (TextName.equals("Burpee Deepfrogs"))  xmeter = " m ";
+        if (xmeter.equals(" m ") && q < 100) {
+            q = q / 2;
+            xhalf = "2x ";
+        }
+        this.setTitle(xhalf+q+xmeter+TextName);
+
     }
 
 }

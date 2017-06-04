@@ -135,8 +135,23 @@ public class WorkoutMemo  extends BaseGameActivity {
         long ts = startTime;
         Date resultdate = new Date(ts);
         String formattedTime=sdf.format(resultdate);
+        String xmeter = " x ";
+        String xhalf = "";
+        int q = quantity;
+        if (name.equals("Sprint")) xmeter = " m ";
+        if (name.equals("Run")) xmeter = " m ";
+        if (name.equals("Lunge Walk"))  xmeter = " m ";
+        if (name.equals("HH Lunge Walk"))  xmeter = " m ";
+        if (name.equals("Sprawl Frogs"))  xmeter = " m ";
+        if (name.equals("Burpee Frogs"))  xmeter = " m ";
+        if (name.equals("Burpee Deepfrogs"))  xmeter = " m ";
+        if (xmeter.equals(" m ") && q < 100) {
+            q = q / 2;
+            xhalf = "2x ";
+        }
 
-        String output = id + ". " + formattedTime + " " + quantity + "x " + name + " " + Types[type]+ " " + timeFormat((int)(duration/1000));
+
+        String output = id + ". " + formattedTime + " " + xhalf+q+xmeter+name + " " + Types[type]+ " " + timeFormat((int)(duration/1000));
 
         return output;
     }

@@ -171,7 +171,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
                 columns,
                 null,
                 null,
-                null, null, null);
+                null, null, WorkoutMemoDbHelper.COLUMN_STARTTIME+" DESC");
 /*int quantity=1;
 int type=2;
 String name="Metis";
