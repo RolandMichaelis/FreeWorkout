@@ -73,4 +73,18 @@
     <string name="cab_checked_string">ausgewählt</string>
     <string name="cab_change">Eintrag ändern</string>
     <string name="points">Punkte: %1$d</string>
+    <string-array name="spinnerQuantityListType">
+        <item>10x</item>
+        <item>20x</item>
+        <item>30x</item>
+        <item>50x</item>
+        <item>100x</item>
+        <item>200x</item>
+        <item>250x</item>
+        <item>500x</item>
+        <item>750x</item>
+        <item>1000x</item>
+        <item>1500x</item>
+        <item>2000x</item>
+    </string-array>
 </resources>

@@ -22,10 +22,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +40,6 @@ import java.util.Locale;
 
 
 public class ExerciseActivity extends Activity implements View.OnClickListener, TextToSpeech.OnInitListener {
-    private de.spas.freeworkout.workoutPack workoutPack;
-    private de.spas.freeworkout.specialPack specialPack;
     private de.spas.freeworkout.exercisePack exercisePack;
     private String xmeter;
     private int counter_practice;
@@ -47,9 +47,10 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     private String TextType = "";
     private int type;
     private int quantity;
+    private int fromWhere;
     private String[] Types = {"Endurance", "Standard", "Strength",""};
     private int counter_rounds = 0;
-    //    private ArrayList<ArrayList> roundsList = new ArrayList<ArrayList>();
+    //private ArrayList<ArrayList> roundsList = new ArrayList<ArrayList>();
     private ArrayList[] roundList = new ArrayList[30];
     //private ArrayList<ArrayList> mArraysAdapterList = new ArrayList<ArrayList>();
     //private ArrayList[] mArrayAdapterList = new ArrayList[21];
@@ -121,14 +122,58 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             String s1 = s.substring(2, s.length());
             int n = s1.indexOf(",");
             number = Integer.valueOf(s1.substring(0, n));
-            n = s1.lastIndexOf(",");
+
+            s1 = s1.substring(n+1, s1.length());
+            n = s1.indexOf(",");
             type = Integer.valueOf(s1.substring(n - 1, n));
-            quantity = Integer.valueOf(s1.substring(n + 1, s1.length()));
-            //Toast.makeText(this, "Bin in ExerciseActivity", Toast.LENGTH_LONG).show();
+            s1 = s1.substring(n+1, s1.length());
+            n = s1.indexOf(",");
+            quantity = Integer.valueOf(s1.substring(0, n));
+            fromWhere = Integer.valueOf(s1.substring(n + 1, s1.length()));
+            Toast.makeText(this, String.valueOf(type)+"|"+String.valueOf(quantity)+"|"+String.valueOf(fromWhere) , Toast.LENGTH_LONG).show();
         }
         Exercise w = exercisePack.getExercises().get(number);
         TextName = w.getName();
         this.setTitle(quantity+"x "+TextName);
+
+        if(fromWhere==1) {
+            showView(R.id.edit_spinner_quantity);
+            final Spinner spSpinnerType;
+            String spinnerQuantityListType[] = getResources().getStringArray(R.array.spinnerQuantityListType);
+            ArrayAdapter<String> adapterSpinnerType;
+            spSpinnerType = (Spinner) this.findViewById(R.id.edit_spinner_quantity);
+            adapterSpinnerType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerQuantityListType);
+            adapterSpinnerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spSpinnerType.setAdapter(adapterSpinnerType);
+
+
+            int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity)+"x");
+            if (selectionPosition != -1) spSpinnerType.setSelection(selectionPosition);
+
+            spSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapter, View v,
+                                           int position, long id) {
+                    // On selecting a spinner item
+
+                    String s1=adapter.getItemAtPosition(position).toString();
+                    s1 = s1.substring(0, s1.length()-1);
+                    if (quantity != Integer.valueOf(s1)) {
+                        quantity = Integer.valueOf(s1);
+                        //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
+                        ExerciseActivity.this.setTitle(quantity + "x " + TextName);
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+
+                }
+            });
+        }
+
     }
     private void countup() {
         if (countdown > 0) {

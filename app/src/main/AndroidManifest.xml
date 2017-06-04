@@ -50,6 +50,15 @@
                 android:value="de.spas.freeworkout.MainActivity" />
         </activity>
         <activity
+            android:name=".ExercisesActivity"
+            android:label="Exercises Overview"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.spas.freeworkout.MainActivity" />
+        </activity>
+        <activity
             android:name=".WorkoutChooseActivity"
              android:label="Workout Choose"
             android:parentActivityName=".WorkoutsActivity"

@@ -1347,7 +1347,7 @@ Binärwerte für Skills:
                         String xmeter = " x ";
                         if(u.getName().equals("Sprint")) xmeter=" m ";
                         ListText = u.getQuantity() + xmeter + u.getName();
-                        ListTextShadow = "1,"+u.getExercise()+",3,"+u.getQuantity(); //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl
+                        ListTextShadow = "1,"+u.getExercise()+",3,"+u.getQuantity()+",0"; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (MainActivity)
                         WorkoutListArrayP.add(ListText);
                         WorkoutListArrayPShadow.add(ListTextShadow);
                     }
@@ -1536,6 +1536,11 @@ Binärwerte für Skills:
         }
         if (id == R.id.action_workouts) {
             Intent in = new Intent(MainActivity.this,WorkoutsActivity.class);
+            startActivity(in);
+            return true;
+        }
+        if (id == R.id.action_exercises) {
+            Intent in = new Intent(MainActivity.this,ExercisesActivity.class);
             startActivity(in);
             return true;
         }

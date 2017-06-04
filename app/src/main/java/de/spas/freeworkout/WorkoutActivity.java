@@ -173,6 +173,9 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                                     int q = p.getQuantity();
                                     if (p.getName().equals("Sprint")) xmeter = " m ";
                                     if (p.getName().equals("Run")) xmeter = " m ";
+                                    if (p.getName().equals("HH Lunge Walk"))  xmeter = " m ";
+                                    if (p.getName().equals("Sprawl Frogs"))  xmeter = " m ";
+
                                     if (p.getName().equals("Rest")) xmeter = " s ";
                                     if (xmeter.equals(" m ") && q < 100) {
                                         q = q / 2;
@@ -199,6 +202,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                                     int q = p.getQuantity();
                                     if (p.getName().equals("Sprint")) xmeter = " m ";
                                     if (p.getName().equals("Run")) xmeter = " m ";
+                                    if (p.getName().equals("Lunge Walk"))  xmeter = " m ";
+                                    if (p.getName().equals("Burpee Frogs"))  xmeter = " m ";
                                     if (p.getName().equals("Rest")) xmeter = " s ";
                                     if (xmeter.equals(" m ") && q < 100) {
                                         q = q / 2;
@@ -227,6 +232,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                                     if (p.getName().equals("Sprint")) xmeter = " m ";
                                     if (p.getName().equals("Run")) xmeter = " m ";
                                     if (p.getName().equals("Rest")) xmeter = " s ";
+                                    if (p.getName().equals("Lunge Walk"))  xmeter = " m ";
+                                    if (p.getName().equals("Burpee Deepfrogs"))  xmeter = " m ";
                                     // quantity wird bei Laufstrecken unter 100 m halbiert für neue Darstellung von 40 m auf 2x 20 m
                                     if (xmeter.equals(" m ") && q < 100) {
                                         q = q / 2;
