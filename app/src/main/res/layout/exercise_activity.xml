@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:id="@+id/container"
+    android:clickable="true"
+    android:focusable="true"
+    android:onClick="onClick">
+    <Button
+        android:id="@+id/button_ex_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_margin="5dp"
+        android:layout_gravity="right|top"
+        android:text="@string/dialog_button_wo_add"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/button_wo_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_margin="30dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="@string/dialog_button_wo_start" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:id="@+id/clock"
+        android:textSize="64sp"
+        android:paddingTop="20dp"
+        android:layout_gravity="center_horizontal|top" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/time_lt"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal|top" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:id="@+id/time_pb"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal|top" />
+</LinearLayout>
+</FrameLayout>

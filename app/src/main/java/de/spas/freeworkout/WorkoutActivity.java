@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -147,6 +148,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             type = Integer.valueOf(s1.substring(n-1,n));
             quantity = Integer.valueOf(s1.substring(n+1,s1.length()));
 
+            //Toast.makeText(this, "wore: "+String.valueOf(wore)+"wore: "+String.valueOf(number)+"quantity: "+String.valueOf(quantity), Toast.LENGTH_LONG).show();
 
             for (int i = 0; i < 30; i++){
                 roundList[i] = new ArrayList();
@@ -487,10 +489,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                     showView(R.id.list_round29);
                 }
             }
-            else{
-                Exercise w = exercisePack.getExercises().get(number);
-                TextName = w.getName();
-            }
+
             /*for (int i = 0; i < 18; i++){
                 roundsList.add(roundList[i]);
             }
@@ -540,6 +539,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                     public void onClick(DialogInterface dialog,int id) {
                         // if this button is clicked, close
                         // current activity
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        if(wl.isHeld())wl.release();
                         finish();
                     }
                 })
@@ -597,6 +598,70 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         getMenuInflater().inflate(R.menu.menu_add_icon, menu);
         return super.onCreateOptionsMenu(menu);
     }*/
+    public void dialog_finish() {
+        AlertDialog.Builder alertDialogBuilder =  new AlertDialog.Builder(
+                new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));
+        // set title
+        //alertDialogBuilder.setTitle("Your Title");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.text_wo_finish)
+                .setCancelable(false)
+                .setPositiveButton("Speichern",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        if(wl.isHeld())wl.release();
+                        String tlt="";
+                        for(int x=0;x<quantElements;x++){
+                            if(x<quantElements-1)tlt=tlt+timeList.get(x).toString()+"|";
+                            else tlt=tlt+timeList.get(x).toString();
+
+                        }
+                        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
+                        finish();
+                    }
+                })
+                .setNegativeButton("ZURÜCK",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        theEnd=false;
+                        timeList.set(wo_pointer, 0L);
+                        // Falls vorletzter runList Eintrag ein Rundeneintrag sein sollte (z.B. Iris):
+                        if (propList.get(wo_pointer - 1) == 1)
+                            timestampAdd = statList.get(wo_pointer - 2);
+                        else timestampAdd = statList.get(wo_pointer - 1);
+                        showView(R.id.button_wo_back);
+                        if(quantity<3)showView(R.id.button_wo_add);
+                        handler.postDelayed(runnable, 1000);
+                        dialog.cancel();
+                    }
+                })
+                .setNeutralButton("+", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        theEnd=false;
+                        workout_add();
+                        wo_pointer++;start_pointer++;
+                        workoutOrRound();
+                        showView(R.id.button_wo_back);
+                        if(quantity<3)showView(R.id.button_wo_add);
+                        handler.postDelayed(runnable, 1000);
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+        Button neutralButton = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+        if(quantity>2)((AlertDialog)alertDialog).getButton(AlertDialog.BUTTON_NEUTRAL).setVisibility(View.GONE);
+
+    }
 
     public void onClick(final View view) {
 
@@ -616,7 +681,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                     showView(R.id.button_wo_start);
                     if(quantity<3)showView(R.id.button_wo_add);
                     //showView(R.id.button_wo_cancel);
-
+                    if(!wl.isHeld())wl.acquire();
                     init_view();
                     calc_view();
                     if(!datasGhost.equals(""))run_view_ghost();
@@ -625,7 +690,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                     Toast.makeText(WorkoutActivity.this, "Workout starten", Toast.LENGTH_LONG).show();
                     //statList.set(0,tsLong);
                     showView(R.id.button_wo_back);
-                    wl.acquire();
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     handler.postDelayed(runnable, 1000);
                     hideView(R.id.button_wo_start);
@@ -633,7 +697,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                 }
                 if(view.getId()==R.id.button_wo_back) {
                     //Toast.makeText(this, "button_wo_cancel", Toast.LENGTH_LONG).show();
-                    Toast.makeText(WorkoutActivity.this, "button_wo_back", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(WorkoutActivity.this, "button_wo_back", Toast.LENGTH_LONG).show();
                     if(wo_pointer>1) {
                         wo_pointer--;
                         start_pointer--;
@@ -660,38 +724,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                             //timestampStart=statList.get(start_pointer+tvx);
                             //String ts = tsLong.toString();
                             statList.set(wo_pointer, timestampCurr);
-                            if(!text_pb.equals("")) {
-                                long a=0;
-                                String minus;
-                                for(int x=0;x<=wo_pointer;x++){
-                                    a=a+(long)ghostList.get(x);
-                                }
-                                int timeDiff_pb = (int)(a-(timestampCurr-timestampStart))/1000;
-                                if(timeDiff_pb<0){timeDiff_pb=timeDiff_pb*-1;minus="+";}
-                                else {minus="-";}
-                                String time_pb_suffix="";
-                                time_pb_suffix=" "+minus+timeFormat(timeDiff_pb);
-                                ((TextView) findViewById(R.id.time_pb)).setText(text_pb+time_pb_suffix);
-                                //long td=(timestampCurr-timestampStart)/1000;
-                                //Toast.makeText(this, "timestampStart|Curr: "+String.valueOf(td)+"|"+String.valueOf(timeDiff_pb), Toast.LENGTH_LONG).show();
-
-                            }
-                            if(!text_lt.equals("")) {
-                                long a=0;
-                                String minus;
-                                for(int x=0;x<=wo_pointer;x++){
-                                    a=a+(long)ghostList2.get(x);
-                                }
-                                int timeDiff_lt = (int)(a-(timestampCurr-timestampStart))/1000;
-                                if(timeDiff_lt<0){timeDiff_lt=timeDiff_lt*-1;minus="+";}
-                                else {minus="-";}
-                                String time_lt_suffix="";
-                                time_lt_suffix=" "+minus+timeFormat(timeDiff_lt);
-                                ((TextView) findViewById(R.id.time_lt)).setText(text_lt+time_lt_suffix);
-                                //long td=(timestampCurr-timestampStart)/1000;
-                                //Toast.makeText(this, "timestampStart|Curr: "+String.valueOf(td)+"|"+String.valueOf(timeDiff_pb), Toast.LENGTH_LONG).show();
-
-                            }
+                            calc_best_diff();
                             if(wo_pointer<quantElements-1) {
                                 wo_pointer++;
                                 start_pointer++;
@@ -713,17 +746,9 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                                 list_view();
                                 run_view();
                                 if(!datasGhost.equals(""))run_view_ghost();
-                                String tlt="";
-                                for(int x=0;x<quantElements;x++){
-                                    if(x<quantElements-1)tlt=tlt+timeList.get(x).toString()+"|";
-                                    else tlt=tlt+timeList.get(x).toString();
 
-                                }
-                                dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
-                                showView(R.id.button_wo_continue);
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                                wl.release();
-                                //Toast.makeText(this, "Ich habe fertig!", Toast.LENGTH_LONG).show();
+                                dialog_finish();
+                                 //Toast.makeText(this, "Ich habe fertig!", Toast.LENGTH_LONG).show();
 
                                 //String tx=String.valueOf(lengthElement)+"|"+String.valueOf(secondWidth)+"|"+String.valueOf(wo_pointer)+"|"+String.valueOf(quantElements);
                                 //((TextView) findViewById(R.id.time_lt)).setText(String.valueOf(wo_pointer));
@@ -796,6 +821,34 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         });*/
 
     }
+    public void calc_best_diff(){
+        if(!text_pb.equals("")) {
+            long a=0;
+            String minus;
+            for(int x=0;x<=wo_pointer;x++){
+                a=a+(long)ghostList.get(x);
+            }
+            int timeDiff_pb = (int)(a-(timestampCurr-timestampStart))/1000;
+            if(timeDiff_pb<0){timeDiff_pb=timeDiff_pb*-1;minus="+";}
+            else {minus="-";}
+            String time_pb_suffix="";
+            time_pb_suffix=" "+minus+timeFormat(timeDiff_pb);
+            ((TextView) findViewById(R.id.time_pb)).setText(text_pb+time_pb_suffix);
+        }
+        if(!text_lt.equals("")) {
+            long a=0;
+            String minus;
+            for(int x=0;x<=wo_pointer;x++){
+                a=a+(long)ghostList2.get(x);
+            }
+            int timeDiff_lt = (int)(a-(timestampCurr-timestampStart))/1000;
+            if(timeDiff_lt<0){timeDiff_lt=timeDiff_lt*-1;minus="+";}
+            else {minus="-";}
+            String time_lt_suffix="";
+            time_lt_suffix=" "+minus+timeFormat(timeDiff_lt);
+            ((TextView) findViewById(R.id.time_lt)).setText(text_lt+time_lt_suffix);
+        }
+    }
     private void workout_add() {
         //Nach Klick auf add-Button: Workout Wiederholungen um eins erhöhen
         if(!roundlistLastRest.equals("")) {
@@ -861,40 +914,19 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             showView(R.id.time_lt);
             ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
             if(datasGhost.equals(""))datasGhost=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
-            //Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
-
         }
         if(!datasGhost.equals("")){
-            exDatasGhostString(datasGhost);//Toast.makeText(this, "Ghost:"+ghostList.get(1), Toast.LENGTH_LONG).show();
+            exDatasGhostString(datasGhost);
         }
         if(!text_lt.equals("")){
             datasGhost2=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
             exDatasGhostString2(datasGhost2);}
-
-        //TextView text = (TextView) this.findViewById(R.id.practice_1);//text.setTextColor(Color.parseColor("#999999"))
-        //Toast.makeText(this, "TextView: "+String.valueOf(getResources().getColor(R.color.colorWoTextViewNormal)), Toast.LENGTH_LONG).show();
         if(text_lt.equals("") && text_pb.equals(""))  defaultPeriod=30;
         list_view();
         calc_view();
         if(!datasGhost.equals(""))run_view_ghost(); else clear_run_view_ghost();
-
-
-}
-
-
-    /*    private void initRound() {
-        ViewGroup container = (ViewGroup) findViewById(R.id.container);
-        container.removeAllViews();
-        RunClockView rcv = new RunClockView(this);
-        container.addView(rcv, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        float scale = getResources().getDisplayMetrics().density;
-        //FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(Math.round(64*scale),Math.round(61*scale));
-        //lp.gravity = Gravity.TOP + Gravity.LEFT;
-
-        //container.addView(frog, lp);
-        //update();
-        //handler.postDelayed(runnable, 1000);
-    }*/
+        calc_best_diff();
+    }
     private void countup() {
         if(countdown>0){
             handler.postDelayed(runnable, 1000);
@@ -1089,9 +1121,9 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
 
         }
-        if(!datasGhost.equals(""))exDatasGhostString(datasGhost);//Toast.makeText(this, "Ghost:"+ghostList.get(1), Toast.LENGTH_LONG).show();
-        //TextView text = (TextView) this.findViewById(R.id.practice_1);//text.setTextColor(Color.parseColor("#999999"))
-        //Toast.makeText(this, "TextView: "+String.valueOf(getResources().getColor(R.color.colorWoTextViewNormal)), Toast.LENGTH_LONG).show();
+        if(!datasGhost.equals(""))exDatasGhostString(datasGhost);
+        if(!datasGhost2.equals(""))exDatasGhostString2(datasGhost2);
+
         list_view();
     }
     private void workoutOrRound() {
@@ -1147,7 +1179,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         super.onDestroy();
         handler.removeCallbacks(runnable);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        //wl.release();
+        if(wl.isHeld())wl.release();
    }
 
     /*    @Override

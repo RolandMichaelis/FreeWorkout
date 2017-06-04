@@ -22,7 +22,7 @@ public class WorkoutMemo  extends BaseGameActivity {
     private boolean star;
     private boolean checked;
     private boolean upload;
-    private String[] Types = {"Endurance","Standard","Strength"};
+    private String[] Types = {"Endurance","Standard","Strength",""};
 
 
     public WorkoutMemo(int wore, int number, String name, int type, long id, boolean checked, int quantity, long startTime, long endTime, long duration, String exTimes, boolean star, boolean upload) {

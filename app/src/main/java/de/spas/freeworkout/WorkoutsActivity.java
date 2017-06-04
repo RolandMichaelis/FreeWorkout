@@ -74,7 +74,7 @@ public class WorkoutsActivity extends Activity {
     }
 
     public void generalList() {
-        // Erstellung der Liste aller  Workouts nach Type
+        // Erstellung der Liste aller  Workouts
         WorkoutListArray0.clear();
         workoutCount = workoutPack.getWorkouts().size();
 

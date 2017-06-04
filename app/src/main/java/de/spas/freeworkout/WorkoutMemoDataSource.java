@@ -36,21 +36,6 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
             WorkoutMemoDbHelper.COLUMN_CHECKED,
             WorkoutMemoDbHelper.COLUMN_UPLOAD
     };
-    private String[] columns_duration_min = {
-            WorkoutMemoDbHelper.COLUMN_ID,
-            WorkoutMemoDbHelper.COLUMN_WORE,
-            WorkoutMemoDbHelper.COLUMN_NUMBER,
-            WorkoutMemoDbHelper.COLUMN_NAME,
-            WorkoutMemoDbHelper.COLUMN_TYPE,
-            WorkoutMemoDbHelper.COLUMN_QUANTITY,
-            WorkoutMemoDbHelper.COLUMN_STARTTIME,
-            WorkoutMemoDbHelper.COLUMN_ENDTIME,
-            "min(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",
-            WorkoutMemoDbHelper.COLUMN_EXTIMES,
-            WorkoutMemoDbHelper.COLUMN_STAR,
-            WorkoutMemoDbHelper.COLUMN_CHECKED,
-            WorkoutMemoDbHelper.COLUMN_UPLOAD
-    };
 
     public WorkoutMemoDataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");

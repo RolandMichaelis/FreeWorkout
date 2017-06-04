@@ -24,6 +24,14 @@
                 android:value="de.spas.freeworkout.MainActivity" />
         </activity>
         <activity
+            android:name=".ExerciseActivity"
+            android:label="Exercise"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.spas.freeworkout.MainActivity" />
+        </activity>
+        <activity
             android:name=".HistoryActivity"
             android:label="History"
             android:parentActivityName=".MainActivity"
