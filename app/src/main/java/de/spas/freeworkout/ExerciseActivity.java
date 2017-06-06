@@ -251,35 +251,9 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             }
 
             // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-            Toast.makeText(ExerciseActivity.this, "PB/LT vollständig geladen!",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ExerciseActivity.this, "PB/LT vollständig geladen!",Toast.LENGTH_SHORT).show();
         }
 
-    }
-    private void last_times() {
-        text_pb="";
-        text_lt="";
-        type=3;
-        String tlt="";
-        timestampStart=System.currentTimeMillis()-10000L;
-        timestampCurr=System.currentTimeMillis();
-        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
-
-        //text_pb = dataSource.getMinDuration(quantity, TextName, type); //Abfrage DB kürzeste EX
-        //Toast.makeText(this, "getMinDuration:"+String.valueOf(dataSource), Toast.LENGTH_LONG).show();
-        if (!text_pb.equals("")) {
-            showView(R.id.time_pb);
-            ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
-            //Toast.makeText(this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
-
-        }
-        //text_lt = dataSource.getMaxStartTime(quantity, TextName, type); //Abfrage DB letzte EX
-        //Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
-        if (!text_lt.equals("")) {
-            //showView(R.id.time_lt);
-            //((TextView) findViewById(R.id.time_lt)).setText(text_lt);
-            //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
-        }
     }
 
     private void countup() {

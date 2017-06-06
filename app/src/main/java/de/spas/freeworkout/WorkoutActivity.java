@@ -677,7 +677,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             @Override
             public void onClick() {
                 super.onClick();*/
-                Toast.makeText(WorkoutActivity.this, "super.onClick()", Toast.LENGTH_LONG).show();
+                //Toast.makeText(WorkoutActivity.this, "super.onClick()", Toast.LENGTH_LONG).show();
 
                 // your on click here
                 if(view.getId()==R.id.button_wo_display) {
@@ -731,7 +731,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                             //timestampStart=statList.get(start_pointer+tvx);
                             //String ts = tsLong.toString();
                             statList.set(wo_pointer, timestampCurr);
-                            calc_best_diff();
                             if(wo_pointer<quantElements-1) {
                                 wo_pointer++;
                                 start_pointer++;
@@ -740,6 +739,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                                 calc_view();
                                 run_view();
                                 if(!datasGhost.equals(""))run_view_ghost();
+                                calc_best_diff();
+
                                 //Toast.makeText(this, "timestamp; "+tsLong.toString(), Toast.LENGTH_LONG).show();
                             }
                             else {
@@ -828,8 +829,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         });*/
 
     }
-    public void calc_best_diff(){
-        if(!text_pb.equals("")) {
+    private void calc_best_diff(){
+        if(!text_pb.equals("")&&wo_pointer>1) {
             long a=0;
             String minus;
             for(int x=0;x<=wo_pointer;x++){
@@ -842,7 +843,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             time_pb_suffix=" "+minus+timeFormat(timeDiff_pb);
             ((TextView) findViewById(R.id.time_pb)).setText(text_pb+time_pb_suffix);
         }
-        if(!text_lt.equals("")) {
+        if(!text_lt.equals("")&&wo_pointer>1) {
             long a=0;
             String minus;
             for(int x=0;x<=wo_pointer;x++){
@@ -860,27 +861,27 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         //Nach Klick auf add-Button: Workout Wiederholungen um eins erhöhen
         if(!roundlistLastRest.equals("")) {
             roundList[counter_rounds - 1].add(roundlistLastRest);
-            statList.add((long) 0); //Für die Pause dazu
-            timeList.add((long) 0);//Für die Pause dazu
+            statList.add((long) 0L); //Für die Pause dazu
+            timeList.add((long) 0L);//Für die Pause dazu
         }
-        Toast.makeText(this,  String.valueOf(counter_rounds), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,  String.valueOf(counter_rounds), Toast.LENGTH_LONG).show();
         counter_rounds_pre_add=counter_rounds;
         for(int x=0;x<(counter_rounds_pre_add/quantity);x++){
             roundList[counter_rounds].addAll(roundList[x]);
             counter_rounds++;
         }
         if(!roundlistLastRest.equals(""))roundList[counter_rounds - 1].remove(counter_practice - 1); //Allerletzte Runde raus, wenn "Rest"
-        Toast.makeText(this,  String.valueOf(counter_rounds), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,  String.valueOf(counter_rounds), Toast.LENGTH_LONG).show();
 
         for (int rLx = counter_rounds_pre_add; rLx < counter_rounds; rLx++) {
             int r=rLx+1;
             //runList.add(getString(R.string.round)+" "+r+"/"+counter_rounds); // Alter Teil muss extra gefüllt werden, da letzer Wert nun falsch ist
-            statList.add((long) 0);
-            timeList.add((long) 0);
+            statList.add((long) 0L);
+            timeList.add((long) 0L);
             for (int wox = 0; wox < roundList[rLx].size(); wox++) {
                 //runList.add(String.valueOf(roundList[rLx].get(wox)));
-                statList.add((long) 0);
-                timeList.add((long) 0);
+                statList.add((long) 0L);
+                timeList.add((long) 0L);
             }
         }
         runList.clear();
@@ -916,7 +917,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             //Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         }
         text_lt=dataSource.getMaxStartTime(quantity,TextName,type); //Abfrage DB letztes WO
-        Toast.makeText(this, "getMaxStartTime return:"+text_lt, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "getMaxStartTime return:"+text_lt, Toast.LENGTH_LONG).show();
         if(!text_lt.equals("")) {
             showView(R.id.time_lt);
             ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
@@ -932,6 +933,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         list_view();
         calc_view();
         if(!datasGhost.equals(""))run_view_ghost(); else clear_run_view_ghost();
+        //Toast.makeText(this, "Add: "+text_pb+"|"+String.valueOf(text_lt), Toast.LENGTH_LONG).show();
         calc_best_diff();
     }
     private void countup() {
@@ -1236,8 +1238,16 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                     lengthElement = (int) (secondWidth * ((System.currentTimeMillis()) - (timestampStart)) / 1000);
                 else
                     lengthElement = (int) (secondWidth * ((System.currentTimeMillis()) - (timestampAdd)) / 1000);
-                paint.setColor(Color.parseColor("#898CEB"));
+                paint.setColor(Color.parseColor("#92ffa1")); // #898CEB violet, #ff7979 light red, #92ffa1 light green, #ffba60 orange
+                if(ghostList.size()>0) {
+                    if (timestampAdd == 0L) {
+                        if (ghostList.get(wo_pointer) < ((System.currentTimeMillis()) - (timestampStart)))paint.setColor(Color.parseColor("#ff7979"));
+                    } else {
+                        if (ghostList.get(wo_pointer) < ((System.currentTimeMillis()) - (timestampAdd)))paint.setColor(Color.parseColor("#ff7979"));
+                    }
+                }
                 canvas.drawRect(l, t, left + lengthElement, t + h, paint);
+
             }
 
             if(quantElements>0){
@@ -1249,9 +1259,11 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                         //Toast.makeText(getContext(), "timestamp: "+statList.get(start_pointer+tvx).toString(), Toast.LENGTH_LONG).show();
 
 
-                       lengthElement= (int) (secondWidth*(timeList.get(start_pointer+tvx)/1000));
-
-                        paint.setColor(Color.parseColor("#ffba60"));
+                        lengthElement= (int) (secondWidth*(timeList.get(start_pointer+tvx)/1000));
+                        paint.setColor(Color.parseColor("#92ffa1")); //light green
+                        if(ghostList.size()>0) {
+                            if(ghostList.get(start_pointer+tvx)<timeList.get(start_pointer+tvx))paint.setColor(Color.parseColor("#ff7979")); //light red
+                        }
                         t=tvList.get(tvx).getTop();
                         //l=tvList.get(tvx).getLeft();
                         h=tvList.get(tvx).getHeight();

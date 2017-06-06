@@ -213,7 +213,6 @@ String name="Metis";
         else {
             return "";
         }
-        //return "getMinDuration:"+String.valueOf(q)+" "+n+" "+String.valueOf(t);
     }
     public String getMinDurationGhost(int quantity,String name,int type){
 
