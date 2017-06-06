@@ -191,9 +191,9 @@ String name="Metis";
 
         return workoutMemoList;
     }
-    public String getMinDuration(int quantity,String name,int type){
+    public String getMinDuration(int q,String n,int t){
 
-        Cursor c = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { "min(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(quantity),name,String.valueOf(type)},
+        Cursor c = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { "min(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(q),n,String.valueOf(t)},
                 null, null, null);
         c.moveToFirst();
         int rowID = c.getInt(1);
@@ -207,10 +207,13 @@ String name="Metis";
             workoutMemo = cursorToWorkoutMemo(cursor);
             cursor.close();
             return "PB: " + timeFormat((int) workoutMemo.getDuration() / 1000);
+
         }
+
         else {
             return "";
         }
+        //return "getMinDuration:"+String.valueOf(q)+" "+n+" "+String.valueOf(t);
     }
     public String getMinDurationGhost(int quantity,String name,int type){
 

@@ -1116,7 +1116,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             showView(R.id.time_pb);
             ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
             datasGhost=dataSource.getMinDurationGhost(quantity,TextName,type); //Abfrage Ghostdaten in DB für kürzestes WO
-            Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         }
         text_lt=dataSource.getMaxStartTime(quantity,TextName,type); //Abfrage DB letztes WO
         //Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();

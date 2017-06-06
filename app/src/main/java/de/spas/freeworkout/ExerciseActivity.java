@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -40,6 +41,8 @@ import java.util.Locale;
 
 
 public class ExerciseActivity extends Activity implements View.OnClickListener, TextToSpeech.OnInitListener {
+    private de.spas.freeworkout.specialPack specialPack;
+    private de.spas.freeworkout.workoutPack workoutPack;
     private de.spas.freeworkout.exercisePack exercisePack;
     private String xmeter;
     private int counter_practice;
@@ -79,7 +82,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     private double secondWidth;
     private int lengthElement;
     private boolean rest = false; //keine Pause = false;
-    public static final String LOG_TAG = MainActivity.class.getSimpleName();
+    public static final String LOG_TAG = ExerciseActivity.class.getSimpleName();
     private WorkoutMemoDataSource dataSource;
     private ListView mWorkoutMemosListView;
     private boolean theEnd = false;
@@ -131,12 +134,30 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             n = s1.indexOf(",");
             quantity = Integer.valueOf(s1.substring(0, n));
             fromWhere = Integer.valueOf(s1.substring(n + 1, s1.length()));
-            Toast.makeText(this, String.valueOf(type)+"|"+String.valueOf(quantity)+"|"+String.valueOf(fromWhere) , Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, String.valueOf(type)+"|"+String.valueOf(quantity)+"|"+String.valueOf(fromWhere) , Toast.LENGTH_LONG).show();
         }
         Exercise w = exercisePack.getExercises().get(number);
         TextName = w.getName();
         printTitle();
+        // Erzeugen einer Instanz von HoleDatenTask und starten des asynchronen Tasks
+        HoleDatenTask holeDatenTask = new HoleDatenTask();
+        holeDatenTask.execute("PBLT");
+        //text_pb = dataSource.getMinDuration(quantity, TextName, type);
+        /*if (!text_pb.equals("")) {
+            showView(R.id.time_pb);
+            ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
+            //Toast.makeText(this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
 
+        }
+        text_lt = dataSource.getMaxStartTime(quantity, TextName, type); //Abfrage DB letzte EX
+        //Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+        if (!text_lt.equals("")) {
+            showView(R.id.time_lt);
+            ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
+            //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+        }*/
+
+        //Toast.makeText(this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
         if(fromWhere==1) {
             showView(R.id.edit_spinner_quantity);
             final Spinner spSpinnerType;
@@ -186,6 +207,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         quantity = Integer.valueOf(s1);
                         //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
                         printTitle();
+                        HoleDatenTask holeDatenTask = new HoleDatenTask();
+                        holeDatenTask.execute("PBLT");
                     }
 
                 }
@@ -196,8 +219,69 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                 }
             });
         }
+    }
+    public class HoleDatenTask extends AsyncTask<String, Integer, String[]> {
+        @Override
+        protected String[] doInBackground(String... params) {
+            return new String[0];
+        }
+        @Override
+        protected void onPostExecute(String[] strings) {
+
+            // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
+            // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
+            // der StringArray gefüllt mit Beispieldaten
+            hideView(R.id.time_pb);
+            hideView(R.id.time_lt);
+            text_pb="";
+            text_lt="";
+            text_pb = dataSource.getMinDuration(quantity, TextName, type);
+            if (!text_pb.equals("")) {
+                showView(R.id.time_pb);
+                ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
+                //Toast.makeText(this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
+
+            }
+            text_lt = dataSource.getMaxStartTime(quantity, TextName, type); //Abfrage DB letzte EX
+            //Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+            if (!text_lt.equals("")) {
+                showView(R.id.time_lt);
+                ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
+                //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+            }
+
+            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
+            Toast.makeText(ExerciseActivity.this, "PB/LT vollständig geladen!",
+                    Toast.LENGTH_SHORT).show();
+        }
 
     }
+    private void last_times() {
+        text_pb="";
+        text_lt="";
+        type=3;
+        String tlt="";
+        timestampStart=System.currentTimeMillis()-10000L;
+        timestampCurr=System.currentTimeMillis();
+        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
+
+        //text_pb = dataSource.getMinDuration(quantity, TextName, type); //Abfrage DB kürzeste EX
+        //Toast.makeText(this, "getMinDuration:"+String.valueOf(dataSource), Toast.LENGTH_LONG).show();
+        if (!text_pb.equals("")) {
+            showView(R.id.time_pb);
+            ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
+            //Toast.makeText(this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
+
+        }
+        //text_lt = dataSource.getMaxStartTime(quantity, TextName, type); //Abfrage DB letzte EX
+        //Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+        if (!text_lt.equals("")) {
+            //showView(R.id.time_lt);
+            //((TextView) findViewById(R.id.time_lt)).setText(text_lt);
+            //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void countup() {
         if (countdown > 0) {
             handler.postDelayed(runnable, 1000);
@@ -213,7 +297,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             }
             handler.postDelayed(runnable, 1000);
             countup++;
-       }
+        }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -331,11 +415,13 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         // current activity
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                         //if(wl.isHeld())wl.release();
-                        String tlt="";
+                        String tlt=" ";
                         //Toast.makeText(ExerciseActivity.this, String.valueOf(wore)+"|"+ String.valueOf(number)+"|"+ String.valueOf(TextName)+"|"+ String.valueOf(type)+"|"+ String.valueOf(quantity)+"|"+ String.valueOf(timestampStart)+"|"+ String.valueOf(timestampCurr), Toast.LENGTH_LONG).show();
                         type=3;
                         dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
-                        finish();
+                        //text_pb = dataSource.getMinDuration(quantity, TextName, type);
+                        //Toast.makeText(ExerciseActivity.this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
+                        //finish();
                     }
                 })
                 .setNegativeButton("ZURÜCK",new DialogInterface.OnClickListener() {
@@ -433,5 +519,4 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         this.setTitle(xhalf+q+xmeter+TextName);
 
     }
-
 }
