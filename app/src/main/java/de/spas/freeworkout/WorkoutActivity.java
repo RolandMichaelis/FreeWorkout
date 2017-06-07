@@ -723,7 +723,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                 if(view.getId()==R.id.container_2 && theEnd==false) {
                     //Nächstes Workout nur wenn countup schon läuft:
                     if(countup>0) {
-                        if(rest==false ) {
+                        if(!rest) {
                             timestampCurr = System.currentTimeMillis();
                             if (timestampAdd == 0L){ timeList.set(wo_pointer, timestampCurr - timestampStart);}
                             else {timeList.set(wo_pointer, timestampCurr - timestampAdd);}
@@ -833,7 +833,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         if(!text_pb.equals("")&&wo_pointer>1) {
             long a=0;
             String minus;
-            for(int x=0;x<=wo_pointer;x++){
+            for(int x=1;x<wo_pointer;x++){
                 a=a+(long)ghostList.get(x);
             }
             int timeDiff_pb = (int)(a-(timestampCurr-timestampStart))/1000;
@@ -846,7 +846,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         if(!text_lt.equals("")&&wo_pointer>1) {
             long a=0;
             String minus;
-            for(int x=0;x<=wo_pointer;x++){
+            for(int x=1;x<wo_pointer;x++){
                 a=a+(long)ghostList2.get(x);
             }
             int timeDiff_lt = (int)(a-(timestampCurr-timestampStart))/1000;
@@ -1082,33 +1082,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         container.removeAllViews();
         runView rv = new runView(this);
         container.addView(rv, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);*/
-        for (int rLx = 0; rLx < counter_rounds; rLx++) {
-            int r=rLx+1;
-            runList.add(getString(R.string.round)+" "+r+"/"+counter_rounds);
-            propList.add(1);
-            statList.add((long) 0);
-            timeList.add((long) 0);
-            for (int wox = 0; wox < roundList[rLx].size(); wox++) {
-                runList.add(String.valueOf(roundList[rLx].get(wox)));
-                propList.add(0);
-                statList.add((long) 0);
-                timeList.add((long) 0);
-            }
-        }
-        tvList.add((TextView) this.findViewById(R.id.practice_1));
-        tvList.add((TextView) this.findViewById(R.id.practice_2));
-        tvList.add((TextView) this.findViewById(R.id.practice_3));
-        tvList.add((TextView) this.findViewById(R.id.practice_4));
-        tvList.add((TextView) this.findViewById(R.id.practice_5));
-        tvList.add((TextView) this.findViewById(R.id.practice_6));
-        tvList.add((TextView) this.findViewById(R.id.practice_7));
-        tvList.add((TextView) this.findViewById(R.id.practice_8));
-
-
-        colorList.add(getResources().getColor(R.color.colorWoTextViewNormal));
-        colorList.add(getResources().getColor(R.color.colorWoTextViewRound));
-        colorList.add(getResources().getColor(R.color.colorWoTextViewDone));
-
         hideView(R.id.time_pb);
         hideView(R.id.time_lt);
 
@@ -1132,6 +1105,38 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         }
         if(!datasGhost.equals(""))exDatasGhostString(datasGhost);
         if(!datasGhost2.equals(""))exDatasGhostString2(datasGhost2);
+
+        for (int rLx = 0; rLx < counter_rounds; rLx++) {
+            int r=rLx+1;
+            runList.add(getString(R.string.round)+" "+r+"/"+counter_rounds);
+            propList.add(1);
+            statList.add((long) 0);
+            timeList.add((long) 0);
+            for (int wox = 0; wox < roundList[rLx].size(); wox++) {
+                String s="";
+                String sr=String.valueOf(roundList[rLx].get(wox));
+                String s1 = sr.substring(sr.length()-4,sr.length());
+                if(ghostList.size()>0 && !s1.equals("Rest"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
+                runList.add(String.valueOf(roundList[rLx].get(wox))+s);
+                propList.add(0);
+                statList.add((long) 0);
+                timeList.add((long) 0);
+            }
+        }
+        tvList.add((TextView) this.findViewById(R.id.practice_1));
+        tvList.add((TextView) this.findViewById(R.id.practice_2));
+        tvList.add((TextView) this.findViewById(R.id.practice_3));
+        tvList.add((TextView) this.findViewById(R.id.practice_4));
+        tvList.add((TextView) this.findViewById(R.id.practice_5));
+        tvList.add((TextView) this.findViewById(R.id.practice_6));
+        tvList.add((TextView) this.findViewById(R.id.practice_7));
+        tvList.add((TextView) this.findViewById(R.id.practice_8));
+
+
+        colorList.add(getResources().getColor(R.color.colorWoTextViewNormal));
+        colorList.add(getResources().getColor(R.color.colorWoTextViewRound));
+        colorList.add(getResources().getColor(R.color.colorWoTextViewDone));
+
 
         list_view();
     }

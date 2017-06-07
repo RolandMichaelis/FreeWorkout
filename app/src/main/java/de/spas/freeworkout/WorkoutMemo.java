@@ -7,7 +7,7 @@ import java.util.Date;
 
 import tools.BaseGameActivity;
 
-public class WorkoutMemo  extends BaseGameActivity {
+public class WorkoutMemo extends BaseGameActivity {
 
     private long id;
     private int wore;
