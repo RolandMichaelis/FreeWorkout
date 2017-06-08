@@ -98,6 +98,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     String roundlistLastRest = "";
     int counter_rounds_pre_add;
     private String spinnerQuantityListType[];
+    private int checked_day; //Vom Coach übergebener Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
+    private int checked_pos; //Vom Coach übergebene Position am Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +135,14 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             s1 = s1.substring(n+1, s1.length());
             n = s1.indexOf(",");
             quantity = Integer.valueOf(s1.substring(0, n));
-            fromWhere = Integer.valueOf(s1.substring(n + 1, s1.length()));
+            s1 = s1.substring(n+1, s1.length());
+            n = s1.indexOf(",");
+            fromWhere = Integer.valueOf(s1.substring(0, n));
+            s1=s1.substring(n+1,s1.length());
+            n = s1.indexOf(",");
+            checked_day = Integer.valueOf(s1.substring(0,n));
+            s1=s1.substring(n+1,s1.length());
+            checked_pos = Integer.valueOf(s1.substring(0,s1.length()));
             //Toast.makeText(this, String.valueOf(type)+"|"+String.valueOf(quantity)+"|"+String.valueOf(fromWhere) , Toast.LENGTH_LONG).show();
         }
         Exercise w = exercisePack.getExercises().get(number);

@@ -252,12 +252,10 @@ Binärwerte für Skills:
                         cnc=false;
                     }
                     if(c==ch_checked_pos) {
-                        int n1 = s2.indexOf(",");
-                        String r = s2.substring(0, n1);
-                        r=r+","+String.valueOf(ch_quantity);
-                        s2 = s2.substring(n1+1,s2.length());
-                        n1 = s2.indexOf(",");
-                        r=r+","+s2.substring(n1+1,s2.length());
+                        int n1 = s2.lastIndexOf(",");
+                        String r = s2.substring(0, n1-1);
+                        r=r+String.valueOf(ch_quantity);
+                        r =r+s2.substring(n1,s2.length());
                         newString=newString+"#"+r;
 
                     }else{
@@ -266,13 +264,13 @@ Binärwerte für Skills:
                     if(n>0){s =  s.substring(n+1,s.length());}
                     c++;
                 }while(cnc);
-                /*SharedPreferences sp2 = getPreferences(MODE_PRIVATE);
-                SharedPreferences.Editor e = sp2.edit();
-                //for(int idx=0;idx<7;idx++){e.putInt(String.valueOf("checked"+idx), checked[idx]);}
+                //SharedPreferences sp2 = getPreferences(MODE_PRIVATE);
+                SharedPreferences.Editor e = sp.edit();
                 e.putString("spWorkoutList"+(ch_checked_day+1), newString);
-                e.commit();*/
-
-
+                e.commit();
+                this.setTitle(newString);
+                loadDate();
+                //printWorkout();
 
                 //Toast.makeText(this, "ch_checked: "+String.valueOf(ch_checked_day)+"|"+String.valueOf(ch_checked_pos), Toast.LENGTH_LONG).show();
              //Toast.makeText(this, "ch_checked: "+newString, Toast.LENGTH_LONG).show();
@@ -979,16 +977,17 @@ Binärwerte für Skills:
                     //Toast.makeText(getApplicationContext(), "checked[0]: "+String.valueOf(checked[0]) + "|" + String.valueOf(id), Toast.LENGTH_SHORT).show();
 
                     // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
-                    int n= Integer.valueOf(WorkoutListArrayShadow1.get(position).substring(0,1));
-                    Intent workoutFragmentIntent;
-                    if(n==0) {
-                        workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
-                    } else {
-                        workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    if(exChecked(checked[0],position)==false) {
+                        int n = Integer.valueOf(WorkoutListArrayShadow1.get(position).substring(0, 1));
+                        Intent workoutFragmentIntent;
+                        if (n == 0) {
+                            workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+                        } else {
+                            workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                        }
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow1.get(position) + ",0," + position);
+                        startActivity(workoutFragmentIntent);
                     }
-                    workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow1.get(position)+",0,"+position);
-                    startActivity(workoutFragmentIntent);
-
 /*                    if(exChecked(checked[0],position)==false) {
                         checked[0]=checked[0]+binaerArray[position];
                         saveChecked();
@@ -1041,16 +1040,17 @@ Binärwerte für Skills:
                 {
                     // Hier check-Status prüfen
                     // Intent erzeugen und Starten der WorkoutActivity mit explizitem Intent
-                    int n= Integer.valueOf(WorkoutListArrayShadow2.get(position).substring(0,1));
-                    Intent workoutFragmentIntent;
-                    if(n==0) {
-                        workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
-                    } else {
-                        workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    if(exChecked(checked[1],position)==false) {
+                        int n = Integer.valueOf(WorkoutListArrayShadow2.get(position).substring(0, 1));
+                        Intent workoutFragmentIntent;
+                        if (n == 0) {
+                            workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+                        } else {
+                            workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                        }
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow2.get(position) + ",1," + position);
+                        startActivity(workoutFragmentIntent);
                     }
-                    workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow2.get(position)+",1,"+position);
-                    startActivity(workoutFragmentIntent);
-
                     /*if(exChecked(checked[1],position)==false) {
                         checked[1]=checked[1]+binaerArray[position];
                         saveChecked();
@@ -1104,15 +1104,17 @@ Binärwerte für Skills:
                 {
                     // Hier check-Status prüfen
                     // Intent erzeugen und Starten der WorkoutActivity mit explizitem Intent
-                    int n= Integer.valueOf(WorkoutListArrayShadow3.get(position).substring(0,1));
-                    Intent workoutFragmentIntent;
-                    if(n==0) {
-                        workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
-                    } else {
-                        workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    if(exChecked(checked[2],position)==false) {
+                        int n = Integer.valueOf(WorkoutListArrayShadow3.get(position).substring(0, 1));
+                        Intent workoutFragmentIntent;
+                        if (n == 0) {
+                            workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+                        } else {
+                            workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                        }
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow3.get(position) + ",2," + position);
+                        startActivity(workoutFragmentIntent);
                     }
-                    workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow3.get(position)+",2,"+position);
-                    startActivity(workoutFragmentIntent);
 /*
 
                     if(exChecked(checked[2],position)==false) {
@@ -1167,15 +1169,17 @@ Binärwerte für Skills:
                 {
                     // Hier check-Status prüfen
                     // Intent erzeugen und Starten der WorkoutActivity mit explizitem Intent
-                    int n= Integer.valueOf(WorkoutListArrayShadow4.get(position).substring(0,1));
-                    Intent workoutFragmentIntent;
-                    if(n==0) {
-                        workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
-                    } else {
-                        workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    if(exChecked(checked[3],position)==false) {
+                        int n = Integer.valueOf(WorkoutListArrayShadow4.get(position).substring(0, 1));
+                        Intent workoutFragmentIntent;
+                        if (n == 0) {
+                            workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+                        } else {
+                            workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                        }
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow4.get(position) + ",3," + position);
+                        startActivity(workoutFragmentIntent);
                     }
-                    workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow4.get(position)+",3,"+position);
-                    startActivity(workoutFragmentIntent);
 /*
 
                     if(exChecked(checked[3],position)==false) {
@@ -1229,15 +1233,17 @@ Binärwerte für Skills:
                 {
                     // Hier check-Status prüfen
                     // Intent erzeugen und Starten der WorkoutActivity mit explizitem Intent
-                    int n= Integer.valueOf(WorkoutListArrayShadow5.get(position).substring(0,1));
-                    Intent workoutFragmentIntent;
-                    if(n==0) {
-                        workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
-                    } else {
-                        workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    if(exChecked(checked[4],position)==false) {
+                        int n = Integer.valueOf(WorkoutListArrayShadow5.get(position).substring(0, 1));
+                        Intent workoutFragmentIntent;
+                        if (n == 0) {
+                            workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+                        } else {
+                            workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                        }
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow5.get(position) + ",4," + position);
+                        startActivity(workoutFragmentIntent);
                     }
-                    workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow5.get(position)+",4,"+position);
-                    startActivity(workoutFragmentIntent);
 /*
 
                     if(exChecked(checked[4],position)==false) {
@@ -1291,15 +1297,18 @@ Binärwerte für Skills:
                 {
                     // Hier check-Status prüfen
                     // Intent erzeugen und Starten der WorkoutActivity mit explizitem Intent
-                    int n= Integer.valueOf(WorkoutListArrayShadow6.get(position).substring(0,1));
-                    Intent workoutFragmentIntent;
-                    if(n==0) {
-                        workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
-                    } else {
-                        workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    if(exChecked(checked[5],position)==false) {
+
+                        int n = Integer.valueOf(WorkoutListArrayShadow6.get(position).substring(0, 1));
+                        Intent workoutFragmentIntent;
+                        if (n == 0) {
+                            workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+                        } else {
+                            workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                        }
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow6.get(position) + ",5," + position);
+                        startActivity(workoutFragmentIntent);
                     }
-                    workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow6.get(position)+",5,"+position);
-                    startActivity(workoutFragmentIntent);
 /*
 
                     if(exChecked(checked[5],position)==false) {
@@ -1354,15 +1363,18 @@ Binärwerte für Skills:
                 {
                     // Hier check-Status prüfen
                     // Intent erzeugen und Starten der WorkoutActivity mit explizitem Intent
-                    int n= Integer.valueOf(WorkoutListArrayShadow7.get(position).substring(0,1));
-                    Intent workoutFragmentIntent;
-                    if(n==0) {
-                         workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
-                    } else {
-                         workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    if(exChecked(checked[6],position)==false) {
+
+                        int n = Integer.valueOf(WorkoutListArrayShadow7.get(position).substring(0, 1));
+                        Intent workoutFragmentIntent;
+                        if (n == 0) {
+                            workoutFragmentIntent = new Intent(MainActivity.this, WorkoutActivity.class);
+                        } else {
+                            workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
+                        }
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow7.get(position) + ",6," + position);
+                        startActivity(workoutFragmentIntent);
                     }
-                    workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow7.get(position)+",6,"+position);
-                    startActivity(workoutFragmentIntent);
 /*
 
                     if(exChecked(checked[6],position)==false) {
@@ -1510,7 +1522,7 @@ Binärwerte für Skills:
         spWorkoutList5 = sp.getString("spWorkoutList5", "");
         spWorkoutList6 = sp.getString("spWorkoutList6", "");
         spWorkoutList7 = sp.getString("spWorkoutList7", "");
-
+        //this.setTitle(spWorkoutList7);
         checked[0] = sp.getInt("checked0",0);
         checked[1] = sp.getInt("checked1",0);
         checked[2] = sp.getInt("checked2",0);
