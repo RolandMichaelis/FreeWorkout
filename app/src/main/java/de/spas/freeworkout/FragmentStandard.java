@@ -100,7 +100,7 @@ public class FragmentStandard extends Fragment {
                     case R.id.button_wo_display:
                         //Toast.makeText(getActivity(), "Wow! Klappt!", Toast.LENGTH_LONG).show();
                         Intent workoutFragmentIntent = new Intent(getActivity(), WorkoutActivity.class);
-                        String ListTextShadow = "0,"+String.valueOf(wo_choose)+",1,"+String.valueOf(quantity); //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl
+                        String ListTextShadow = "0,"+String.valueOf(wo_choose)+",1,"+String.valueOf(quantity+",-1,-1"); //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl
 
                         workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, ListTextShadow);
                         startActivity(workoutFragmentIntent);

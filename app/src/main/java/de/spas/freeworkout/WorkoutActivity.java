@@ -92,7 +92,9 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
     private String datasGhost2=""; // Wenn LT und PB vorhanden sind
     final Context context = this;
     String roundlistLastRest="";
-    int counter_rounds_pre_add;
+    private int counter_rounds_pre_add;
+    private int checked_day; //Vom Coach übergebener Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
+    private int checked_pos; //Vom Coach übergebene Position am Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,11 +146,21 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
             String s1=s.substring(2,s.length());
             int n = s1.indexOf(",");
             number = Integer.valueOf(s1.substring(0,n));
-            n = s1.lastIndexOf(",");
-            type = Integer.valueOf(s1.substring(n-1,n));
-            quantity = Integer.valueOf(s1.substring(n+1,s1.length()));
+            s1=s1.substring(n+1,s1.length());
+            n = s1.indexOf(",");
+            type = Integer.valueOf(s1.substring(0,n));
+            s1=s1.substring(n+1,s1.length());
+            n = s1.indexOf(",");
+            quantity = Integer.valueOf(s1.substring(0,n));
+            s1=s1.substring(n+1,s1.length());
+            n = s1.indexOf(",");
+            checked_day = Integer.valueOf(s1.substring(0,n));
+            s1=s1.substring(n+1,s1.length());
+            checked_pos = Integer.valueOf(s1.substring(0,s1.length()));
 
-            //Toast.makeText(this, "wore: "+String.valueOf(wore)+"wore: "+String.valueOf(number)+"quantity: "+String.valueOf(quantity), Toast.LENGTH_LONG).show();
+
+
+            //Toast.makeText(this, "wore: "+String.valueOf(wore)+"wore: "+String.valueOf(number)+"quantity: "+String.valueOf(quantity)+" checked_day: "+String.valueOf(checked_day)+" checked_pos: "+String.valueOf(checked_pos), Toast.LENGTH_LONG).show();
 
             for (int i = 0; i < 30; i++){
                 roundList[i] = new ArrayList();
@@ -628,7 +640,19 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
 
                         }
                         dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
-                        finish();
+
+                        Intent workoutFragmentIntent;
+                        if(checked_day!=-1) {
+                            String dur = timeFormat ((int)((timestampCurr-timestampStart)/1000));
+                            workoutFragmentIntent = new Intent(WorkoutActivity.this, MainActivity.class);
+                            Boolean star=false; // Platzhalter für später
+                            //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
+                            workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(wore)+","+TextName+","+String.valueOf(quantity)+","+String.valueOf(type)+","+String.valueOf(timestampStart)+","+dur+","+String.valueOf(star)+","+String.valueOf(checked_day)+","+String.valueOf(checked_pos));
+                            startActivity(workoutFragmentIntent);
+                        } else {
+                            finish();
+                        }
+
                     }
                 })
                 .setNegativeButton("ZURÜCK",new DialogInterface.OnClickListener() {
