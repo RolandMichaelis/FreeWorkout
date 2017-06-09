@@ -405,6 +405,18 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         //text_pb = dataSource.getMinDuration(quantity, TextName, type);
                         //Toast.makeText(ExerciseActivity.this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
                         //finish();
+                        Intent workoutFragmentIntent;
+                        if(checked_day!=-1) {
+                            String dur = timeFormat ((int)((timestampCurr-timestampStart)/1000));
+                            workoutFragmentIntent = new Intent(ExerciseActivity.this, MainActivity.class);
+                            Boolean star=false; // Platzhalter für später
+                            //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
+                            workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(wore)+","+TextName+","+String.valueOf(quantity)+","+String.valueOf(type)+","+String.valueOf(timestampStart)+","+dur+","+String.valueOf(star)+","+String.valueOf(checked_day)+","+String.valueOf(checked_pos));
+                            startActivity(workoutFragmentIntent);
+                        } else {
+                            finish();
+                        }
+
                     }
                 })
                 .setNegativeButton("ZURÜCK",new DialogInterface.OnClickListener() {

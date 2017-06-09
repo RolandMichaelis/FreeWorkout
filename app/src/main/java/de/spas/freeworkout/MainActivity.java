@@ -229,7 +229,7 @@ Binärwerte für Skills:
             s1 = s1.substring(n + 1, s1.length());
             int ch_checked_pos = Integer.valueOf(s1.substring(0, s1.length()));
 
-            if(ch_checked_day>=0){
+            if(ch_checked_day>=0 && ch_wore==0){
                 checked[ch_checked_day]=checked[ch_checked_day]+binaerArray[ch_checked_pos];
                 saveChecked();
                 SharedPreferences sp = getPreferences(MODE_PRIVATE);
@@ -252,6 +252,7 @@ Binärwerte für Skills:
                         cnc=false;
                     }
                     if(c==ch_checked_pos) {
+                        this.setTitle(s2);
                         int n1 = s2.lastIndexOf(",");
                         String r = s2.substring(0, n1-1);
                         r=r+String.valueOf(ch_quantity);
@@ -268,7 +269,7 @@ Binärwerte für Skills:
                 SharedPreferences.Editor e = sp.edit();
                 e.putString("spWorkoutList"+(ch_checked_day+1), newString);
                 e.commit();
-                this.setTitle(newString);
+
                 loadDate();
                 //printWorkout();
 

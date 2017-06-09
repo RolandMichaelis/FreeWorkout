@@ -103,7 +103,7 @@ public class ExercisesActivity extends Activity {
             }
         });
        for(int i=0; i<exerciseCount; i++) {
-            WorkoutListArray0.add(ExerciseListArray.get(i).textIntent); //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (ExercisesActivity))
+            WorkoutListArray0.add(ExerciseListArray.get(i).textIntent+",-1,-1"); //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (ExercisesActivity))
             WorkoutListArrayPrint0.add(ExerciseListArray.get(i).name);
 
         }
