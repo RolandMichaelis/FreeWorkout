@@ -101,6 +101,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private ArrayList<String> spWO_strlist = new ArrayList<String>(); // Strings
 
+    private int ch_wore;
+    private String ch_name;
+    private int ch_quantity;
+    private int ch_type;
+    long ch_startTime;
+    String ch_duration;
+    Boolean ch_star;
+    int ch_checked_day;
+    int ch_checked_pos;
+
+
 /*
 Binärwerte für Skills:
 1 Pullups
@@ -198,52 +209,60 @@ Binärwerte für Skills:
             printWorkout();
         }
     }
+    private void exCheckForExtraText(String s){
+        //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
+        ch_wore = Integer.valueOf(s.substring(0, 1)); //wore = Workout oder Exercise
+        String s1 = s.substring(2, s.length());
+        int n = s1.indexOf(",");
+        ch_name = s1.substring(0, n);
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        ch_quantity = Integer.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        ch_type = Integer.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        ch_startTime = Long.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        ch_duration = s1.substring(0, n);
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        ch_star = Boolean.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        ch_checked_day = Integer.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        ch_checked_pos = Integer.valueOf(s1.substring(0, s1.length()));
+
+    }
     private void checkForExtraText() {
         //kontrollieren ob MainActivity von WorkoutActivity aus aufgerufen wurde um den Checked-Status eines WOs zu setzen
         //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
-        Intent empfangenerIntent = this.getIntent();
-        if (empfangenerIntent != null && empfangenerIntent.hasExtra(Intent.EXTRA_TEXT)) {
-            String s = empfangenerIntent.getStringExtra(Intent.EXTRA_TEXT);
-            int ch_wore = Integer.valueOf(s.substring(0, 1)); //wore = Workout oder Exercise
-            String s1 = s.substring(2, s.length());
-            int n = s1.indexOf(",");
-            String ch_name = s1.substring(0, n);
-            s1 = s1.substring(n + 1, s1.length());
-            n = s1.indexOf(",");
-            int ch_quantity = Integer.valueOf(s1.substring(0, n));
-            s1 = s1.substring(n + 1, s1.length());
-            n = s1.indexOf(",");
-            int ch_type = Integer.valueOf(s1.substring(0, n));
-            s1 = s1.substring(n + 1, s1.length());
-            n = s1.indexOf(",");
-            long ch_startTime = Long.valueOf(s1.substring(0, n));
-            s1 = s1.substring(n + 1, s1.length());
-            n = s1.indexOf(",");
-            String ch_duration = s1.substring(0, n);
-            s1 = s1.substring(n + 1, s1.length());
-            n = s1.indexOf(",");
-            Boolean ch_star = Boolean.valueOf(s1.substring(0, n));
-            s1 = s1.substring(n + 1, s1.length());
-            n = s1.indexOf(",");
-            int ch_checked_day = Integer.valueOf(s1.substring(0, n));
-            s1 = s1.substring(n + 1, s1.length());
-            int ch_checked_pos = Integer.valueOf(s1.substring(0, s1.length()));
+        Intent receivedIntent = this.getIntent();
+        if (receivedIntent != null && receivedIntent.hasExtra(Intent.EXTRA_TEXT)) {
+            String s = receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
+            exCheckForExtraText(s);
+
+
 
             if(ch_checked_day>=0 && ch_wore==0){
                 checked[ch_checked_day]=checked[ch_checked_day]+binaerArray[ch_checked_pos];
                 saveChecked();
                 SharedPreferences sp = getPreferences(MODE_PRIVATE);
                 String spWo = sp.getString("spWorkoutList"+(ch_checked_day+1), "");
-                Toast.makeText(this, "ch_checked: "+spWo, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "ch_checked: "+spWo, Toast.LENGTH_LONG).show();
 
                 s = spWo.substring(1,spWo.length());
                 String s2;
                 boolean cnc; // kommt "#" noch vor? Wenn nicht letzter Durchlauf der Schleife!
                 int c = 0; // Counter für die Position
                 String newString ="";
+
                 //Toast.makeText(this, "sp_skills a: "+String.valueOf(s), Toast.LENGTH_LONG).show();
                 do {
-                    n = s.indexOf("#");
+                    int n = s.indexOf("#");
                     if(n>0) {
                         s2 = s.substring(0, n); //kompletter String bis #
                         cnc=true;
@@ -252,7 +271,7 @@ Binärwerte für Skills:
                         cnc=false;
                     }
                     if(c==ch_checked_pos) {
-                        this.setTitle(s2);
+                        //this.setTitle(s2);
                         int n1 = s2.lastIndexOf(",");
                         String r = s2.substring(0, n1-1);
                         r=r+String.valueOf(ch_quantity);
@@ -268,15 +287,26 @@ Binärwerte für Skills:
                 //SharedPreferences sp2 = getPreferences(MODE_PRIVATE);
                 SharedPreferences.Editor e = sp.edit();
                 e.putString("spWorkoutList"+(ch_checked_day+1), newString);
+                e.putString("completedWorkouts"+ch_checked_day+ch_checked_pos, receivedIntent.getStringExtra(Intent.EXTRA_TEXT));
                 e.commit();
 
-                loadDate();
-                //printWorkout();
+
 
                 //Toast.makeText(this, "ch_checked: "+String.valueOf(ch_checked_day)+"|"+String.valueOf(ch_checked_pos), Toast.LENGTH_LONG).show();
              //Toast.makeText(this, "ch_checked: "+newString, Toast.LENGTH_LONG).show();
 
             }
+            else {
+                checked[ch_checked_day]=checked[ch_checked_day]+binaerArray[ch_checked_pos];
+                saveChecked();
+                SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                SharedPreferences.Editor e = sp.edit();
+                e.putString("completedWorkouts"+ch_checked_day+ch_checked_pos, receivedIntent.getStringExtra(Intent.EXTRA_TEXT));
+                e.commit();
+
+
+            }
+            loadDate();
 
         } else {
             return;
@@ -957,10 +987,10 @@ Binärwerte für Skills:
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                    else {
+                    /*else {
                         text.setTextColor(Color.parseColor("#000000"));
                         text.setPaintFlags(text.getPaintFlags()  & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    }
+                    }*/
                     return view;
                 }
             };
@@ -1021,10 +1051,6 @@ Binärwerte für Skills:
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                    else {
-                        text.setTextColor(Color.parseColor("#000000"));
-                        text.setPaintFlags(text.getPaintFlags()  & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    }
                     return view;
                 }
             };
@@ -1084,10 +1110,6 @@ Binärwerte für Skills:
                     if(exChecked(checked[2],position)==true) {
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    }
-                    else {
-                        text.setTextColor(Color.parseColor("#000000"));
-                        text.setPaintFlags(text.getPaintFlags()  & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     }
                     return view;
                 }
@@ -1150,10 +1172,6 @@ Binärwerte für Skills:
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                    else {
-                        text.setTextColor(Color.parseColor("#000000"));
-                        text.setPaintFlags(text.getPaintFlags()  & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    }
                     return view;
                 }
             };
@@ -1214,10 +1232,7 @@ Binärwerte für Skills:
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                    else {
-                        text.setTextColor(Color.parseColor("#000000"));
-                        text.setPaintFlags(text.getPaintFlags()  & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    }
+
                     return view;
                 }
             };
@@ -1278,10 +1293,7 @@ Binärwerte für Skills:
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                    else {
-                        text.setTextColor(Color.parseColor("#000000"));
-                        text.setPaintFlags(text.getPaintFlags()  & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    }
+
                     return view;
                 }
             };
@@ -1344,10 +1356,7 @@ Binärwerte für Skills:
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
-                    else {
-                        text.setTextColor(Color.parseColor("#000000"));
-                        text.setPaintFlags(text.getPaintFlags()  & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    }
+
                     return view;
                 }
             };
@@ -1412,6 +1421,7 @@ Binärwerte für Skills:
             s = s.substring(1,s.length());
             String s1;
             boolean cnc;
+            int counter = 0;
             //Toast.makeText(this, "sp_skills a: "+String.valueOf(s), Toast.LENGTH_LONG).show();
             do {
                 int n = s.indexOf("#");
@@ -1436,22 +1446,32 @@ Binärwerte für Skills:
 
                 String ListText;
                 String ListTextShadow;
+                SharedPreferences sp = getPreferences(MODE_PRIVATE);
+
+
                 if(t3.equals("0")) {
                     Workout w = workoutPack.getWorkouts().get(z); // XML für Workoutname laden, z = Workoutnummer
-                    ListText = x + " x " + w.getName() + " " + Types[Integer.valueOf(t)];/* + " (" + t1 + "," + t2 + ")*/
+                    if(exChecked(checked[d-1],counter)==true && !sp.getString("completedWorkouts"+(d-1)+counter, "").equals("")){exCheckForExtraText(sp.getString("completedWorkouts"+(d-1)+counter, ""));ListText = x + " x " + w.getName() + " " + Types[Integer.valueOf(t)] + " " + ch_duration;/* + " (" + t1 + "," + t2 + ")*/}
+                    else {ListText = x + " x " + w.getName() + " " + Types[Integer.valueOf(t)];/* + " (" + t1 + "," + t2 + ")*/}
+                    //ListText = x + " x " + w.getName() + " " + Types[Integer.valueOf(t)]+" 10:45";
                     ListTextShadow = "0,"+z+","+t+","+x; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl
                     WorkoutListArrayP.add(ListText);
                     WorkoutListArrayPShadow.add(ListTextShadow);
-                }else{
+                    //this.setTitle("completedWorkouts"+(d-1)+counter);
+                    counter++;
+               }else{
                     Special w = specialPack.getSpecials().get(z); // XML für Workoutname laden, z = Workoutnummer
                     //Toast.makeText(this, "specialPack Anzahl: "+String.valueOf(), Toast.LENGTH_LONG).show();
                     for(Unit u : w.getUnits()) { // alle Unit-Knoten durchlaufen
                         String xmeter = " x ";
                         if(u.getName().equals("Sprint")) xmeter=" m ";
-                        ListText = u.getQuantity() + xmeter + u.getName();
+                        if(exChecked(checked[d-1],counter)==true && !sp.getString("completedWorkouts"+(d-1)+counter, "").equals("")){exCheckForExtraText(sp.getString("completedWorkouts"+(d-1)+counter, ""));ListText = ch_quantity + xmeter + u.getName() + " " + ch_duration;/* + " (" + t1 + "," + t2 + ")*/}
+                        else {ListText = u.getQuantity() + xmeter + u.getName();}
+
                         ListTextShadow = "1,"+u.getExercise()+",3,"+u.getQuantity()+",0"; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (MainActivity)
                         WorkoutListArrayP.add(ListText);
                         WorkoutListArrayPShadow.add(ListTextShadow);
+                        counter++;
                     }
                 }
                 if(n>0){s =  s.substring(n+1,s.length());}
