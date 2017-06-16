@@ -94,6 +94,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     private int checked_day; //Vom Coach übergebener Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
     private int checked_pos; //Vom Coach übergebene Position am Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
     private int positionOfQuantity;
+    private Spinner spSpinnerType;
+    private Boolean showPlus=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,18 +163,18 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         }*/
 
         //Toast.makeText(this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
+        if(xmeter.equals(" x ")) {
+            spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListType);
+        }
+        else if(xmeter.equals(" m ") && TextName.equals("Sprint")){
+            spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeMeter);
+        }
+        else if(xmeter.equals(" m ") && TextName.equals("Run")){
+            spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeRunMeter);
+        }
+
         if(fromWhere==1) {
             showView(R.id.edit_spinner_quantity);
-            final Spinner spSpinnerType;
-            if(xmeter.equals(" x ")) {
-                spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListType);
-            }
-            else if(xmeter.equals(" m ") && TextName.equals("Sprint")){
-                spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeMeter);
-            }
-            else if(xmeter.equals(" m ") && TextName.equals("Run")){
-                spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeRunMeter);
-            }
             ArrayAdapter<String> adapterSpinnerType;
             spSpinnerType = (Spinner) this.findViewById(R.id.edit_spinner_quantity);
             adapterSpinnerType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerQuantityListType);
@@ -214,8 +216,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         printTitle();
                         GetDataTask holeDatenTask = new GetDataTask();
                         holeDatenTask.execute("PBLT");
+                        check_for_add();
                     }
-                    check_for_add();
                 }
 
                 @Override
@@ -224,22 +226,22 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                 }
             });
         }
+        check_for_add();
     }
     private void check_for_add(){
         String s1=String.valueOf(quantity);
-        int i;
         if(xmeter.equals(" m ")){
             if(quantity==20)s1="2x 10";
             else if(quantity==40)s1="2x 20";
             else if(quantity==80)s1="2x 40";
-            i= Arrays.asList(spinnerQuantityListType).indexOf(s1 + "m");
+            positionOfQuantity= Arrays.asList(spinnerQuantityListType).indexOf(s1 + "m");
         }
         else{
-            i= Arrays.asList(spinnerQuantityListType).indexOf(s1 + "x");
+            positionOfQuantity= Arrays.asList(spinnerQuantityListType).indexOf(s1 + "x");
         }
-        positionOfQuantity=Arrays.asList(spinnerQuantityListType).size();
-        if(i+1!=positionOfQuantity){showView(R.id.button_ex_add);}
-        else{hideView(R.id.button_ex_add);}
+        int size=Arrays.asList(spinnerQuantityListType).size();
+        if(positionOfQuantity+1!=size){showView(R.id.button_ex_add);showPlus=true;}
+        else{hideView(R.id.button_ex_add);showPlus=false;}
         //Toast.makeText(this, "spinnerQuantityListType = "+String.valueOf(n), Toast.LENGTH_LONG).show();
 
 
@@ -393,23 +395,27 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             }
         }
         if(view.getId()==R.id.button_ex_add) {
-            /*String s1=spinnerQuantityListType[positionOfQuantity+1];
-            s1 = s1.substring(0, s1.length()-1);
-            if(xmeter.equals(" m ")){
-                if(s1.equals("2x 10"))s1="20";
-                else if(s1.equals("2x 20"))s1="40";
-                else if(s1.equals("2x 40"))s1="80";
-            }
-            if (quantity != Integer.valueOf(s1)) {
-                quantity = Integer.valueOf(s1);
-                //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
-                printTitle();
-                GetDataTask holeDatenTask = new GetDataTask();
-                holeDatenTask.execute("PBLT");
-            }
-            check_for_add();*/
-            Toast.makeText(this, "Ich habe fertig!", Toast.LENGTH_LONG).show();
+            exercise_add();
+            check_for_add();
+            //Toast.makeText(this, "Ich habe fertig! "+String.valueOf(positionOfQuantity+1), Toast.LENGTH_LONG).show();
 
+        }
+    }
+    final void exercise_add(){
+        String s1=spinnerQuantityListType[positionOfQuantity+1];
+        s1 = s1.substring(0, s1.length()-1);
+        if(xmeter.equals(" m ")){
+            if(s1.equals("2x 10"))s1="20";
+            else if(s1.equals("2x 20"))s1="40";
+            else if(s1.equals("2x 40"))s1="80";
+        }
+        if (quantity != Integer.valueOf(s1)) {
+            quantity = Integer.valueOf(s1);
+            //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
+            printTitle();
+            GetDataTask holeDatenTask = new GetDataTask();
+            holeDatenTask.execute("PBLT");
+            if(fromWhere==1)spSpinnerType.setSelection(positionOfQuantity+1);
         }
     }
     public void dialog_finish() {
@@ -456,18 +462,14 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         dialog.cancel();
                     }
                 })
-/*                .setNeutralButton("+", new DialogInterface.OnClickListener() {
+                .setNeutralButton("+", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        theEnd=false;
-                        workout_add();
-                        wo_pointer++;start_pointer++;
-                        workoutOrRound();
-                        showView(R.id.button_wo_back);
-                        if(quantity<3)showView(R.id.button_wo_add);
+                        exercise_add();
+                        check_for_add();
                         handler.postDelayed(runnable, 1000);
                         dialog.cancel();
                     }
-                })*/;
+                });
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -475,7 +477,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         // show it
         alertDialog.show();
         Button neutralButton = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
-        //if(quantity>2)((AlertDialog)alertDialog).getButton(AlertDialog.BUTTON_NEUTRAL).setVisibility(View.GONE);
+        if(!showPlus)((AlertDialog)alertDialog).getButton(AlertDialog.BUTTON_NEUTRAL).setVisibility(View.GONE);
 
     }
 
