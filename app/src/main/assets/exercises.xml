@@ -211,6 +211,10 @@
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-
+        <exercise name="Run" duration="2" difficulty="1">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
     </exercises>
 </exercisePack>

@@ -94,6 +94,8 @@
         <item>100m</item>
         <item>200m</item>
         <item>400m</item>
+    </string-array>
+    <string-array name="spinnerQuantityListTypeRunMeter">
         <item>800m</item>
         <item>1000m</item>
         <item>1500m</item>
@@ -103,5 +105,10 @@
         <item>5000m</item>
         <item>8000m</item>
         <item>10000m</item>
+        <item>15000m</item>
+        <item>20000m</item>
+        <item>21097m</item>
+        <item>30000m</item>
+        <item>42195m</item>
     </string-array>
 </resources>

@@ -5,10 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,16 +13,12 @@ import android.speech.tts.TextToSpeech;
 
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +29,7 @@ import org.simpleframework.xml.core.Persister;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 
@@ -100,6 +93,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     private String spinnerQuantityListType[];
     private int checked_day; //Vom Coach übergebener Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
     private int checked_pos; //Vom Coach übergebene Position am Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
+    private int positionOfQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,9 +142,9 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         Exercise w = exercisePack.getExercises().get(number);
         TextName = w.getName();
         printTitle();
-        // Erzeugen einer Instanz von HoleDatenTask und starten des asynchronen Tasks
-        HoleDatenTask holeDatenTask = new HoleDatenTask();
-        holeDatenTask.execute("PBLT");
+        // Erzeugen einer Instanz von GetDataTask und starten des asynchronen Tasks
+        GetDataTask getDataTask = new GetDataTask();
+        getDataTask.execute("PBLT");
         //text_pb = dataSource.getMinDuration(quantity, TextName, type);
         /*if (!text_pb.equals("")) {
             showView(R.id.time_pb);
@@ -173,9 +167,11 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             if(xmeter.equals(" x ")) {
                 spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListType);
             }
-            else if(xmeter.equals(" m ")){
+            else if(xmeter.equals(" m ") && TextName.equals("Sprint")){
                 spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeMeter);
-
+            }
+            else if(xmeter.equals(" m ") && TextName.equals("Run")){
+                spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeRunMeter);
             }
             ArrayAdapter<String> adapterSpinnerType;
             spSpinnerType = (Spinner) this.findViewById(R.id.edit_spinner_quantity);
@@ -216,20 +212,39 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         quantity = Integer.valueOf(s1);
                         //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
                         printTitle();
-                        HoleDatenTask holeDatenTask = new HoleDatenTask();
+                        GetDataTask holeDatenTask = new GetDataTask();
                         holeDatenTask.execute("PBLT");
                     }
-
+                    check_for_add();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
-
+                    //nothing to do
                 }
             });
         }
     }
-    public class HoleDatenTask extends AsyncTask<String, Integer, String[]> {
+    private void check_for_add(){
+        String s1=String.valueOf(quantity);
+        int i;
+        if(xmeter.equals(" m ")){
+            if(quantity==20)s1="2x 10";
+            else if(quantity==40)s1="2x 20";
+            else if(quantity==80)s1="2x 40";
+            i= Arrays.asList(spinnerQuantityListType).indexOf(s1 + "m");
+        }
+        else{
+            i= Arrays.asList(spinnerQuantityListType).indexOf(s1 + "x");
+        }
+        positionOfQuantity=Arrays.asList(spinnerQuantityListType).size();
+        if(i+1!=positionOfQuantity){showView(R.id.button_ex_add);}
+        else{hideView(R.id.button_ex_add);}
+        //Toast.makeText(this, "spinnerQuantityListType = "+String.valueOf(n), Toast.LENGTH_LONG).show();
+
+
+    }
+    public class GetDataTask extends AsyncTask<String, Integer, String[]> {
         @Override
         protected String[] doInBackground(String... params) {
             return new String[0];
@@ -258,8 +273,6 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                 ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
                 //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
             }
-
-            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
             //Toast.makeText(ExerciseActivity.this, "PB/LT vollständig geladen!",Toast.LENGTH_SHORT).show();
         }
 
@@ -378,9 +391,26 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                 //((TextView) findViewById(R.id.time_lt)).setText(String.valueOf(wo_pointer));
 
             }
+        }
+        if(view.getId()==R.id.button_ex_add) {
+            /*String s1=spinnerQuantityListType[positionOfQuantity+1];
+            s1 = s1.substring(0, s1.length()-1);
+            if(xmeter.equals(" m ")){
+                if(s1.equals("2x 10"))s1="20";
+                else if(s1.equals("2x 20"))s1="40";
+                else if(s1.equals("2x 40"))s1="80";
+            }
+            if (quantity != Integer.valueOf(s1)) {
+                quantity = Integer.valueOf(s1);
+                //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
+                printTitle();
+                GetDataTask holeDatenTask = new GetDataTask();
+                holeDatenTask.execute("PBLT");
+            }
+            check_for_add();*/
+            Toast.makeText(this, "Ich habe fertig!", Toast.LENGTH_LONG).show();
 
         }
-
     }
     public void dialog_finish() {
         AlertDialog.Builder alertDialogBuilder =  new AlertDialog.Builder(
@@ -398,7 +428,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         // current activity
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                         //if(wl.isHeld())wl.release();
-                        String tlt=" ";
+                        String tlt="";
                         //Toast.makeText(ExerciseActivity.this, String.valueOf(wore)+"|"+ String.valueOf(number)+"|"+ String.valueOf(TextName)+"|"+ String.valueOf(type)+"|"+ String.valueOf(quantity)+"|"+ String.valueOf(timestampStart)+"|"+ String.valueOf(timestampCurr), Toast.LENGTH_LONG).show();
                         type=3;
                         dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
