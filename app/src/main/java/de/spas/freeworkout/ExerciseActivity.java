@@ -104,7 +104,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wl =  pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My WakeLock");
-
+        if(!wl.isHeld())wl.acquire();
         dataSource = new WorkoutMemoDataSource(this);
 
         try {
@@ -433,7 +433,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
                         // if this button is clicked, close
                         // current activity
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                        //if(wl.isHeld())wl.release();
+                        if(wl.isHeld())wl.release();
                         String tlt="";
                         //Toast.makeText(ExerciseActivity.this, String.valueOf(wore)+"|"+ String.valueOf(number)+"|"+ String.valueOf(TextName)+"|"+ String.valueOf(type)+"|"+ String.valueOf(quantity)+"|"+ String.valueOf(timestampStart)+"|"+ String.valueOf(timestampCurr), Toast.LENGTH_LONG).show();
                         type=3;
@@ -514,7 +514,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         super.onDestroy();
         handler.removeCallbacks(runnable);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        //if(wl.isHeld())wl.release();
+        if(wl.isHeld())wl.release();
     }
     public String timeFormat(int sec) {
         // Gibt Sekunden als hh:mm:ss aus
