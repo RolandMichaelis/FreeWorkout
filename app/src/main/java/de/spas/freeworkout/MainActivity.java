@@ -110,6 +110,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     Boolean ch_star;
     int ch_checked_day;
     int ch_checked_pos;
+    private List<Object> spListArray = new ArrayList<Object>();
 
 
 /*
@@ -634,6 +635,57 @@ Binärwerte für Skills:
     }
     public void WorkoutCalc(){
 
+        SharedPreferences sp1 = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ee = sp1.edit();
+        Toast.makeText(this, "size WorkoutListArray1 "+String.valueOf(WorkoutListArray1.size()), Toast.LENGTH_LONG).show();
+        for(int day=1; day<days+1; day++) {
+
+            switch (day) {
+                case (1): {
+                    for(int i=0;i<WorkoutListArray1.size();i++){
+                        ee.remove("completedWorkouts"+day+i);
+                    }
+                    break;
+                }
+                case (2): {
+                    for(int i=0;i<WorkoutListArray2.size();i++){
+                        ee.remove("completedWorkouts"+day+i);
+                    }
+                    break;
+                }
+                case (3): {
+                    for(int i=0;i<WorkoutListArray3.size();i++){
+                        ee.remove("completedWorkouts"+day+i);
+                    }
+                    break;
+                }
+                case (4): {
+                    for(int i=0;i<WorkoutListArray4.size();i++){
+                        ee.remove("completedWorkouts"+day+i);
+                    }
+                    break;
+                }
+                case (5): {
+                    for(int i=0;i<WorkoutListArray5.size();i++){
+                        ee.remove("completedWorkouts"+day+i);
+                    }
+                    break;
+                }
+                case (6): {
+                    for(int i=0;i<WorkoutListArray6.size();i++){
+                        ee.remove("completedWorkouts"+day+i);
+                    }
+                    break;
+                }
+                case (7): {
+                    for(int i=0;i<WorkoutListArray7.size();i++){
+                        ee.remove("completedWorkouts"+day+i);
+                    }
+                    break;
+                }
+            }
+        }
+        ee.apply();
         WorkoutListArray1.clear();
         WorkoutListArray2.clear();
         WorkoutListArray3.clear();
