@@ -20,7 +20,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
 
     private SQLiteDatabase database;
     private WorkoutMemoDbHelper dbHelper;
-
+// EXTIMES: Zeitdauer (msec) der einzelnen Exercises als String
     private String[] columns = {
             WorkoutMemoDbHelper.COLUMN_ID,
             WorkoutMemoDbHelper.COLUMN_WORE,
