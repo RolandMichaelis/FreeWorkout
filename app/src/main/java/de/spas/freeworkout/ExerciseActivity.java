@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,7 +34,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 
-public class ExerciseActivity extends Activity implements View.OnClickListener, TextToSpeech.OnInitListener {
+public class ExerciseActivity extends Activity implements View.OnClickListener {
     private de.spas.freeworkout.specialPack specialPack;
     private de.spas.freeworkout.workoutPack workoutPack;
     private de.spas.freeworkout.exercisePack exercisePack;
@@ -54,7 +55,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     private int countup = 0;
     private int countdown = 5;
     private String timeString;
-    private TextToSpeech tts;
+    //private TextToSpeech tts;
     private int top;
     private int left;
     private int wo_pointer = 0; // Workout Zeiger
@@ -96,6 +97,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
     private int positionOfQuantity;
     private Spinner spSpinnerType;
     private Boolean showPlus=false;
+    private MediaPlayer mpMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,23 +348,41 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
 
     private void doSpeech(int ctn) {
         if(ctn==5) {
-            tts.speak(getString(R.string.speak5), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.five);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak5), TextToSpeech.QUEUE_FLUSH, null);
         } else  if(ctn==4) {
-            tts.speak(getString(R.string.speak4), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.four);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak4), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==3) {
-            tts.speak(getString(R.string.speak3), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.three);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak3), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==2) {
-            tts.speak(getString(R.string.speak2), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.two);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak2), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==1) {
-            tts.speak(getString(R.string.speak1), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.one);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak1), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==0) {
-            tts.speak(getString(R.string.speak0), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.go);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak0), TextToSpeech.QUEUE_FLUSH, null);
         }
     }
-    @Override
+/*    @Override
     public void onInit(int i) {
-        tts.setLanguage(Locale.ENGLISH);
-    }
+        //tts.setLanguage(Locale.ENGLISH);
+    }*/
 
 
     @Override
@@ -374,7 +394,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
             handler.postDelayed(runnable, 1000);
             hideView(R.id.button_wo_start);
             hideView(R.id.edit_spinner_quantity);
-            tts = new TextToSpeech(ExerciseActivity.this,ExerciseActivity.this);
+            //tts = new TextToSpeech(ExerciseActivity.this,ExerciseActivity.this);
         }
         if(view.getId()==R.id.container) {
             //Ende Exercise nur wenn countup schon läuft:
@@ -515,6 +535,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         handler.removeCallbacks(runnable);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(wl.isHeld())wl.release();
+        cleanSounds();
     }
     public String timeFormat(int sec) {
         // Gibt Sekunden als hh:mm:ss aus
@@ -545,5 +566,19 @@ public class ExerciseActivity extends Activity implements View.OnClickListener, 
         }
         this.setTitle(xhalf+q+xmeter+TextName);
 
+    }
+    private void cleanSounds(){
+        if(mpMusic!=null) {
+            mpMusic.stop();
+            try {
+                mpMusic.reset();
+                mpMusic.prepare();
+                mpMusic.stop();
+                mpMusic.release();
+                mpMusic=null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

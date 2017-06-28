@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -37,7 +38,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 
-public class WorkoutActivity extends Activity implements View.OnClickListener, TextToSpeech.OnInitListener {
+//public class WorkoutActivity extends Activity implements View.OnClickListener, TextToSpeech.OnInitListener {
+public class WorkoutActivity extends Activity implements View.OnClickListener {
     private de.spas.freeworkout.workoutPack workoutPack;
     private de.spas.freeworkout.specialPack specialPack;
     private de.spas.freeworkout.exercisePack exercisePack;
@@ -57,7 +59,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
     private int countup = 0;
     private int countdown = 5;
     private String timeString;
-    private TextToSpeech tts;
+//    private TextToSpeech tts;
     private int top;
     private int left;
     private int wo_pointer = 0; // Workout Zeiger
@@ -95,6 +97,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
     private int counter_rounds_pre_add;
     private int checked_day; //Vom Coach übergebener Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
     private int checked_pos; //Vom Coach übergebene Position am Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
+    private MediaPlayer mpMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -724,7 +727,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     handler.postDelayed(runnable, 1000);
                     hideView(R.id.button_wo_start);
-                    tts = new TextToSpeech(WorkoutActivity.this,WorkoutActivity.this);
+                    //tts = new TextToSpeech(WorkoutActivity.this,WorkoutActivity.this);
                 }
                 if(view.getId()==R.id.button_wo_back) {
                     //Toast.makeText(this, "button_wo_cancel", Toast.LENGTH_LONG).show();
@@ -1173,23 +1176,41 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
 
     private void doSpeech(int ctn) {
         if(ctn==5) {
-            tts.speak(getString(R.string.speak5), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.five);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak5), TextToSpeech.QUEUE_FLUSH, null);
         } else  if(ctn==4) {
-            tts.speak(getString(R.string.speak4), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.four);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak4), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==3) {
-            tts.speak(getString(R.string.speak3), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.three);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak3), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==2) {
-            tts.speak(getString(R.string.speak2), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.two);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak2), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==1) {
-            tts.speak(getString(R.string.speak1), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.one);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak1), TextToSpeech.QUEUE_FLUSH, null);
         } else if(ctn==0) {
-            tts.speak(getString(R.string.speak0), TextToSpeech.QUEUE_FLUSH, null);
+            cleanSounds();
+            mpMusic = MediaPlayer.create(this, R.raw.go);
+            mpMusic.start();
+            //tts.speak(getString(R.string.speak0), TextToSpeech.QUEUE_FLUSH, null);
         }
     }
-    @Override
+/*    @Override
     public void onInit(int i) {
         tts.setLanguage(Locale.ENGLISH);
-    }
+    }*/
 
     private Runnable runnable = new Runnable() {
         @Override
@@ -1218,6 +1239,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         handler.removeCallbacks(runnable);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(wl.isHeld())wl.release();
+        cleanSounds();
    }
 
     /*    @Override
@@ -1485,6 +1507,20 @@ public class WorkoutActivity extends Activity implements View.OnClickListener, T
         if(timeHours>0) s=String.valueOf(timeHours)+":"+String.format("%02d",timeMinutes)+":"+String.format("%02d",timeSeconds);
         else s=String.format("%02d",timeMinutes)+":"+String.format("%02d",timeSeconds);
         return s;
+    }
+    private void cleanSounds(){
+        if(mpMusic!=null) {
+            mpMusic.stop();
+            try {
+                mpMusic.reset();
+                mpMusic.prepare();
+                mpMusic.stop();
+                mpMusic.release();
+                mpMusic=null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
