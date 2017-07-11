@@ -3,13 +3,18 @@ package de.spas.freeworkout;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -32,8 +37,20 @@ import android.widget.Toast;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +58,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import tools.BaseGameActivity;
 
@@ -184,8 +205,11 @@ Binärwerte für Skills:
 
         for(int i = 0; i < 10; i++) JTextfield arrayName[i] = new JTextField(15);;*/
 
+        checkForLogin();
+        updateData();
         checkForExtraText();
         printWorkout();
+
 
         // Testbereich Anfang
 
@@ -210,6 +234,223 @@ Binärwerte für Skills:
             printWorkout();
         }
     }
+    private void checkForLogin(){
+        // authCode vom Server erhalten nach erfolgreichem Login
+        //lastAuthDatestamp = hinterlegter datestamp nach letztem erfolgreichem Login
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        long authCode = sp.getLong("authCode", 0);
+        if(authCode!=0L){
+        }
+        else{
+            if(isConnectingToInternet(MainActivity.this)) {
+                //ToDo: hier dann AuthCode auf dem Server checken wenn lastAuthDatestamp älter als 1h
+                Toast.makeText(getApplicationContext(),"internet is available",Toast.LENGTH_LONG).show();
+            }
+            else {
+                //ToDo: hier dann lastAuthDatestamp check (4 weeks)
+                Toast.makeText(getApplicationContext(),"internet is not available",Toast.LENGTH_LONG).show();
+                long lastAuthDatestamp = sp.getLong("lastAuthDatestamp", 0);
+            }
+
+        }
+
+    }
+
+   public void updateData() {
+        HoleDatenTask holeDatenTask = new HoleDatenTask();
+        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String prefAktienlisteKey = getString(R.string.preference_aktienliste_key);
+        String prefAktienlisteDefault = getString(R.string.preference_aktienliste_default);
+        String aktienliste = sPrefs.getString(prefAktienlisteKey, prefAktienlisteDefault);
+        new HoleDatenTask().execute(aktienliste);
+    }
+    public class HoleDatenTask extends AsyncTask<String, Integer, String[]> {
+
+        private final String LOG_TAG = HoleDatenTask.class.getSimpleName();
+
+        private String[] leseXmlAktiendatenAus(String xmlString) {
+
+        /*    Document doc;
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            try {
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                InputSource is = new InputSource();
+                is.setCharacterStream(new StringReader(xmlString));
+                doc = db.parse(is);
+            } catch (ParserConfigurationException e) {
+                Log.e(LOG_TAG,"Error: " + e.getMessage());
+                return null;
+            } catch (SAXException e) {
+                Log.e(LOG_TAG,"Error: " + e.getMessage());
+                return null;
+            } catch (IOException e) {
+                Log.e(LOG_TAG,"Error: " + e.getMessage());
+                return null;
+            }
+
+            Element xmlAktiendaten = doc.getDocumentElement();
+            NodeList aktienListe = xmlAktiendaten.getElementsByTagName("row");
+
+            int anzahlAktien = aktienListe.getLength();
+            int anzahlAktienParameter = aktienListe.item(0).getChildNodes().getLength();*/
+            int anzahlAktien = 1;
+
+            String[] ausgabeArray = new String[anzahlAktien];
+            /*String[][] alleAktienDatenArray = new String[anzahlAktien][anzahlAktienParameter];
+
+            Node aktienParameter;
+            String aktienParameterWert;
+            for( int i=0; i<anzahlAktien; i++ ) {
+                NodeList aktienParameterListe = aktienListe.item(i).getChildNodes();
+
+                for (int j=0; j<anzahlAktienParameter; j++) {
+                    aktienParameter = aktienParameterListe.item(j);
+                    aktienParameterWert = aktienParameter.getFirstChild().getNodeValue();
+                    alleAktienDatenArray[i][j] = aktienParameterWert;
+                }
+
+                ausgabeArray[i]  = alleAktienDatenArray[i][0];                // symbol
+                ausgabeArray[i] += ": " + alleAktienDatenArray[i][4];         // price
+                ausgabeArray[i] += " " + alleAktienDatenArray[i][2];          // currency
+                ausgabeArray[i] += " (" + alleAktienDatenArray[i][8] + ")";   // percent
+                ausgabeArray[i] += " - [" + alleAktienDatenArray[i][1] + "]"; // name
+
+                Log.v(LOG_TAG,"XML Output:" + ausgabeArray[i]);
+            }*/
+            ausgabeArray[0] = xmlString;
+            return ausgabeArray;
+        }
+
+        @Override
+        protected String[] doInBackground(String... strings) {
+
+            if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
+                return null;
+            }
+
+            // Wir konstruieren die Anfrage-URL für die YQL Platform
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/test.php?method=allEntrys&authkey=test321&output=Heureka";
+            /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
+            final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
+            final String DIAGNOSTICS = "'&diagnostics=true";
+
+            String symbols = strings[0];
+            symbols = symbols.replace("^", "%255E");
+            String parameters = "snc4xl1d1t1c1p2ohgv";
+            String columns = "symbol,name,currency,exchange,price,date,time," +
+                    "change,percent,open,high,low,volume";*/
+
+            String anfrageString = URL_PARAMETER;
+            /*anfrageString += "?q=" + SELECTOR;
+            anfrageString += "url='" + DOWNLOAD_URL;
+            anfrageString += "?s=" + symbols;
+            anfrageString += "%26f=" + parameters;
+            anfrageString += "%26e=.csv'%20and%20columns='" + columns;
+            anfrageString += DIAGNOSTICS;
+
+            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + anfrageString);*/
+
+            // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
+            HttpURLConnection httpURLConnection = null;
+            BufferedReader bufferedReader = null;
+
+            // In diesen String speichern wir die Aktiendaten im XML-Format
+            String aktiendatenXmlString = "";
+
+            try {
+                URL url = new URL(anfrageString);
+
+                // Aufbau der Verbindung zu YQL Platform
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                if (inputStream == null) { // Keinen Aktiendaten-Stream erhalten, daher Abbruch
+                    return null;
+                }
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    aktiendatenXmlString += line + "\n";
+                }
+                if (aktiendatenXmlString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
+                    return null;
+                }
+                Log.v(LOG_TAG, "Aktiendaten XML-String: " + aktiendatenXmlString);
+                publishProgress(1, 1);
+
+            } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
+                Log.e(LOG_TAG, "Error ", e);
+                return null;
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+
+            // Hier parsen wir die XML Aktiendaten
+
+            return leseXmlAktiendatenAus(aktiendatenXmlString);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+            // Auf dem Bildschirm geben wir eine Statusmeldung aus, immer wenn
+            // publishProgress(int...) in doInBackground(String...) aufgerufen wird
+            Toast.makeText(MainActivity.this, values[0] + " von " + values[1] + " geladen",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+
+            // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
+            // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
+            // der StringArray gefüllt mit Beispieldaten
+            /*if (strings != null) {
+                mAktienlisteAdapter.clear();
+                for (String aktienString : strings) {
+                    mAktienlisteAdapter.add(aktienString);
+                }
+            }*/
+
+            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
+            Toast.makeText(MainActivity.this, "Aktiendaten vollständig geladen!",
+                    Toast.LENGTH_SHORT).show();
+
+            //mSwipeRefreshLayout.setRefreshing(false);
+           // MainActivity.setTitle(aktiendatenXmlString);
+        }
+    }
+
+    public static boolean isConnectingToInternet(Context context)
+    {
+        ConnectivityManager connectivity =
+                (ConnectivityManager) context.getSystemService(
+                        Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+        }
+        return false;
+    }
+
     private void exCheckForExtraText(String s){
         //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
         ch_wore = Integer.valueOf(s.substring(0, 1)); //wore = Workout oder Exercise
