@@ -132,6 +132,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     int ch_checked_day;
     int ch_checked_pos;
     private List<Object> spListArray = new ArrayList<Object>();
+    private String authCode;
+    private Long lastAuthDatestamp=0L;
+    private boolean coachUser;
 
 
 /*
@@ -206,9 +209,8 @@ Binärwerte für Skills:
         for(int i = 0; i < 10; i++) JTextfield arrayName[i] = new JTextField(15);;*/
 
         checkForLogin();
-        updateData();
-        checkForExtraText();
-        printWorkout();
+        //updateData();
+
 
 
         // Testbereich Anfang
@@ -237,25 +239,35 @@ Binärwerte für Skills:
     private void checkForLogin(){
         // authCode vom Server erhalten nach erfolgreichem Login
         //lastAuthDatestamp = hinterlegter datestamp nach letztem erfolgreichem Login
-        SharedPreferences sp = getPreferences(MODE_PRIVATE);
-        long authCode = sp.getLong("authCode", 0);
-        if(authCode!=0L){
+        //SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        if(authCode==""){
+            //ToDo: Login oder Registrierung
         }
         else{
             if(isConnectingToInternet(MainActivity.this)) {
                 //ToDo: hier dann AuthCode auf dem Server checken wenn lastAuthDatestamp älter als 1h
-                Toast.makeText(getApplicationContext(),"internet is available",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),"internet is available "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
+                if(lastAuthDatestamp>Long.parseLong(getDateAsString())-360000L){
+                    checkForExtraText();
+                    printWorkout();
+                }
+                else {
+                    //Toast.makeText(getApplicationContext(),"Neu einloggen "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
+                    //Prüfung des AuthCodes auf dem Server
+                    updateAuthCode();
+                }
             }
             else {
                 //ToDo: hier dann lastAuthDatestamp check (4 weeks)
                 Toast.makeText(getApplicationContext(),"internet is not available",Toast.LENGTH_LONG).show();
-                long lastAuthDatestamp = sp.getLong("lastAuthDatestamp", 0);
             }
 
         }
 
     }
-
+    public void updateAuthCode() {
+        //ToDo: hier dann AuthCode check
+    }
    public void updateData() {
         HoleDatenTask holeDatenTask = new HoleDatenTask();
         SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
@@ -429,7 +441,7 @@ Binärwerte für Skills:
                     Toast.LENGTH_SHORT).show();
 
             //mSwipeRefreshLayout.setRefreshing(false);
-           // MainActivity.setTitle(aktiendatenXmlString);
+            MainActivity.this.setTitle(strings[0]);
         }
     }
 
@@ -1806,6 +1818,10 @@ Binärwerte für Skills:
     private void loadDate() {
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
         datestamp = sp.getInt("datestamp", 0);
+        authCode = sp.getString("authcode", "");
+        coachUser = sp.getBoolean("coachuser", false);
+
+        lastAuthDatestamp = sp.getLong("lastAuthDatestamp", 0L);
         //rndType1 = sp.getInt("rndType1", 0);
         //wo_int1 = sp.getInt("wo_int1", 0);
         //rndx1 = sp.getInt("rndx1", 0);
