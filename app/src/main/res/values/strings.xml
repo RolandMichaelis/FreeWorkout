@@ -2,7 +2,7 @@
     <string name="app_name">FreeWorkout 0.13 Count Sounds</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_password">Passwort</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -14,6 +14,7 @@
     <string name="menu_history">Historie</string>
     <string name="menu_workouts">Workouts</string>
     <string name="menu_exercises">Exercises</string>
+    <string name="dialog_title_login">Anmelden oder neu registrieren</string>
     <string name="dialog_skills">Skills:</string>
     <string name="dialog_type">Fokus:</string>
     <string name="dialog_days">Tage/Woche:</string>
@@ -25,6 +26,8 @@
     <string name="dialog_button_wo_continue">Weiter</string>
     <string name="dialog_button_wo_add">+</string>
     <string name="dialog_button_wo_back">go back</string>
+    <string name="dialog_button_sign_in">Anmmelden</string>
+    <string name="dialog_button_register">Neu registrieren</string>
     <string name="text_wo_cancel">Bist Du sicher, dass Du Dein Training abbrechen möchtest?</string>
     <string name="text_wo_add">Du möchtest dich steigern und das Workout noch ein Mal hinzufügen? Tu dies nur, wenn Du sicher bist, dass du es ohne Bedenken schaffst!</string>
     <string name="text_wo_finish">Hast du das Workout versehentlich beendet? Dann drücke auf ZURÜCK. Du möchtest auf 2x erhöhen? Dann drücke auf +. Drücke zum Beenden deines Workouts auf OK.</string>

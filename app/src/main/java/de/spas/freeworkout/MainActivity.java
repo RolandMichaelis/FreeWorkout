@@ -1,6 +1,5 @@
 package de.spas.freeworkout;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,7 +14,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -37,18 +35,11 @@ import android.widget.Toast;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
@@ -57,13 +48,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import tools.BaseGameActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -240,8 +224,9 @@ Binärwerte für Skills:
         // authCode vom Server erhalten nach erfolgreichem Login
         //lastAuthDatestamp = hinterlegter datestamp nach letztem erfolgreichem Login
         //SharedPreferences sp = getPreferences(MODE_PRIVATE);
-        if(authCode==""){
+        if(authCode.equals("")){
             //ToDo: Login oder Registrierung
+            dialog_login();
         }
         else{
             if(isConnectingToInternet(MainActivity.this)) {
@@ -265,10 +250,18 @@ Binärwerte für Skills:
         }
 
     }
+/*    public void serverCheckLogin() {
+        GetDataTask getDataTask = new GetDataTask();
+
+        public class GetDataTask extends AsyncTask<String, Integer, String[]> {
+                    new GetDataTask().execute(aktienliste);
+
+        }
+    }*/
     public void updateAuthCode() {
         //ToDo: hier dann AuthCode check
     }
-   public void updateData() {
+    public void updateData() {
         HoleDatenTask holeDatenTask = new HoleDatenTask();
         SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         String prefAktienlisteKey = getString(R.string.preference_aktienliste_key);
@@ -1976,6 +1969,47 @@ Binärwerte für Skills:
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void dialog_login() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(
+                new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        View dialogsViewNL = inflater.inflate(R.layout.dialog_login, null);
+        builder.setView(dialogsViewNL)
+                .setTitle(R.string.dialog_title_login)
+                .setPositiveButton(R.string.dialog_button_sign_in, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //dialog.dismiss();
+                        //serverCheckLogin();
+                        dialog.cancel();
+                    }
+                })
+
+                .setNeutralButton(R.string.dialog_button_register, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        generalList();
+                        WorkoutCalc();
+                        saveDate();
+                        loadDate();
+                        printWorkout();
+                        dialog.cancel();
+                    }
+                });
+
+
+
+
+        // create alert dialog
+        AlertDialog alertDialog = builder.create();
+
+
+
+        // show it
+        alertDialog.show();
+
     }
     public void dialog_settings() {
         android.app.AlertDialog.Builder builder =  new android.app.AlertDialog.Builder(
