@@ -251,18 +251,15 @@ Binärwerte für Skills:
         }
 
     }
-    public void serverCheckLogin(EditText email, EditText password) {
+    public void serverCheckRegister(EditText email, EditText password) {
         String emailString = email.getText().toString();
         String passwordString = password.getText().toString();
+        String[] emailPass ={emailString,passwordString};
 
             HoleDatenTask holeDatenTask = new HoleDatenTask();
-            SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-            String prefAktienlisteKey = getString(R.string.preference_aktienliste_key);
-            String prefAktienlisteDefault = getString(R.string.preference_aktienliste_default);
-            String aktienliste = sPrefs.getString(prefAktienlisteKey, prefAktienlisteDefault);
-            new HoleDatenTask().execute(aktienliste);
+            new HoleDatenTask().execute(emailPass);
         }
-        public class HoleDatenTask extends AsyncTask<String, Integer, String[]> {
+        public class HoleDatenTask extends AsyncTask<String[], Void, String> {
 
             private final String LOG_TAG = HoleDatenTask.class.getSimpleName();
 
@@ -320,14 +317,14 @@ Binärwerte für Skills:
             }
 
             @Override
-            protected String[] doInBackground(String... strings) {
+            protected String doInBackground(String[]... strings) {
 
                 if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
                     return null;
                 }
 
                 // Wir konstruieren die Anfrage-URL für die YQL Platform
-                final String URL_PARAMETER = "https://www.myphysiodoc.com/test.php?method=allEntrys&authkey=test321&output=Heureka";
+                final String URL_PARAMETER = "https://www.myphysiodoc.com/login.php?method=allEntrys&authkey=test321&email="+strings[0]+"&password="+strings[1];
             /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
             final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
             final String DIAGNOSTICS = "'&diagnostics=true";
@@ -358,12 +355,12 @@ Binärwerte für Skills:
                 try {
                     URL url = new URL(anfrageString);
 
-                    // Aufbau der Verbindung zu YQL Platform
+                    // Aufbau der Verbindung zu Server
                     httpURLConnection = (HttpURLConnection) url.openConnection();
 
                     InputStream inputStream = httpURLConnection.getInputStream();
 
-                    if (inputStream == null) { // Keinen Aktiendaten-Stream erhalten, daher Abbruch
+                    if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
                         return null;
                     }
                     bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -376,7 +373,7 @@ Binärwerte für Skills:
                         return null;
                     }
                     Log.v(LOG_TAG, "Aktiendaten XML-String: " + aktiendatenXmlString);
-                    publishProgress(1, 1);
+                    //publishProgress(1, 1);
 
                 } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
                     Log.e(LOG_TAG, "Error ", e);
@@ -396,10 +393,10 @@ Binärwerte für Skills:
 
                 // Hier parsen wir die XML Aktiendaten
 
-                return leseXmlAktiendatenAus(aktiendatenXmlString);
+                return aktiendatenXmlString;
             }
 
-            @Override
+/*            @Override
             protected void onProgressUpdate(Integer... values) {
 
                 // Auf dem Bildschirm geben wir eine Statusmeldung aus, immer wenn
@@ -408,9 +405,9 @@ Binärwerte für Skills:
                         Toast.LENGTH_SHORT).show();
 
             }
-
+*/
             @Override
-            protected void onPostExecute(String[] strings) {
+            protected void onPostExecute(String strings) {
 
                 // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
                 // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
@@ -427,7 +424,7 @@ Binärwerte für Skills:
                         Toast.LENGTH_SHORT).show();
 
                 //mSwipeRefreshLayout.setRefreshing(false);
-                MainActivity.this.setTitle(strings[0]);
+                MainActivity.this.setTitle(strings);
             }
         }
 
@@ -2167,7 +2164,7 @@ Binärwerte für Skills:
                         final EditText editTextPassword = (EditText) findViewById(R.id.password);
 
                         if(!editTextEmail.equals("") && !editTextPassword.equals("")){
-                            serverCheckLogin(editTextEmail,editTextPassword);
+                            serverCheckRegister(editTextEmail,editTextPassword);
                         }
 /*                        generalList();
                         WorkoutCalc();
