@@ -14,18 +14,24 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.preference.PreferenceManager;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -120,7 +126,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private String authCode;
     private Long lastAuthDatestamp=0L;
     private boolean coachUser;
-
+    private String editTextEmail;
+    private String editTextPassword;
 
 /*
 Binärwerte für Skills:
@@ -251,81 +258,31 @@ Binärwerte für Skills:
         }
 
     }
-    public void serverCheckRegister(EditText email, EditText password) {
-        String emailString = email.getText().toString();
-        String passwordString = password.getText().toString();
-        String[] emailPass ={emailString,passwordString};
+    public void serverCheckRegister(String email, String password) {
 
-            HoleDatenTask holeDatenTask = new HoleDatenTask();
-            new HoleDatenTask().execute(emailPass);
-        }
-        public class HoleDatenTask extends AsyncTask<String[], Void, String> {
+        String[] emailPass ={email,password};
+        //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
 
-            private final String LOG_TAG = HoleDatenTask.class.getSimpleName();
+        HoleDatenTask holeDatenTask = new HoleDatenTask();
+        new HoleDatenTask().execute(emailPass);
+    }
+    public class HoleDatenTask extends AsyncTask<String[], Void, String> {
 
-            private String[] leseXmlAktiendatenAus(String xmlString) {
+        private final String LOG_TAG = HoleDatenTask.class.getSimpleName();
 
-        /*    Document doc;
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            try {
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                InputSource is = new InputSource();
-                is.setCharacterStream(new StringReader(xmlString));
-                doc = db.parse(is);
-            } catch (ParserConfigurationException e) {
-                Log.e(LOG_TAG,"Error: " + e.getMessage());
-                return null;
-            } catch (SAXException e) {
-                Log.e(LOG_TAG,"Error: " + e.getMessage());
-                return null;
-            } catch (IOException e) {
-                Log.e(LOG_TAG,"Error: " + e.getMessage());
+
+        @Override
+        protected String doInBackground(String[]... strings) {
+
+            if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
                 return null;
             }
 
-            Element xmlAktiendaten = doc.getDocumentElement();
-            NodeList aktienListe = xmlAktiendaten.getElementsByTagName("row");
+            // Wir konstruieren die Anfrage-URL für die YQL Platform
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email="+strings[0]+"&password="+strings[1];
 
-            int anzahlAktien = aktienListe.getLength();
-            int anzahlAktienParameter = aktienListe.item(0).getChildNodes().getLength();*/
-                int anzahlAktien = 1;
-
-                String[] ausgabeArray = new String[anzahlAktien];
-            /*String[][] alleAktienDatenArray = new String[anzahlAktien][anzahlAktienParameter];
-
-            Node aktienParameter;
-            String aktienParameterWert;
-            for( int i=0; i<anzahlAktien; i++ ) {
-                NodeList aktienParameterListe = aktienListe.item(i).getChildNodes();
-
-                for (int j=0; j<anzahlAktienParameter; j++) {
-                    aktienParameter = aktienParameterListe.item(j);
-                    aktienParameterWert = aktienParameter.getFirstChild().getNodeValue();
-                    alleAktienDatenArray[i][j] = aktienParameterWert;
-                }
-
-                ausgabeArray[i]  = alleAktienDatenArray[i][0];                // symbol
-                ausgabeArray[i] += ": " + alleAktienDatenArray[i][4];         // price
-                ausgabeArray[i] += " " + alleAktienDatenArray[i][2];          // currency
-                ausgabeArray[i] += " (" + alleAktienDatenArray[i][8] + ")";   // percent
-                ausgabeArray[i] += " - [" + alleAktienDatenArray[i][1] + "]"; // name
-
-                Log.v(LOG_TAG,"XML Output:" + ausgabeArray[i]);
-            }*/
-                ausgabeArray[0] = xmlString;
-                return ausgabeArray;
-            }
-
-            @Override
-            protected String doInBackground(String[]... strings) {
-
-                if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
-                    return null;
-                }
-
-                // Wir konstruieren die Anfrage-URL für die YQL Platform
-                final String URL_PARAMETER = "https://www.myphysiodoc.com/login.php?method=allEntrys&authkey=test321&email="+strings[0]+"&password="+strings[1];
-            /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
+            //Toast.makeText(MainActivity.this, "doInBackground = "+ strings[0]+" "+ strings[1], Toast.LENGTH_LONG).show();
+                /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
             final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
             final String DIAGNOSTICS = "'&diagnostics=true";
 
@@ -335,7 +292,7 @@ Binärwerte für Skills:
             String columns = "symbol,name,currency,exchange,price,date,time," +
                     "change,percent,open,high,low,volume";*/
 
-                String anfrageString = URL_PARAMETER;
+            String anfrageString = URL_PARAMETER;
             /*anfrageString += "?q=" + SELECTOR;
             anfrageString += "url='" + DOWNLOAD_URL;
             anfrageString += "?s=" + symbols;
@@ -345,73 +302,63 @@ Binärwerte für Skills:
 
             Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + anfrageString);*/
 
-                // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
-                HttpURLConnection httpURLConnection = null;
-                BufferedReader bufferedReader = null;
+            // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
+            HttpURLConnection httpURLConnection = null;
+            BufferedReader bufferedReader = null;
 
-                // In diesen String speichern wir die Aktiendaten im XML-Format
-                String aktiendatenXmlString = "";
+            // In diesen String speichern wir die Aktiendaten im XML-Format
+            String aktiendatenXmlString = "";
 
-                try {
-                    URL url = new URL(anfrageString);
+            try {
+                URL url = new URL(anfrageString);
 
-                    // Aufbau der Verbindung zu Server
-                    httpURLConnection = (HttpURLConnection) url.openConnection();
+                // Aufbau der Verbindung zu Server
+                httpURLConnection = (HttpURLConnection) url.openConnection();
 
-                    InputStream inputStream = httpURLConnection.getInputStream();
+                InputStream inputStream = httpURLConnection.getInputStream();
 
-                    if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
-                        return null;
-                    }
-                    bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                    String line;
-
-                    while ((line = bufferedReader.readLine()) != null) {
-                        aktiendatenXmlString += line + "\n";
-                    }
-                    if (aktiendatenXmlString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
-                        return null;
-                    }
-                    Log.v(LOG_TAG, "Aktiendaten XML-String: " + aktiendatenXmlString);
-                    //publishProgress(1, 1);
-
-                } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
-                    Log.e(LOG_TAG, "Error ", e);
+                if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
                     return null;
-                } finally {
-                    if (httpURLConnection != null) {
-                        httpURLConnection.disconnect();
-                    }
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (final IOException e) {
-                            Log.e(LOG_TAG, "Error closing stream", e);
-                        }
+                }
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    aktiendatenXmlString += line + "\n";
+                }
+                if (aktiendatenXmlString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
+                    return null;
+                }
+                Log.v(LOG_TAG, "Aktiendaten XML-String: " + aktiendatenXmlString);
+                //publishProgress(1, 1);
+
+            } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
+                Log.e(LOG_TAG, "Error ", e);
+                return null;
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
                     }
                 }
-
-                // Hier parsen wir die XML Aktiendaten
-
-                return aktiendatenXmlString;
             }
 
-/*            @Override
-            protected void onProgressUpdate(Integer... values) {
+            // Hier parsen wir die XML Aktiendaten
 
-                // Auf dem Bildschirm geben wir eine Statusmeldung aus, immer wenn
-                // publishProgress(int...) in doInBackground(String...) aufgerufen wird
-                Toast.makeText(MainActivity.this, values[0] + " von " + values[1] + " geladen",
-                        Toast.LENGTH_SHORT).show();
+            return aktiendatenXmlString;
+        }
 
-            }
-*/
-            @Override
-            protected void onPostExecute(String strings) {
+        @Override
+        protected void onPostExecute(String strings) {
 
-                // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
-                // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
-                // der StringArray gefüllt mit Beispieldaten
+            // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
+            // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
+            // der StringArray gefüllt mit Beispieldaten
             /*if (strings != null) {
                 mAktienlisteAdapter.clear();
                 for (String aktienString : strings) {
@@ -419,14 +366,14 @@ Binärwerte für Skills:
                 }
             }*/
 
-                // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-                Toast.makeText(MainActivity.this, "Aktiendaten vollständig geladen!",
-                        Toast.LENGTH_SHORT).show();
+            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
+            Toast.makeText(MainActivity.this, "User registriert!",
+                    Toast.LENGTH_SHORT).show();
 
-                //mSwipeRefreshLayout.setRefreshing(false);
-                MainActivity.this.setTitle(strings);
-            }
+            //mSwipeRefreshLayout.setRefreshing(false);
+            MainActivity.this.setTitle(strings);
         }
+    }
 
     public void updateAuthCode() {
         //ToDo: hier dann AuthCode check
@@ -575,6 +522,7 @@ Binärwerte für Skills:
 
             return leseXmlAktiendatenAus(aktiendatenXmlString);
         }
+
 
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -2140,6 +2088,90 @@ Binärwerte für Skills:
         }
         return super.onOptionsItemSelected(item);
     }
+    public void dialog_loginzzz() {
+        View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(final View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // Must use message queue to show keyboard
+                    v.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            InputMethodManager inputMethodManager= (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputMethodManager.showSoftInput(v, 0);
+                        }
+                    });
+                }
+            }
+        };
+
+        final EditText editTextName = new EditText(this);
+        editTextName.setHint("Name");
+        editTextName.setFocusable(true);
+        editTextName.setClickable(true);
+        editTextName.setFocusableInTouchMode(true);
+        editTextName.setSelectAllOnFocus(true);
+        editTextName.setSingleLine(true);
+        editTextName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        editTextName.setOnFocusChangeListener(onFocusChangeListener);
+
+        final EditText editTextPassword = new EditText(this);
+        editTextPassword.setHint("Password");
+        editTextPassword.setFocusable(true);
+        editTextPassword.setClickable(true);
+        editTextPassword.setFocusableInTouchMode(true);
+        editTextPassword.setSelectAllOnFocus(true);
+        editTextPassword.setSingleLine(true);
+        editTextPassword.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        editTextPassword.setOnFocusChangeListener(onFocusChangeListener);
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.addView(editTextName);
+        linearLayout.addView(editTextPassword);
+
+        DialogInterface.OnClickListener alertDialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Toast.makeText(MainActivity.this, "Done = "+ editTextName.getText().toString(), Toast.LENGTH_LONG).show();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // Cancel button clicked
+                        break;
+                }
+            }
+        };
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogsViewLogin = inflater.inflate(R.layout.dialog_login, null);
+        final AlertDialog alertDialog = (new AlertDialog.Builder(this)).setMessage("Please enter name and password")
+                .setView(dialogsViewLogin)
+                .setPositiveButton("Done", alertDialogClickListener)
+                .setNegativeButton("Cancel", alertDialogClickListener)
+                .create();
+
+        editTextName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                editTextPassword.requestFocus(); // Press Return to focus next one
+                return false;
+            }
+        });
+        editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                // Press Return to invoke positive button on alertDialog.
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+                return false;
+            }
+        });
+
+        // Must set password mode after creating alert dialog.
+        editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        alertDialog.show();
+    }
     public void dialog_login() {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(
                 new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));
@@ -2147,8 +2179,10 @@ Binärwerte für Skills:
         LayoutInflater inflater = getLayoutInflater();
 
         View dialogsViewNL = inflater.inflate(R.layout.dialog_login, null);
-        builder.setView(dialogsViewNL)
-                .setTitle(R.string.dialog_title_login)
+        builder.setView(dialogsViewNL);
+        final EditText email = (EditText) dialogsViewNL.findViewById(R.id.email);
+        final EditText password = (EditText) dialogsViewNL.findViewById(R.id.password);
+        builder.setTitle(R.string.dialog_title_login)
                 .setPositiveButton(R.string.dialog_button_sign_in, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -2160,13 +2194,18 @@ Binärwerte für Skills:
 
                 .setNeutralButton(R.string.dialog_button_register, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        final EditText editTextEmail = (EditText) findViewById(R.id.email);
-                        final EditText editTextPassword = (EditText) findViewById(R.id.password);
+                       // EditText p = (EditText)findViewById(R.id.password);
+                        //EditText e = (EditText)findViewById(R.id.email);
+                        editTextEmail=email.getText().toString();
+                        editTextPassword=password.getText().toString();
+                        //Toast.makeText(MainActivity.this, "Done = "+ email.getText().toString()+" "+ password.getText().toString(), Toast.LENGTH_LONG).show();
 
                         if(!editTextEmail.equals("") && !editTextPassword.equals("")){
+                            //updateData();
                             serverCheckRegister(editTextEmail,editTextPassword);
+                            //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
                         }
-/*                        generalList();
+                        /*generalList();
                         WorkoutCalc();
                         saveDate();
                         loadDate();
@@ -2185,6 +2224,8 @@ Binärwerte für Skills:
 
         // show it
         alertDialog.show();
+
+
 
     }
     public void dialog_settings() {
