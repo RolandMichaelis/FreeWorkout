@@ -258,21 +258,35 @@ Binärwerte für Skills:
         }
 
     }
-    public void serverCheckRegister(String email, String password) {
+    public void serverLoginRegister(String email, String password) {
 
         String[] emailPass ={email,password};
-        //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
 
-        HoleDatenTask holeDatenTask = new HoleDatenTask();
-        new HoleDatenTask().execute(emailPass);
+        GetDatenTask getDatenTask = new GetDatenTask();
+        new GetDatenTask().execute(emailPass);
     }
-    public class HoleDatenTask extends AsyncTask<String[], Void, String> {
+    public class GetDatenTask extends AsyncTask<String, Void, String> {
 
-        private final String LOG_TAG = HoleDatenTask.class.getSimpleName();
+        private final String LOG_TAG = GetDatenTask.class.getSimpleName();
+
+        private String saveAuthCodeCustomID(String s){
+
+            int n = s.indexOf(":");
+
+            authCode = s.substring(0, n); //kompletter String bis :
+            int customID = Integer.valueOf(s.substring(n+1, s.length()));
+
+            SharedPreferences sp = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor e = sp.edit();
+            e.putInt("customID", customID);
+            e.putString("authCode", authCode);
+            e.commit();
 
 
+            return authCode;
+        }
         @Override
-        protected String doInBackground(String[]... strings) {
+        protected String doInBackground(String... strings) {
 
             if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
                 return null;
@@ -307,7 +321,7 @@ Binärwerte für Skills:
             BufferedReader bufferedReader = null;
 
             // In diesen String speichern wir die Aktiendaten im XML-Format
-            String aktiendatenXmlString = "";
+            String RegisterString = "";
 
             try {
                 URL url = new URL(anfrageString);
@@ -324,12 +338,12 @@ Binärwerte für Skills:
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
-                    aktiendatenXmlString += line + "\n";
+                    RegisterString += line ;
                 }
-                if (aktiendatenXmlString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
+                if (RegisterString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
                     return null;
                 }
-                Log.v(LOG_TAG, "Aktiendaten XML-String: " + aktiendatenXmlString);
+                Log.v(LOG_TAG, "Register-String: " + RegisterString);
                 //publishProgress(1, 1);
 
             } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
@@ -350,7 +364,7 @@ Binärwerte für Skills:
 
             // Hier parsen wir die XML Aktiendaten
 
-            return aktiendatenXmlString;
+            return saveAuthCodeCustomID(RegisterString);
         }
 
         @Override
@@ -371,20 +385,158 @@ Binärwerte für Skills:
                     Toast.LENGTH_SHORT).show();
 
             //mSwipeRefreshLayout.setRefreshing(false);
-            MainActivity.this.setTitle(strings);
+            SharedPreferences sp = getPreferences(MODE_PRIVATE);
+            int customID = sp.getInt("customID", 0);
+
+            MainActivity.this.setTitle(customID+"|"+strings);
+        }
+    }
+    public void serverCheckRegister(String email, String password) {
+
+        String[] emailPass ={email,password};
+        //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
+
+        HoleDatenTask holeDatenTask = new HoleDatenTask();
+        new HoleDatenTask().execute(emailPass);
+    }
+    public class HoleDatenTask extends AsyncTask<String, Void, String> {
+
+        private final String LOG_TAG = HoleDatenTask.class.getSimpleName();
+
+        private String saveAuthCodeCustomID(String s){
+
+            int n = s.indexOf(":");
+
+            authCode = s.substring(0, n); //kompletter String bis :
+            int customID = Integer.valueOf(s.substring(n+1, s.length()));
+
+            SharedPreferences sp = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor e = sp.edit();
+            e.putInt("customID", customID);
+            e.putString("authCode", authCode);
+            e.commit();
+
+
+            return authCode;
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+
+            if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
+                return null;
+            }
+
+            // Wir konstruieren die Anfrage-URL für die YQL Platform
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email="+strings[0]+"&password="+strings[1];
+
+            //Toast.makeText(MainActivity.this, "doInBackground = "+ strings[0]+" "+ strings[1], Toast.LENGTH_LONG).show();
+                /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
+            final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
+            final String DIAGNOSTICS = "'&diagnostics=true";
+
+            String symbols = strings[0];
+            symbols = symbols.replace("^", "%255E");
+            String parameters = "snc4xl1d1t1c1p2ohgv";
+            String columns = "symbol,name,currency,exchange,price,date,time," +
+                    "change,percent,open,high,low,volume";*/
+
+            String anfrageString = URL_PARAMETER;
+            /*anfrageString += "?q=" + SELECTOR;
+            anfrageString += "url='" + DOWNLOAD_URL;
+            anfrageString += "?s=" + symbols;
+            anfrageString += "%26f=" + parameters;
+            anfrageString += "%26e=.csv'%20and%20columns='" + columns;
+            anfrageString += DIAGNOSTICS;
+
+            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + anfrageString);*/
+
+            // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
+            HttpURLConnection httpURLConnection = null;
+            BufferedReader bufferedReader = null;
+
+            // In diesen String speichern wir die Aktiendaten im XML-Format
+            String RegisterString = "";
+
+            try {
+                URL url = new URL(anfrageString);
+
+                // Aufbau der Verbindung zu Server
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
+                    return null;
+                }
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    RegisterString += line ;
+                }
+                if (RegisterString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
+                    return null;
+                }
+                Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                //publishProgress(1, 1);
+
+            } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
+                Log.e(LOG_TAG, "Error ", e);
+                return null;
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+
+            // Hier parsen wir die XML Aktiendaten
+
+            return saveAuthCodeCustomID(RegisterString);
+        }
+
+        @Override
+        protected void onPostExecute(String strings) {
+
+            // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
+            // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
+            // der StringArray gefüllt mit Beispieldaten
+            /*if (strings != null) {
+                mAktienlisteAdapter.clear();
+                for (String aktienString : strings) {
+                    mAktienlisteAdapter.add(aktienString);
+                }
+            }*/
+
+            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
+            Toast.makeText(MainActivity.this, "User registriert!",
+                    Toast.LENGTH_SHORT).show();
+
+            //mSwipeRefreshLayout.setRefreshing(false);
+            SharedPreferences sp = getPreferences(MODE_PRIVATE);
+            int customID = sp.getInt("customID", 0);
+
+            MainActivity.this.setTitle(customID+"|"+strings);
         }
     }
 
     public void updateAuthCode() {
         //ToDo: hier dann AuthCode check
     }
-    public void updateData() {
+    public void updateData(String email, String password) {
+        String[] emailPass ={email,password};
         GetDataTask getDataTask = new GetDataTask();
-        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String prefAktienlisteKey = getString(R.string.preference_aktienliste_key);
-        String prefAktienlisteDefault = getString(R.string.preference_aktienliste_default);
-        String aktienliste = sPrefs.getString(prefAktienlisteKey, prefAktienlisteDefault);
-        new GetDataTask().execute(aktienliste);
+        //SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        //String prefAktienlisteKey = getString(R.string.preference_aktienliste_key);
+        //String prefAktienlisteDefault = getString(R.string.preference_aktienliste_default);
+        //String aktienliste = sPrefs.getString(prefAktienlisteKey, prefAktienlisteDefault);
+        new GetDataTask().execute(emailPass);
     }
     public class GetDataTask extends AsyncTask<String, Integer, String[]> {
 
@@ -449,9 +601,11 @@ Binärwerte für Skills:
             if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
                 return null;
             }
-
             // Wir konstruieren die Anfrage-URL für den Server
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/test.php?method=allEntrys&authkey=test321&output=Heureka";
+            //final String URL_PARAMETER = "https://www.myphysiodoc.com/test.php?method=allEntrys&authkey=test321&output=Heureka";
+            //final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email=test@urururur.de&password=test123";
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email="+strings[0]+"&password="+strings[1];
+
             /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
             final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
             final String DIAGNOSTICS = "'&diagnostics=true";
@@ -2088,91 +2242,7 @@ Binärwerte für Skills:
         }
         return super.onOptionsItemSelected(item);
     }
-    public void dialog_loginzzz() {
-        View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(final View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // Must use message queue to show keyboard
-                    v.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            InputMethodManager inputMethodManager= (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                            inputMethodManager.showSoftInput(v, 0);
-                        }
-                    });
-                }
-            }
-        };
-
-        final EditText editTextName = new EditText(this);
-        editTextName.setHint("Name");
-        editTextName.setFocusable(true);
-        editTextName.setClickable(true);
-        editTextName.setFocusableInTouchMode(true);
-        editTextName.setSelectAllOnFocus(true);
-        editTextName.setSingleLine(true);
-        editTextName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        editTextName.setOnFocusChangeListener(onFocusChangeListener);
-
-        final EditText editTextPassword = new EditText(this);
-        editTextPassword.setHint("Password");
-        editTextPassword.setFocusable(true);
-        editTextPassword.setClickable(true);
-        editTextPassword.setFocusableInTouchMode(true);
-        editTextPassword.setSelectAllOnFocus(true);
-        editTextPassword.setSingleLine(true);
-        editTextPassword.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        editTextPassword.setOnFocusChangeListener(onFocusChangeListener);
-
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.addView(editTextName);
-        linearLayout.addView(editTextPassword);
-
-        DialogInterface.OnClickListener alertDialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        Toast.makeText(MainActivity.this, "Done = "+ editTextName.getText().toString(), Toast.LENGTH_LONG).show();
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        // Cancel button clicked
-                        break;
-                }
-            }
-        };
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogsViewLogin = inflater.inflate(R.layout.dialog_login, null);
-        final AlertDialog alertDialog = (new AlertDialog.Builder(this)).setMessage("Please enter name and password")
-                .setView(dialogsViewLogin)
-                .setPositiveButton("Done", alertDialogClickListener)
-                .setNegativeButton("Cancel", alertDialogClickListener)
-                .create();
-
-        editTextName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                editTextPassword.requestFocus(); // Press Return to focus next one
-                return false;
-            }
-        });
-        editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                // Press Return to invoke positive button on alertDialog.
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
-                return false;
-            }
-        });
-
-        // Must set password mode after creating alert dialog.
-        editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        alertDialog.show();
-    }
-    public void dialog_login() {
+   public void dialog_login() {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(
                 new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));
 
@@ -2186,24 +2256,39 @@ Binärwerte für Skills:
                 .setPositiveButton(R.string.dialog_button_sign_in, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        //dialog.dismiss();
-                        //serverCheckLogin();
-                        dialog.cancel();
-                    }
-                })
-
-                .setNeutralButton(R.string.dialog_button_register, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                       // EditText p = (EditText)findViewById(R.id.password);
-                        //EditText e = (EditText)findViewById(R.id.email);
                         editTextEmail=email.getText().toString();
                         editTextPassword=password.getText().toString();
                         //Toast.makeText(MainActivity.this, "Done = "+ email.getText().toString()+" "+ password.getText().toString(), Toast.LENGTH_LONG).show();
 
                         if(!editTextEmail.equals("") && !editTextPassword.equals("")){
-                            //updateData();
+                            //updateData(editTextEmail,editTextPassword);
                             serverCheckRegister(editTextEmail,editTextPassword);
                             //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this, getString(R.string.error_sign_in), Toast.LENGTH_LONG).show();
+                            dialog_login();
+                        }
+                        //dialog.dismiss();
+                        //serverCheckLogin();
+                       // dialog.cancel();
+                    }
+                })
+
+                .setNeutralButton(R.string.dialog_button_register, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        editTextEmail=email.getText().toString();
+                        editTextPassword=password.getText().toString();
+                        //Toast.makeText(MainActivity.this, "Done = "+ email.getText().toString()+" "+ password.getText().toString(), Toast.LENGTH_LONG).show();
+
+                        if(!editTextEmail.equals("") && !editTextPassword.equals("")){
+                            //updateData(editTextEmail,editTextPassword);
+                            serverCheckRegister(editTextEmail,editTextPassword);
+                            //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this, getString(R.string.error_sign_in), Toast.LENGTH_LONG).show();
+                            dialog_login();
                         }
                         /*generalList();
                         WorkoutCalc();
