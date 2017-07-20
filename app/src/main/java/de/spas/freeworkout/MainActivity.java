@@ -55,6 +55,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -236,7 +238,8 @@ Binärwerte für Skills:
             //ToDo: Login oder Registrierung
             dialog_login();
         }
-        else{
+        else
+        {
             if(isConnectingToInternet(MainActivity.this)) {
                 //ToDo: hier dann AuthCode auf dem Server checken wenn lastAuthDatestamp älter als 1h
                 //Toast.makeText(getApplicationContext(),"internet is available "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
@@ -258,7 +261,7 @@ Binärwerte für Skills:
         }
 
     }
-    public void serverLoginRegister(String email, String password) {
+    public void serverCheckLogin(String email, String password) {
 
         String[] emailPass ={email,password};
 
@@ -293,28 +296,11 @@ Binärwerte für Skills:
             }
 
             // Wir konstruieren die Anfrage-URL für die YQL Platform
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email="+strings[0]+"&password="+strings[1];
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=loginNew&authkey=koBF89p0KGoO&email="+strings[0]+"&password="+strings[1];
 
-            //Toast.makeText(MainActivity.this, "doInBackground = "+ strings[0]+" "+ strings[1], Toast.LENGTH_LONG).show();
-                /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
-            final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
-            final String DIAGNOSTICS = "'&diagnostics=true";
 
-            String symbols = strings[0];
-            symbols = symbols.replace("^", "%255E");
-            String parameters = "snc4xl1d1t1c1p2ohgv";
-            String columns = "symbol,name,currency,exchange,price,date,time," +
-                    "change,percent,open,high,low,volume";*/
 
             String anfrageString = URL_PARAMETER;
-            /*anfrageString += "?q=" + SELECTOR;
-            anfrageString += "url='" + DOWNLOAD_URL;
-            anfrageString += "?s=" + symbols;
-            anfrageString += "%26f=" + parameters;
-            anfrageString += "%26e=.csv'%20and%20columns='" + columns;
-            anfrageString += DIAGNOSTICS;
-
-            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + anfrageString);*/
 
             // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
             HttpURLConnection httpURLConnection = null;
@@ -361,34 +347,32 @@ Binärwerte für Skills:
                     }
                 }
             }
-
-            // Hier parsen wir die XML Aktiendaten
-
-            return saveAuthCodeCustomID(RegisterString);
+            // Hier prüfen wir auf erhaltene Server-Fehlermeldungen
+            if(RegisterString.substring(0, 6).equals("Error:")){
+                return RegisterString;
+            }
+            else {
+                // Hier parsen wir die erhaltenen Daten
+                return saveAuthCodeCustomID(RegisterString);
+            }
         }
-
         @Override
         protected void onPostExecute(String strings) {
 
-            // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
-            // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
-            // der StringArray gefüllt mit Beispieldaten
-            /*if (strings != null) {
-                mAktienlisteAdapter.clear();
-                for (String aktienString : strings) {
-                    mAktienlisteAdapter.add(aktienString);
-                }
-            }*/
-
             // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-            Toast.makeText(MainActivity.this, "User registriert!",
-                    Toast.LENGTH_SHORT).show();
 
-            //mSwipeRefreshLayout.setRefreshing(false);
-            SharedPreferences sp = getPreferences(MODE_PRIVATE);
-            int customID = sp.getInt("customID", 0);
+            if(strings.substring(0, 6).equals("Error:")){
+                Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                dialog_login();
+            }
+            else {
+                Toast.makeText(MainActivity.this, "User angemeldet!",Toast.LENGTH_SHORT).show();
+                SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                int customID = sp.getInt("customID", 0);
 
-            MainActivity.this.setTitle(customID+"|"+strings);
+                MainActivity.this.setTitle(customID+"|"+strings);
+            }
+
         }
     }
     public void serverCheckRegister(String email, String password) {
@@ -427,7 +411,7 @@ Binärwerte für Skills:
             }
 
             // Wir konstruieren die Anfrage-URL für die YQL Platform
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email="+strings[0]+"&password="+strings[1];
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=koBF89p0KGoO&email="+strings[0]+"&password="+strings[1];
 
             //Toast.makeText(MainActivity.this, "doInBackground = "+ strings[0]+" "+ strings[1], Toast.LENGTH_LONG).show();
                 /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
@@ -496,33 +480,32 @@ Binärwerte für Skills:
                 }
             }
 
-            // Hier parsen wir die XML Aktiendaten
-
-            return saveAuthCodeCustomID(RegisterString);
+            // Hier prüfen wir auf erhaltene Server-Fehlermeldungen
+            if(RegisterString.substring(0, 6).equals("Error:")){
+                return RegisterString;
+            }
+            else {
+                // Hier parsen wir die erhaltenen Daten
+                return saveAuthCodeCustomID(RegisterString);
+            }
         }
 
         @Override
         protected void onPostExecute(String strings) {
 
-            // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
-            // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
-            // der StringArray gefüllt mit Beispieldaten
-            /*if (strings != null) {
-                mAktienlisteAdapter.clear();
-                for (String aktienString : strings) {
-                    mAktienlisteAdapter.add(aktienString);
-                }
-            }*/
 
             // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-            Toast.makeText(MainActivity.this, "User registriert!",
-                    Toast.LENGTH_SHORT).show();
+            if(strings.substring(0, 6).equals("Error:")){
+                Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                dialog_login();
+            }
+            else {
+                Toast.makeText(MainActivity.this, "User registriert!",Toast.LENGTH_SHORT).show();
+                SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                int customID = sp.getInt("customID", 0);
 
-            //mSwipeRefreshLayout.setRefreshing(false);
-            SharedPreferences sp = getPreferences(MODE_PRIVATE);
-            int customID = sp.getInt("customID", 0);
-
-            MainActivity.this.setTitle(customID+"|"+strings);
+                MainActivity.this.setTitle(customID+"|"+strings);
+            }
         }
     }
 
@@ -2083,7 +2066,7 @@ Binärwerte für Skills:
     private void loadDate() {
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
         datestamp = sp.getInt("datestamp", 0);
-        authCode = sp.getString("authcode", "");
+        authCode = sp.getString("authCode", "");
         coachUser = sp.getBoolean("coachuser", false);
 
         lastAuthDatestamp = sp.getLong("lastAuthDatestamp", 0L);
@@ -2256,13 +2239,13 @@ Binärwerte für Skills:
                 .setPositiveButton(R.string.dialog_button_sign_in, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        editTextEmail=email.getText().toString();
+                        editTextEmail=email.getText().toString().toLowerCase();
                         editTextPassword=password.getText().toString();
                         //Toast.makeText(MainActivity.this, "Done = "+ email.getText().toString()+" "+ password.getText().toString(), Toast.LENGTH_LONG).show();
 
                         if(!editTextEmail.equals("") && !editTextPassword.equals("")){
                             //updateData(editTextEmail,editTextPassword);
-                            serverCheckRegister(editTextEmail,editTextPassword);
+                            serverCheckLogin(editTextEmail,editTextPassword);
                             //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
                         }
                         else {
@@ -2277,11 +2260,13 @@ Binärwerte für Skills:
 
                 .setNeutralButton(R.string.dialog_button_register, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        editTextEmail=email.getText().toString();
+                        editTextEmail=email.getText().toString().toLowerCase();
                         editTextPassword=password.getText().toString();
-                        //Toast.makeText(MainActivity.this, "Done = "+ email.getText().toString()+" "+ password.getText().toString(), Toast.LENGTH_LONG).show();
-
-                        if(!editTextEmail.equals("") && !editTextPassword.equals("")){
+                        if(!isValidEmail(editTextEmail)) {
+                            Toast.makeText(MainActivity.this,editTextEmail+" is not a valid email!", Toast.LENGTH_LONG).show();
+                            dialog_login();
+                        }
+                        else if(!editTextEmail.equals("") && !editTextPassword.equals("")){
                             //updateData(editTextEmail,editTextPassword);
                             serverCheckRegister(editTextEmail,editTextPassword);
                             //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
@@ -2587,4 +2572,13 @@ Binärwerte für Skills:
         return s;
     }
 
+    public static boolean isValidEmail(String email){
+        boolean stricterFilter = true;
+        String stricterFilterString = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        String laxString = ".+@.+\\.[A-Za-z]{2}[A-Za-z]*";
+        String emailRegex = stricterFilter ? stricterFilterString : laxString;
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(emailRegex);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
+    }
 }
