@@ -24,4 +24,9 @@
         android:title="@string/menu_exercises"
         android:orderInCategory="100"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/menu_logout"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>

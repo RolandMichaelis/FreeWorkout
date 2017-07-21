@@ -130,6 +130,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private boolean coachUser;
     private String editTextEmail;
     private String editTextPassword;
+    private int customID;
+    private String authkey = "koBF89p0KGoO"; //auf Server ausweisen
+    private int lastUpdate;
 
 /*
 Binärwerte für Skills:
@@ -250,7 +253,7 @@ Binärwerte für Skills:
                 else {
                     //Toast.makeText(getApplicationContext(),"Neu einloggen "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
                     //Prüfung des AuthCodes auf dem Server
-                    updateAuthCode();
+                    updateCheckData();
                 }
             }
             else {
@@ -296,7 +299,7 @@ Binärwerte für Skills:
             }
 
             // Wir konstruieren die Anfrage-URL für die YQL Platform
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=loginNew&authkey=koBF89p0KGoO&email="+strings[0]+"&password="+strings[1];
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=loginNew&authkey="+authkey+"&email="+strings[0]+"&password="+strings[1];
 
 
 
@@ -411,7 +414,7 @@ Binärwerte für Skills:
             }
 
             // Wir konstruieren die Anfrage-URL für die YQL Platform
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=koBF89p0KGoO&email="+strings[0]+"&password="+strings[1];
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey="+authkey+"&email="+strings[0]+"&password="+strings[1];
 
             //Toast.makeText(MainActivity.this, "doInBackground = "+ strings[0]+" "+ strings[1], Toast.LENGTH_LONG).show();
                 /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
@@ -509,50 +512,21 @@ Binärwerte für Skills:
         }
     }
 
-    public void updateAuthCode() {
-        //ToDo: hier dann AuthCode check
-    }
-    public void updateData(String email, String password) {
-        String[] emailPass ={email,password};
+
+    public void updateCheckData() {
+        String[] emailPass ={authCode,authkey,String.valueOf(customID),String.valueOf(lastUpdate)};
         GetDataTask getDataTask = new GetDataTask();
-        //SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        //String prefAktienlisteKey = getString(R.string.preference_aktienliste_key);
-        //String prefAktienlisteDefault = getString(R.string.preference_aktienliste_default);
-        //String aktienliste = sPrefs.getString(prefAktienlisteKey, prefAktienlisteDefault);
         new GetDataTask().execute(emailPass);
     }
-    public class GetDataTask extends AsyncTask<String, Integer, String[]> {
+    public class GetDataTask extends AsyncTask<String, Integer, String> {
 
         private final String LOG_TAG = GetDataTask.class.getSimpleName();
 
-        private String[] leseXmlAktiendatenAus(String xmlString) {
+        private String readUpdate(String updateString) {
 
-        /*    Document doc;
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            try {
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                InputSource is = new InputSource();
-                is.setCharacterStream(new StringReader(xmlString));
-                doc = db.parse(is);
-            } catch (ParserConfigurationException e) {
-                Log.e(LOG_TAG,"Error: " + e.getMessage());
-                return null;
-            } catch (SAXException e) {
-                Log.e(LOG_TAG,"Error: " + e.getMessage());
-                return null;
-            } catch (IOException e) {
-                Log.e(LOG_TAG,"Error: " + e.getMessage());
-                return null;
-            }
+             int anzahlAktien = 1;
 
-            Element xmlAktiendaten = doc.getDocumentElement();
-            NodeList aktienListe = xmlAktiendaten.getElementsByTagName("row");
-
-            int anzahlAktien = aktienListe.getLength();
-            int anzahlAktienParameter = aktienListe.item(0).getChildNodes().getLength();*/
-            int anzahlAktien = 1;
-
-            String[] ausgabeArray = new String[anzahlAktien];
+            String ausgabe = "update now";
             /*String[][] alleAktienDatenArray = new String[anzahlAktien][anzahlAktienParameter];
 
             Node aktienParameter;
@@ -574,12 +548,12 @@ Binärwerte für Skills:
 
                 Log.v(LOG_TAG,"XML Output:" + ausgabeArray[i]);
             }*/
-            ausgabeArray[0] = xmlString;
-            return ausgabeArray;
+            //ausgabeArray[0] = updateString;
+            return ausgabe;
         }
 
         @Override
-        protected String[] doInBackground(String... strings) {
+        protected String doInBackground(String... strings) {
 
             if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
                 return null;
@@ -587,7 +561,7 @@ Binärwerte für Skills:
             // Wir konstruieren die Anfrage-URL für den Server
             //final String URL_PARAMETER = "https://www.myphysiodoc.com/test.php?method=allEntrys&authkey=test321&output=Heureka";
             //final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email=test@urururur.de&password=test123";
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email="+strings[0]+"&password="+strings[1];
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=update&authkey="+strings[1]+"&authcode="+strings[0]+"&customid="+strings[2]+"&lastupdate="+strings[3];
 
             /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
             final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
@@ -614,7 +588,7 @@ Binärwerte für Skills:
             BufferedReader bufferedReader = null;
 
             // In diesen String speichern wir die Aktiendaten im XML-Format
-            String aktiendatenXmlString = "";
+            String updateString = "";
 
             try {
                 URL url = new URL(anfrageString);
@@ -631,12 +605,12 @@ Binärwerte für Skills:
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
-                    aktiendatenXmlString += line + "\n";
+                    updateString += line + "\n";
                 }
-                if (aktiendatenXmlString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
+                if (updateString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
                     return null;
                 }
-                Log.v(LOG_TAG, "Aktiendaten XML-String: " + aktiendatenXmlString);
+                Log.v(LOG_TAG, "Update-String: " + updateString);
                 publishProgress(1, 1);
 
             } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
@@ -655,9 +629,15 @@ Binärwerte für Skills:
                 }
             }
 
-            // Hier parsen wir die XML Aktiendaten
 
-            return leseXmlAktiendatenAus(aktiendatenXmlString);
+            // Hier prüfen wir auf erhaltene Server-Fehlermeldungen
+            if(updateString.substring(0, 6).equals("Error:")){
+                return updateString;
+            }
+            else {
+                // Hier parsen wir die erhaltenen Daten
+                return readUpdate(updateString);
+            }
         }
 
 
@@ -672,7 +652,7 @@ Binärwerte für Skills:
         }
 
         @Override
-        protected void onPostExecute(String[] strings) {
+        protected void onPostExecute(String strings) {
 
             // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
             // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
@@ -689,7 +669,7 @@ Binärwerte für Skills:
                     Toast.LENGTH_SHORT).show();
 
             //mSwipeRefreshLayout.setRefreshing(false);
-            MainActivity.this.setTitle(strings[0]);
+            MainActivity.this.setTitle(strings);
         }
     }
 
@@ -1385,6 +1365,7 @@ Binärwerte für Skills:
         }
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor e = sp.edit();
+        e.putInt("lastUpdate",Integer.parseInt(getDateAsString()));
         e.putInt("sp_changeprefs", 0);
         e.putInt("sp_current_days", days);
         e.putString("spWorkoutList1", spWorkoutList1);
@@ -2065,6 +2046,8 @@ Binärwerte für Skills:
     }
     private void loadDate() {
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        lastUpdate = sp.getInt("lastUpdate", 0);
+        customID = sp.getInt("customID", 0);
         datestamp = sp.getInt("datestamp", 0);
         authCode = sp.getString("authCode", "");
         coachUser = sp.getBoolean("coachuser", false);

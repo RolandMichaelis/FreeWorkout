@@ -17,6 +17,7 @@
     <string name="menu_history">Historie</string>
     <string name="menu_workouts">Workouts</string>
     <string name="menu_exercises">Exercises</string>
+    <string name="menu_logout">Sign out</string>
     <string name="dialog_title_login">Anmelden oder neu registrieren</string>
     <string name="dialog_skills">Skills:</string>
     <string name="dialog_type">Fokus:</string>
