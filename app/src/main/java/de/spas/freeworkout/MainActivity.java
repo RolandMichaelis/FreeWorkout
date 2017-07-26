@@ -47,8 +47,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -134,6 +136,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private int customID;
     private String authkey = "koBF89p0KGoO"; //auf Server ausweisen
     private long lastUpdate;
+    private String method;
 
 /*
 Binärwerte für Skills:
@@ -186,6 +189,7 @@ Binärwerte für Skills:
        // actionBar.show();
 
         loadDate();
+        checkForExtraText();
         this.findViewById(R.id.button_prefs).setOnClickListener(this);
         this.findViewById(R.id.button_calc).setOnClickListener(this);
 
@@ -241,6 +245,7 @@ Binärwerte für Skills:
         //SharedPreferences sp = getPreferences(MODE_PRIVATE);
         if(authCode.equals("")){
             //ToDo: Login oder Registrierung
+            Toast.makeText(getApplicationContext(),"authCode.equals(\"\")",Toast.LENGTH_LONG).show();
             dialog_login();
         }
         else
@@ -249,7 +254,6 @@ Binärwerte für Skills:
                 //ToDo: hier dann AuthCode auf dem Server checken wenn lastAuthDatestamp älter als 1h
                 //Toast.makeText(getApplicationContext(),"internet is available "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
                 if(lastAuthDatestamp>Long.parseLong(getDateAsString())-360000L){
-                    checkForExtraText();
                     printWorkout();
                 }
                 else {
@@ -266,433 +270,50 @@ Binärwerte für Skills:
         }
 
     }
-    public void serverCheckLogin(String email, String password) {
 
-        String[] emailPass ={email,password};
-
-        GetDatenTask getDatenTask = new GetDatenTask();
-        new GetDatenTask().execute(emailPass);
-    }
-    public class GetDatenTask extends AsyncTask<String, Void, String> {
-
-        private final String LOG_TAG = GetDatenTask.class.getSimpleName();
-
-        private String saveAuthCodeCustomID(String s){
-
-            int n = s.indexOf(":");
-
-            authCode = s.substring(0, n); //kompletter String bis :
-            int customID = Integer.valueOf(s.substring(n+1, s.length()));
-
-            SharedPreferences sp = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor e = sp.edit();
-            e.putInt("customID", customID);
-            e.putString("authCode", authCode);
-            e.commit();
-
-
-            return authCode;
-        }
-        @Override
-        protected String doInBackground(String... strings) {
-
-            if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
-                return null;
-            }
-
-            // Wir konstruieren die Anfrage-URL für die YQL Platform
-            // https://www.myphysiodoc.com/reg.php?method=loginNew&authkey=koBF89p0KGoO&email=Tester2&password=test123
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=loginNew&authkey="+authkey+"&email="+strings[0]+"&password="+strings[1];
-
-
-
-            String anfrageString = URL_PARAMETER;
-
-            // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
-            HttpURLConnection httpURLConnection = null;
-            BufferedReader bufferedReader = null;
-
-            // In diesen String speichern wir die Aktiendaten im XML-Format
-            String RegisterString = "";
-
-            try {
-                URL url = new URL(anfrageString);
-
-                // Aufbau der Verbindung zu Server
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-
-                if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
-                    return null;
-                }
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    RegisterString += line ;
-                }
-                if (RegisterString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
-                    return null;
-                }
-                Log.v(LOG_TAG, "Register-String: " + RegisterString);
-                //publishProgress(1, 1);
-
-            } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
-                Log.e(LOG_TAG, "Error ", e);
-                return null;
-            } finally {
-                if (httpURLConnection != null) {
-                    httpURLConnection.disconnect();
-                }
-                if (bufferedReader != null) {
-                    try {
-                        bufferedReader.close();
-                    } catch (final IOException e) {
-                        Log.e(LOG_TAG, "Error closing stream", e);
-                    }
-                }
-            }
-            // Hier prüfen wir auf erhaltene Server-Fehlermeldungen
-            if(RegisterString.substring(0, 6).equals("Error:")){
-                return RegisterString;
-            }
-            else {
-                // Hier parsen wir die erhaltenen Daten
-                return saveAuthCodeCustomID(RegisterString);
-            }
-        }
-        @Override
-        protected void onPostExecute(String strings) {
-
-            Toast.makeText(MainActivity.this, "serverCheckLogin!",Toast.LENGTH_SHORT).show();
-
-            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-
-            if(strings.substring(0, 6).equals("Error:")){
-                Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
-                dialog_login();
-            }
-            else {
-                Toast.makeText(MainActivity.this, "User angemeldet!",Toast.LENGTH_SHORT).show();
-                SharedPreferences sp = getPreferences(MODE_PRIVATE);
-                int customID = sp.getInt("customID", 0);
-
-                MainActivity.this.setTitle(customID+"|"+strings);
-            }
-
-        }
-    }
     public void serverCheckRegister(String email, String password) {
 
-        String[] emailPass ={email,password};
+        method="register";
+
+        String[] inquiry ={"email="+email+"&password="+password};
         //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
 
-        HoleDatenTask holeDatenTask = new HoleDatenTask();
-        new HoleDatenTask().execute(emailPass);
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry);
     }
-    public class HoleDatenTask extends AsyncTask<String, Void, String> {
+    public void serverCheckLogin(String email, String password) {
 
-        private final String LOG_TAG = HoleDatenTask.class.getSimpleName();
+        method="loginNew";
 
-        private String saveAuthCodeCustomID(String s){
+        String[] inquiry ={"email="+email+"&password="+password};
+        //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
 
-            int n = s.indexOf(":");
-
-            authCode = s.substring(0, n); //kompletter String bis :
-            int customID = Integer.valueOf(s.substring(n+1, s.length()));
-
-            SharedPreferences sp = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor e = sp.edit();
-            e.putInt("customID", customID);
-            e.putString("authCode", authCode);
-            e.commit();
-
-
-            return authCode;
-        }
-        @Override
-        protected String doInBackground(String... strings) {
-
-            if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
-                return null;
-            }
-
-            // Wir konstruieren die Anfrage-URL für die YQL Platform
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey="+authkey+"&email="+strings[0]+"&password="+strings[1];
-
-            //Toast.makeText(MainActivity.this, "doInBackground = "+ strings[0]+" "+ strings[1], Toast.LENGTH_LONG).show();
-                /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
-            final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
-            final String DIAGNOSTICS = "'&diagnostics=true";
-
-            String symbols = strings[0];
-            symbols = symbols.replace("^", "%255E");
-            String parameters = "snc4xl1d1t1c1p2ohgv";
-            String columns = "symbol,name,currency,exchange,price,date,time," +
-                    "change,percent,open,high,low,volume";*/
-
-            String anfrageString = URL_PARAMETER;
-            /*anfrageString += "?q=" + SELECTOR;
-            anfrageString += "url='" + DOWNLOAD_URL;
-            anfrageString += "?s=" + symbols;
-            anfrageString += "%26f=" + parameters;
-            anfrageString += "%26e=.csv'%20and%20columns='" + columns;
-            anfrageString += DIAGNOSTICS;
-
-            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + anfrageString);*/
-
-            // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
-            HttpURLConnection httpURLConnection = null;
-            BufferedReader bufferedReader = null;
-
-            // In diesen String speichern wir die Aktiendaten im XML-Format
-            String RegisterString = "";
-
-            try {
-                URL url = new URL(anfrageString);
-
-                // Aufbau der Verbindung zu Server
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-
-                if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
-                    return null;
-                }
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    RegisterString += line ;
-                }
-                if (RegisterString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
-                    return null;
-                }
-                Log.v(LOG_TAG, "Register-String: " + RegisterString);
-                //publishProgress(1, 1);
-
-            } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
-                Log.e(LOG_TAG, "Error ", e);
-                return null;
-            } finally {
-                if (httpURLConnection != null) {
-                    httpURLConnection.disconnect();
-                }
-                if (bufferedReader != null) {
-                    try {
-                        bufferedReader.close();
-                    } catch (final IOException e) {
-                        Log.e(LOG_TAG, "Error closing stream", e);
-                    }
-                }
-            }
-
-            // Hier prüfen wir auf erhaltene Server-Fehlermeldungen
-            if(RegisterString.substring(0, 6).equals("Error:")){
-                return RegisterString;
-            }
-            else {
-                // Hier parsen wir die erhaltenen Daten
-                return saveAuthCodeCustomID(RegisterString);
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String strings) {
-            Toast.makeText(MainActivity.this, "serverCheckRegister!",Toast.LENGTH_SHORT).show();
-
-
-            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-            if(strings.substring(0, 6).equals("Error:")){
-                Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
-                dialog_login();
-            }
-            else {
-                Toast.makeText(MainActivity.this, "User registriert!",Toast.LENGTH_SHORT).show();
-                SharedPreferences sp = getPreferences(MODE_PRIVATE);
-                int customID = sp.getInt("customID", 0);
-
-                MainActivity.this.setTitle(customID+"|"+strings);
-            }
-        }
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry);
     }
-
-
     public void updateCheckData() {
-        String[] emailPass ={authCode,authkey,String.valueOf(customID),String.valueOf(lastUpdate)};
-        GetDataTask getDataTask = new GetDataTask();
-        new GetDataTask().execute(emailPass);
-    }
-    public class GetDataTask extends AsyncTask<String, Integer, String> {
+        method="update";
 
-        private final String LOG_TAG = GetDataTask.class.getSimpleName();
-
-        private String readUpdate(String updateString) {
-
-             int anzahlAktien = 1;
-
-            String ausgabe = updateString;
-            /*String[][] alleAktienDatenArray = new String[anzahlAktien][anzahlAktienParameter];
-
-            Node aktienParameter;
-            String aktienParameterWert;
-            for( int i=0; i<anzahlAktien; i++ ) {
-                NodeList aktienParameterListe = aktienListe.item(i).getChildNodes();
-
-                for (int j=0; j<anzahlAktienParameter; j++) {
-                    aktienParameter = aktienParameterListe.item(j);
-                    aktienParameterWert = aktienParameter.getFirstChild().getNodeValue();
-                    alleAktienDatenArray[i][j] = aktienParameterWert;
-                }
-
-                ausgabeArray[i]  = alleAktienDatenArray[i][0];                // symbol
-                ausgabeArray[i] += ": " + alleAktienDatenArray[i][4];         // price
-                ausgabeArray[i] += " " + alleAktienDatenArray[i][2];          // currency
-                ausgabeArray[i] += " (" + alleAktienDatenArray[i][8] + ")";   // percent
-                ausgabeArray[i] += " - [" + alleAktienDatenArray[i][1] + "]"; // name
-
-                Log.v(LOG_TAG,"XML Output:" + ausgabeArray[i]);
-            }*/
-            //ausgabeArray[0] = updateString;
-            return ausgabe;
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-
-            if (strings.length == 0) { // Keine Eingangsparameter erhalten, daher Abbruch
-                return null;
-            }
-            // Wir konstruieren die Anfrage-URL für den Server
-            //final String URL_PARAMETER = "https://www.myphysiodoc.com/test.php?method=allEntrys&authkey=test321&output=Heureka";
-            // https://www.myphysiodoc.com/reg.php?method=update&authkey=koBF89p0KGoO&authcode=8cd8b682a991957dc06df20835ac98c4&customid=17&lastupdate=1500550686
-            //final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=register&authkey=test321&email=test@urururur.de&password=test123";
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=update&authkey="+strings[1]+"&authcode="+strings[0]+"&customid="+strings[2]+"&lastupdate="+strings[3];
-
-            /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
-            final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
-            final String DIAGNOSTICS = "'&diagnostics=true";
-
-            String symbols = strings[0];
-            symbols = symbols.replace("^", "%255E");
-            String parameters = "snc4xl1d1t1c1p2ohgv";
-            String columns = "symbol,name,currency,exchange,price,date,time," +
-                    "change,percent,open,high,low,volume";*/
-
-            String anfrageString = URL_PARAMETER;
-            /*anfrageString += "?q=" + SELECTOR;
-            anfrageString += "url='" + DOWNLOAD_URL;
-            anfrageString += "?s=" + symbols;
-            anfrageString += "%26f=" + parameters;
-            anfrageString += "%26e=.csv'%20and%20columns='" + columns;
-            anfrageString += DIAGNOSTICS;
-
-            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + anfrageString);*/
-
-            // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
-            HttpURLConnection httpURLConnection = null;
-            BufferedReader bufferedReader = null;
-
-            // In diesen String speichern wir die Aktiendaten im XML-Format
-            String updateString = "";
-
-            try {
-                URL url = new URL(anfrageString);
-
-                // Aufbau der Verbindung zu YQL Platform
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-
-                if (inputStream == null) { // Keinen Aktiendaten-Stream erhalten, daher Abbruch
-                    return null;
-                }
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    updateString += line + "\n";
-                }
-                if (updateString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
-                    return null;
-                }
-                Log.v(LOG_TAG, "Update-String: " + updateString);
-                publishProgress(1, 1);
-
-            } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
-                Log.e(LOG_TAG, "Error ", e);
-                return null;
-            } finally {
-                if (httpURLConnection != null) {
-                    httpURLConnection.disconnect();
-                }
-                if (bufferedReader != null) {
-                    try {
-                        bufferedReader.close();
-                    } catch (final IOException e) {
-                        Log.e(LOG_TAG, "Error closing stream", e);
-                    }
-                }
-            }
-
-
-            // Hier prüfen wir auf erhaltene Server-Fehlermeldungen
-            if(updateString.substring(0, 6).equals("Error:")){
-                return updateString;
-            }
-            else {
-                // Hier parsen wir die erhaltenen Daten
-                return readUpdate(updateString);
-            }
-        }
-
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-
-            // Auf dem Bildschirm geben wir eine Statusmeldung aus, immer wenn
-            // publishProgress(int...) in doInBackground(String...) aufgerufen wird
-            Toast.makeText(MainActivity.this, values[0] + " von " + values[1] + " geladen",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-
-        @Override
-        protected void onPostExecute(String strings) {
-
-            // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
-            // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
-            // der StringArray gefüllt mit Beispieldaten
-            /*if (strings != null) {
-                mAktienlisteAdapter.clear();
-                for (String aktienString : strings) {
-                    mAktienlisteAdapter.add(aktienString);
-                }
-            }*/
-
-            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-
-            //mSwipeRefreshLayout.setRefreshing(false);
-            MainActivity.this.setTitle(strings+"|"+ String.valueOf(lastUpdate));
-            if(strings.substring(0,21).equals("Error: send me update")){
-                // Daten an Server senden
-
-
-            }
-        }
-    }
-    public void updateToServer(String email, String password) {
-
-        String[] emailPass ={email,password};
+        String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)+"&lastupdate="+String.valueOf(lastUpdate)};
         //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
 
-        updateToServerTask UpdateToServerTask = new updateToServerTask();
-        new updateToServerTask().execute(emailPass);
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry);
     }
-    public class updateToServerTask extends AsyncTask<String, Void, String> {
+    public void update2server() throws UnsupportedEncodingException {
+        method="u2s";
 
-        private final String LOG_TAG = updateToServerTask.class.getSimpleName();
+        String enc ="utf-8";
+        String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)+"&lastupdate="+String.valueOf(lastUpdate)+"&l1="+ URLEncoder.encode(String.valueOf(spWorkoutList1),enc)+"&l2="+URLEncoder.encode(String.valueOf(spWorkoutList2),enc)+"&l3="+URLEncoder.encode(String.valueOf(spWorkoutList3),enc)+"&l4="+URLEncoder.encode(String.valueOf(spWorkoutList4),enc)+"&l5="+URLEncoder.encode(String.valueOf(spWorkoutList5),enc)+"&l6="+URLEncoder.encode(String.valueOf(spWorkoutList6),enc)+"&l7="+URLEncoder.encode(String.valueOf(spWorkoutList7),enc)+"&c1="+String.valueOf(checked[0])+"&c2="+String.valueOf(checked[1])+"&c3="+String.valueOf(checked[2])+"&c4="+String.valueOf(checked[3])+"&c5="+String.valueOf(checked[4])+"&c6="+String.valueOf(checked[5])+"&c7="+String.valueOf(checked[6])+"&datestamp="+datestamp+"&skills="+String.valueOf(skills)+"&days="+String.valueOf(days)+"&hardness="+String.valueOf(hardness)+"&fokus="+String.valueOf(fokus)+"&changeprefs="+String.valueOf(changeprefs)+"&currentdays="+String.valueOf(current_days)};
+        //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
+
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry);
+    }
+
+    public class GetServerTask extends AsyncTask<String, Void, String> {
+
+        private final String LOG_TAG = GetServerTask.class.getSimpleName();
 
         private String saveAuthCodeCustomID(String s){
 
@@ -710,6 +331,7 @@ Binärwerte für Skills:
 
             return authCode;
         }
+
         @Override
         protected String doInBackground(String... strings) {
 
@@ -717,30 +339,17 @@ Binärwerte für Skills:
                 return null;
             }
 
-            // Wir konstruieren die Anfrage-URL für die YQL Platform
-            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=updateToServer&authkey="+authkey+"&authcode="+authCode+"&customid="+customID+"&lastupdate="+lastUpdate+"&";
+            // Wir konstruieren die Anfrage-URL für reg.php auf dem Server
+            //strings[0] ist immer die method (register,login usw.)
+            // https://www.myphysiodoc.com/reg.php?method=loginNew&authkey=koBF89p0KGoO&email=Tester2&password=test123
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=";
 
-            //Toast.makeText(MainActivity.this, "doInBackground = "+ strings[0]+" "+ strings[1], Toast.LENGTH_LONG).show();
-                /*final String SELECTOR = "select%20*%20from%20csv%20where%20";
-            final String DOWNLOAD_URL = "http://download.finance.yahoo.com/d/quotes.csv";
-            final String DIAGNOSTICS = "'&diagnostics=true";
+            String getString = URL_PARAMETER;
+            getString += method;
+            getString += "&authkey=" + authkey;
+            getString += "&" + strings[0];
 
-            String symbols = strings[0];
-            symbols = symbols.replace("^", "%255E");
-            String parameters = "snc4xl1d1t1c1p2ohgv";
-            String columns = "symbol,name,currency,exchange,price,date,time," +
-                    "change,percent,open,high,low,volume";*/
-
-            String anfrageString = URL_PARAMETER;
-            /*anfrageString += "?q=" + SELECTOR;
-            anfrageString += "url='" + DOWNLOAD_URL;
-            anfrageString += "?s=" + symbols;
-            anfrageString += "%26f=" + parameters;
-            anfrageString += "%26e=.csv'%20and%20columns='" + columns;
-            anfrageString += DIAGNOSTICS;
-
-            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + anfrageString);*/
-
+            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
             // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
             HttpURLConnection httpURLConnection = null;
             BufferedReader bufferedReader = null;
@@ -749,7 +358,7 @@ Binärwerte für Skills:
             String RegisterString = "";
 
             try {
-                URL url = new URL(anfrageString);
+                URL url = new URL(getString);
 
                 // Aufbau der Verbindung zu Server
                 httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -765,7 +374,7 @@ Binärwerte für Skills:
                 while ((line = bufferedReader.readLine()) != null) {
                     RegisterString += line ;
                 }
-                if (RegisterString.length() == 0) { // Keine Aktiendaten ausgelesen, Abbruch
+                if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
                     return null;
                 }
                 Log.v(LOG_TAG, "Register-String: " + RegisterString);
@@ -786,38 +395,146 @@ Binärwerte für Skills:
                     }
                 }
             }
-
-            // Hier prüfen wir auf erhaltene Server-Fehlermeldungen
-            if(RegisterString.substring(0, 6).equals("Error:")){
-                return RegisterString;
-            }
-            else {
-                // Hier parsen wir die erhaltenen Daten
-                return saveAuthCodeCustomID(RegisterString);
-            }
+            return RegisterString;
         }
-
         @Override
         protected void onPostExecute(String strings) {
-            Toast.makeText(MainActivity.this, "serverCheckRegister!",Toast.LENGTH_SHORT).show();
-
-
+            //Toast.makeText(MainActivity.this, "serverCheckLogin!",Toast.LENGTH_SHORT).show();
             // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-            if(strings.substring(0, 6).equals("Error:")){
-                Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
-                dialog_login();
-            }
-            else {
-                Toast.makeText(MainActivity.this, "User registriert!",Toast.LENGTH_SHORT).show();
-                SharedPreferences sp = getPreferences(MODE_PRIVATE);
-                int customID = sp.getInt("customID", 0);
 
-                MainActivity.this.setTitle(customID+"|"+strings);
-            }
+            switch (method) {
+                case ("register"): {
+                    if(strings.substring(0, 6).equals("Error:")){
+                        Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        dialog_login();
+                    }
+                    else {
+                        saveAuthCodeCustomID(strings);
+                        Toast.makeText(MainActivity.this, "User registriert!",Toast.LENGTH_SHORT).show();
+                        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                        int customID = sp.getInt("customID", 0);
+
+                        MainActivity.this.setTitle(customID+"|"+strings);
+                    }
+                    break;
+                }
+                case ("loginNew"): {
+                    if(strings.substring(0, 6).equals("Error:")){
+                        Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        dialog_login();
+                    }
+                    else {
+                        saveAuthCodeCustomID(strings);
+                        Toast.makeText(MainActivity.this, "User angemeldet!",Toast.LENGTH_SHORT).show();
+                        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                        int customID = sp.getInt("customID", 0);
+                        MainActivity.this.setTitle(customID+"|"+strings);
+                        updateCheckData();
+                    }                    break;
+                }
+                case ("update"): {
+
+                    MainActivity.this.setTitle(strings+"|"+ String.valueOf(customID));
+                    if(strings.equals("Error: send me update")){
+                        // Daten an Server senden
+                        Toast.makeText(MainActivity.this, "s "+strings,Toast.LENGTH_SHORT).show();
+                        try {
+                            update2server();
+                            printWorkout();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(strings.substring(0,3).equals("u2c")){
+                        // Daten an Client senden
+                        update2client(strings.substring(3,strings.length()));
+                    }
+                    else if(strings.equals("Error: authcode different")){
+                        // Daten an Server senden
+                        Toast.makeText(MainActivity.this, "a "+strings,Toast.LENGTH_SHORT).show();
+                        dialog_login();
+
+                    }
+                    else if(strings.equals("Error: no update")){
+                        // Daten an Server senden
+                        printWorkout();
+                    }
+                    break;
+                }
+                case ("u2s"): {
+                    if(strings.substring(0, 6).equals("Error:")){
+                        Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        printWorkout();
+                    }
+                    else {
+                        MainActivity.this.setTitle(customID+"|"+strings);
+                    }
+                    break;
+                }
+        }
+
         }
     }
 
+    public void update2client(String s){
+        datestamp=Integer.parseInt(getDateAsString());
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor e = sp.edit();
 
+        int p = s.indexOf("|");
+        lastUpdate = Long.valueOf(s.substring(0, p));
+        e.putLong("lastUpdate", lastUpdate);
+
+        s=s.substring(p+1, s.length());
+
+        String s2;
+        boolean cnc; // kommt "|" noch vor? Wenn nicht letzter Durchlauf der Schleife!
+        int c1=0;
+        int c2=0;
+        do {
+            int n = s.indexOf("|");
+            if(n>0) {
+                s2 = s.substring(0, n); //kompletter String bis |
+                cnc=true;
+            }else {
+                s2 = s;
+                cnc=false;
+            }
+            if(s2.substring(0,1).equals("l")) {
+                //this.setTitle(s2);
+                c1++;
+                e.putString("spWorkoutList"+c1, s2.substring(1,s2.length()));
+            }else if(s2.substring(0,1).equals("c")){
+                c2++;
+                e.putInt("checked"+c2, Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            else if(s2.substring(0,1).equals("d")){
+                e.putInt("datestamp", Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            else if(s2.substring(0,1).equals("s")){
+                e.putInt("sp_skills", Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            else if(s2.substring(0,1).equals("t")){
+                e.putInt("sp_days", Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            else if(s2.substring(0,1).equals("h")){
+                e.putInt("sp_hardness", Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            else if(s2.substring(0,1).equals("f")){
+                e.putInt("sp_fokus", Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            else if(s2.substring(0,1).equals("r")){
+                e.putInt("sp_current_days", Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            else if(s2.substring(0,1).equals("n")){
+                e.putInt("sp_changeprefs", Integer.valueOf(s2.substring(1,s2.length())));
+            }
+            if(n>0){s =  s.substring(n+1,s.length());}
+        }while(cnc);
+        e.commit();
+        loadDate();
+        printWorkout();
+    }
     public static boolean isConnectingToInternet(Context context)
     {
         ConnectivityManager connectivity =
@@ -915,7 +632,9 @@ Binärwerte für Skills:
                 SharedPreferences.Editor e = sp.edit();
                 e.putString("spWorkoutList"+(ch_checked_day+1), newString);
                 e.putString("completedWorkouts"+ch_checked_day+ch_checked_pos, receivedIntent.getStringExtra(Intent.EXTRA_TEXT));
-                e.commit();
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                e.putLong("lastUpdate",timestamp.getTime());
+                e.apply();
 
 
 
@@ -929,11 +648,13 @@ Binärwerte für Skills:
                 SharedPreferences sp = getPreferences(MODE_PRIVATE);
                 SharedPreferences.Editor e = sp.edit();
                 e.putString("completedWorkouts"+ch_checked_day+ch_checked_pos, receivedIntent.getStringExtra(Intent.EXTRA_TEXT));
-                e.commit();
-
-
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                e.putLong("lastUpdate",timestamp.getTime());
+                e.apply();
             }
+
             loadDate();
+            if(isConnectingToInternet(MainActivity.this)) updateCheckData();
 
         } else {
             return;
@@ -2258,6 +1979,8 @@ Binärwerte für Skills:
         e.putInt("checked4", checked[4]);
         e.putInt("checked5", checked[5]);
         e.putInt("checked6", checked[6]);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        e.putLong("lastUpdate",timestamp.getTime());
         e.commit();
     }
     private void savePrefs() {
@@ -2272,6 +1995,8 @@ Binärwerte für Skills:
         changeprefs = true;
         // Enable Neutral button
         neutralButton.setEnabled(true);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        e.putLong("lastUpdate",timestamp.getTime());
         generalList();
     }
     private void saveDate() {
@@ -2280,6 +2005,8 @@ Binärwerte für Skills:
         SharedPreferences.Editor e = sp.edit();
         e.putInt("datestamp", datestamp);
         e.commit();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        e.putLong("lastUpdate",timestamp.getTime());
     }
    public String getDateAsString() {
         DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
