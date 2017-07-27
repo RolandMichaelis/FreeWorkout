@@ -306,10 +306,80 @@ Binärwerte für Skills:
         String enc ="utf-8";
         String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)+"&lastupdate="+String.valueOf(lastUpdate)+"&l1="+ URLEncoder.encode(String.valueOf(spWorkoutList1),enc)+"&l2="+URLEncoder.encode(String.valueOf(spWorkoutList2),enc)+"&l3="+URLEncoder.encode(String.valueOf(spWorkoutList3),enc)+"&l4="+URLEncoder.encode(String.valueOf(spWorkoutList4),enc)+"&l5="+URLEncoder.encode(String.valueOf(spWorkoutList5),enc)+"&l6="+URLEncoder.encode(String.valueOf(spWorkoutList6),enc)+"&l7="+URLEncoder.encode(String.valueOf(spWorkoutList7),enc)+"&c1="+String.valueOf(checked[0])+"&c2="+String.valueOf(checked[1])+"&c3="+String.valueOf(checked[2])+"&c4="+String.valueOf(checked[3])+"&c5="+String.valueOf(checked[4])+"&c6="+String.valueOf(checked[5])+"&c7="+String.valueOf(checked[6])+"&datestamp="+datestamp+"&skills="+String.valueOf(skills)+"&days="+String.valueOf(days)+"&hardness="+String.valueOf(hardness)+"&fokus="+String.valueOf(fokus)+"&changeprefs="+String.valueOf(changeprefs)+"&currentdays="+String.valueOf(current_days)};
         //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
-
         GetServerTask getServerTask = new GetServerTask();
         new GetServerTask().execute(inquiry);
+
     }
+    public void u2sCWOs(){
+        // Zusammenbauen der completedWorkouts. Wenn vorhanden mit neuerm Task auf Server speichern
+        method="u2sCWOs";
+        SharedPreferences sp1 = getPreferences(MODE_PRIVATE);
+        String completedString = "";
+        for(int day=0; day<days+1; day++) {
+
+            switch (day) {
+                case (0): {
+                    for(int i=0;i<WorkoutListArray1.size();i++){
+                        if(!sp1.getString("completedWorkouts"+day+i, "").equals(""))completedString=completedString+"|"+sp1.getString("completedWorkouts"+day+i, "");
+                        //Toast.makeText(MainActivity.this, "CWO "+ sp1.getString("completedWorkouts"+day+i, ""), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+                case (1): {
+                    for(int i=0;i<WorkoutListArray2.size();i++){
+                        if(!sp1.getString("completedWorkouts"+day+i, "").equals(""))completedString=completedString+"|"+sp1.getString("completedWorkouts"+day+i, "");
+                        //Toast.makeText(MainActivity.this, "CWO "+ sp1.getString("completedWorkouts"+day+i, ""), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+                case (2): {
+                    for(int i=0;i<WorkoutListArray3.size();i++){
+                        if(!sp1.getString("completedWorkouts"+day+i, "").equals(""))completedString=completedString+"|"+sp1.getString("completedWorkouts"+day+i, "");
+                        //Toast.makeText(MainActivity.this, "CWO "+ sp1.getString("completedWorkouts"+day+i, ""), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+                case (3): {
+                    for(int i=0;i<WorkoutListArray4.size();i++){
+                        if(!sp1.getString("completedWorkouts"+day+i, "").equals(""))completedString=completedString+"|"+sp1.getString("completedWorkouts"+day+i, "");
+                        //Toast.makeText(MainActivity.this, "CWO "+ sp1.getString("completedWorkouts"+day+i, ""), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+                case (4): {
+                    for(int i=0;i<WorkoutListArray5.size();i++){
+                        if(!sp1.getString("completedWorkouts"+day+i, "").equals(""))completedString=completedString+"|"+sp1.getString("completedWorkouts"+day+i, "");
+                        //Toast.makeText(MainActivity.this, "CWO "+ sp1.getString("completedWorkouts"+day+i, ""), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+                case (5): {
+                    for(int i=0;i<WorkoutListArray6.size();i++){
+                        if(!sp1.getString("completedWorkouts"+day+i, "").equals(""))completedString=completedString+"|"+sp1.getString("completedWorkouts"+day+i, "");
+                        //Toast.makeText(MainActivity.this, "CWO "+ sp1.getString("completedWorkouts"+day+i, ""), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+                case (6): {
+                    for(int i=0;i<WorkoutListArray7.size();i++){
+                        if(!sp1.getString("completedWorkouts"+day+i, "").equals(""))completedString=completedString+"|"+sp1.getString("completedWorkouts"+day+i, "");
+                        //Toast.makeText(MainActivity.this, "CWO "+ sp1.getString("completedWorkouts"+day+i, ""), Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+            }
+        }
+        if(!completedString.equals("")) {
+            completedString=completedString.substring(1,completedString.length());
+        }
+        String[] inquiry1 = {"authcode=" + authCode + "&customid=" + String.valueOf(customID) + "&cWos=" + completedString};
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry1);
+    }
+
+
+
+
 
     public class GetServerTask extends AsyncTask<String, Void, String> {
 
@@ -429,7 +499,7 @@ Binärwerte für Skills:
                         SharedPreferences sp = getPreferences(MODE_PRIVATE);
                         int customID = sp.getInt("customID", 0);
                         MainActivity.this.setTitle(customID+"|"+strings);
-                        updateCheckData();
+                        if(isConnectingToInternet(MainActivity.this)) updateCheckData();
                     }                    break;
                 }
                 case ("update"): {
@@ -457,6 +527,7 @@ Binärwerte für Skills:
                     }
                     else if(strings.equals("Error: no update")){
                         // Daten an Server senden
+                        MainActivity.this.setTitle(String.valueOf(lastUpdate)+"nu");
                         printWorkout();
                     }
                     break;
@@ -467,7 +538,21 @@ Binärwerte für Skills:
                         printWorkout();
                     }
                     else {
-                        MainActivity.this.setTitle(customID+"|"+strings);
+                            MainActivity.this.setTitle(String.valueOf(lastUpdate)+"u2s");
+                            u2sCWOs();
+
+                    }
+                    break;
+                }
+                case ("u2sCWOs"): {
+                    if(strings.substring(0, 6).equals("Error:")){
+                        Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        MainActivity.this.setTitle(String.valueOf(lastUpdate)+"|"+customID+"|"+strings);
+                        printWorkout();
+                    }
+                    else {
+                        MainActivity.this.setTitle(String.valueOf(lastUpdate)+"u2sCWOs");
+                        printWorkout();
                     }
                     break;
                 }
@@ -529,6 +614,27 @@ Binärwerte für Skills:
             else if(s2.substring(0,1).equals("n")){
                 e.putInt("sp_changeprefs", Integer.valueOf(s2.substring(1,s2.length())));
             }
+            else if(s2.substring(0,1).equals("o")){
+                String st=s2.substring(1,s2.length());
+                String st2="";
+                do {
+                    int nx = st.indexOf("|");
+                    if(nx>0) {
+                        st2 = st.substring(0, nx); //kompletter String bis |
+                        cnc=true;
+                    }else {
+                        st2 = st;
+                        cnc=false;
+                    }
+                    String[] input = new String[2];
+                    input = ex2CheckForExtraText(st2);
+                    //Hier weitermachen. Nach Import wird falsches Workout abgehakt :-((
+                    e.putString("completedWorkouts"+input[0]+input[1], st2); //Tag und Position
+
+                    if(nx>0){st =  st.substring(n+1,st.length());}
+                }while(cnc);
+
+            }
             if(n>0){s =  s.substring(n+1,s.length());}
         }while(cnc);
         e.commit();
@@ -553,6 +659,35 @@ Binärwerte für Skills:
         return false;
     }
 
+    private String[] ex2CheckForExtraText(String s){
+        //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
+        //ch_wore = Integer.valueOf(s.substring(0, 1)); //wore = Workout oder Exercise
+        String[] output = new String[2];
+        String s1 = s.substring(2, s.length());
+        int n = s1.indexOf(",");
+        //ch_name = s1.substring(0, n);
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        //ch_quantity = Integer.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        //ch_type = Integer.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        //ch_startTime = Long.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        //ch_duration = s1.substring(0, n);
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        //ch_star = Boolean.valueOf(s1.substring(0, n));
+        s1 = s1.substring(n + 1, s1.length());
+        n = s1.indexOf(",");
+        output[0] = s1.substring(0, n);
+        s1 = s1.substring(n + 1, s1.length());
+        output[1] = s1.substring(0, s1.length());
+        return output;
+    }
     private void exCheckForExtraText(String s){
         //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
         ch_wore = Integer.valueOf(s.substring(0, 1)); //wore = Workout oder Exercise
@@ -632,6 +767,7 @@ Binärwerte für Skills:
                 SharedPreferences.Editor e = sp.edit();
                 e.putString("spWorkoutList"+(ch_checked_day+1), newString);
                 e.putString("completedWorkouts"+ch_checked_day+ch_checked_pos, receivedIntent.getStringExtra(Intent.EXTRA_TEXT));
+                //Toast.makeText(this, "completedWorkouts"+ch_checked_day+ch_checked_pos+"|"+ receivedIntent.getStringExtra(Intent.EXTRA_TEXT), Toast.LENGTH_LONG).show();
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 e.putLong("lastUpdate",timestamp.getTime());
                 e.apply();
@@ -648,6 +784,7 @@ Binärwerte für Skills:
                 SharedPreferences sp = getPreferences(MODE_PRIVATE);
                 SharedPreferences.Editor e = sp.edit();
                 e.putString("completedWorkouts"+ch_checked_day+ch_checked_pos, receivedIntent.getStringExtra(Intent.EXTRA_TEXT));
+                //Toast.makeText(this, "completedWorkouts"+ch_checked_day+ch_checked_pos+"|"+ receivedIntent.getStringExtra(Intent.EXTRA_TEXT), Toast.LENGTH_LONG).show();
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 e.putLong("lastUpdate",timestamp.getTime());
                 e.apply();
@@ -980,51 +1117,50 @@ Binärwerte für Skills:
         }
 
     }
-    public void WorkoutCalc(){
-
+    public void delCompletedWorkouts(){
         SharedPreferences sp1 = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ee = sp1.edit();
         Toast.makeText(this, "size WorkoutListArray1 "+String.valueOf(WorkoutListArray1.size()), Toast.LENGTH_LONG).show();
-        for(int day=1; day<days+1; day++) {
+        for(int day=0; day<days+1; day++) {
 
             switch (day) {
-                case (1): {
+                case (0): {
                     for(int i=0;i<WorkoutListArray1.size();i++){
                         ee.remove("completedWorkouts"+day+i);
                     }
                     break;
                 }
-                case (2): {
+                case (1): {
                     for(int i=0;i<WorkoutListArray2.size();i++){
                         ee.remove("completedWorkouts"+day+i);
                     }
                     break;
                 }
-                case (3): {
+                case (2): {
                     for(int i=0;i<WorkoutListArray3.size();i++){
                         ee.remove("completedWorkouts"+day+i);
                     }
                     break;
                 }
-                case (4): {
+                case (3): {
                     for(int i=0;i<WorkoutListArray4.size();i++){
                         ee.remove("completedWorkouts"+day+i);
                     }
                     break;
                 }
-                case (5): {
+                case (4): {
                     for(int i=0;i<WorkoutListArray5.size();i++){
                         ee.remove("completedWorkouts"+day+i);
                     }
                     break;
                 }
-                case (6): {
+                case (5): {
                     for(int i=0;i<WorkoutListArray6.size();i++){
                         ee.remove("completedWorkouts"+day+i);
                     }
                     break;
                 }
-                case (7): {
+                case (6): {
                     for(int i=0;i<WorkoutListArray7.size();i++){
                         ee.remove("completedWorkouts"+day+i);
                     }
@@ -1033,6 +1169,10 @@ Binärwerte für Skills:
             }
         }
         ee.apply();
+    }
+    public void WorkoutCalc(){
+
+        delCompletedWorkouts();
         WorkoutListArray1.clear();
         WorkoutListArray2.clear();
         WorkoutListArray3.clear();
@@ -1232,7 +1372,8 @@ Binärwerte für Skills:
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor e = sp.edit();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        e.putLong("lastUpdate",timestamp.getTime());
+        lastUpdate=timestamp.getTime();
+        e.putLong("lastUpdate",lastUpdate);
         e.putInt("sp_changeprefs", 0);
         e.putInt("sp_current_days", days);
         e.putString("spWorkoutList1", spWorkoutList1);
@@ -1251,6 +1392,7 @@ Binärwerte für Skills:
         e.putInt("checked6", 0);
         e.commit();
         changeprefs = false;
+        if(isConnectingToInternet(MainActivity.this)) updateCheckData();
     }
     public String exWorkoutString(String s, long p)
     // Extrahieren des Workoutstrings nach Position, die Einträge sind mit # getrennt
