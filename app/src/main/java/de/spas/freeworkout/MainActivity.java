@@ -136,7 +136,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private int customID;
     private String authkey = "koBF89p0KGoO"; //auf Server ausweisen
     private long lastUpdate;
+    private boolean history2update = false; // Wenn true dann liegt ein neues WO in der History (SQLite) zum Abspeichern bereit
     private String method;
+    private WorkoutMemoDataSource dataSource;
 
 /*
 Binärwerte für Skills:
@@ -187,7 +189,7 @@ Binärwerte für Skills:
 
 // show the action bar
        // actionBar.show();
-
+        dataSource = new WorkoutMemoDataSource(this);
         loadDate();
         checkForExtraText();
         this.findViewById(R.id.button_prefs).setOnClickListener(this);
@@ -299,6 +301,29 @@ Binärwerte für Skills:
 
         GetServerTask getServerTask = new GetServerTask();
         new GetServerTask().execute(inquiry);
+    }
+    public void updateHistory() {
+        method="upHistory";
+        List<WorkoutMemo> workoutMemoList = new ArrayList<WorkoutMemo>();
+
+        workoutMemoList = dataSource.getAllWorkoutMemos();
+
+
+       // adapter.notifyDataSetChanged();
+
+/*        int anzahl=workoutMemoList.size();
+        MainActivity.this.setTitle(String.valueOf(anzahl));
+
+
+        //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
+
+
+
+        String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)+"&lastupdate="+String.valueOf(lastUpdate)};
+        //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
+
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry);*/
     }
     public void update2server() throws UnsupportedEncodingException {
         method="u2s";
@@ -590,8 +615,8 @@ Binärwerte für Skills:
                 c1++;
                 e.putString("spWorkoutList"+c1, s2.substring(1,s2.length()));
             }else if(s2.substring(0,1).equals("c")){
-                c2++;
                 e.putInt("checked"+c2, Integer.valueOf(s2.substring(1,s2.length())));
+                c2++;
             }
             else if(s2.substring(0,1).equals("d")){
                 e.putInt("datestamp", Integer.valueOf(s2.substring(1,s2.length())));
@@ -723,9 +748,7 @@ Binärwerte für Skills:
         if (receivedIntent != null && receivedIntent.hasExtra(Intent.EXTRA_TEXT)) {
             String s = receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
             exCheckForExtraText(s);
-
-
-
+//            history2update = true;
             if(ch_checked_day>=0 && ch_wore==0){
                 checked[ch_checked_day]=checked[ch_checked_day]+binaerArray[ch_checked_pos];
                 saveChecked();
@@ -791,7 +814,10 @@ Binärwerte für Skills:
             }
 
             loadDate();
-            if(isConnectingToInternet(MainActivity.this)) updateCheckData();
+            if(isConnectingToInternet(MainActivity.this)) {
+                updateCheckData();
+                updateHistory();
+            }
 
         } else {
             return;

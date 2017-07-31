@@ -166,13 +166,13 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
 
     public List<WorkoutMemo> getAllWorkoutMemos() {
         List<WorkoutMemo> workoutMemoList = new ArrayList<>();
-
         Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
                 columns,
                 null,
                 null,
                 null, null, WorkoutMemoDbHelper.COLUMN_STARTTIME+" DESC");
-/*int quantity=1;
+/*
+int quantity=1;
 int type=2;
 String name="Metis";
         Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, null, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(quantity),name,String.valueOf(type)},
@@ -188,6 +188,25 @@ String name="Metis";
         }
 
         cursor.close();
+
+        return workoutMemoList;
+    }
+    public  List<WorkoutMemo> getIsUploadedFalse(){
+        List<WorkoutMemo> workoutMemoList = new ArrayList<>();
+
+        Cursor c = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, columns, WorkoutMemoDbHelper.COLUMN_UPLOAD + "=?", new String[] {"0"},
+                null, null, null);
+        c.moveToFirst();
+        WorkoutMemo workoutMemo;
+
+        while(!c.isAfterLast()) {
+            workoutMemo = cursorToWorkoutMemo(c);
+            workoutMemoList.add(workoutMemo);
+            Log.d(LOG_TAG, "ID: " + workoutMemo.getId() + ", Inhalt: " + workoutMemo.toString());
+            c.moveToNext();
+        }
+
+        c.close();
 
         return workoutMemoList;
     }
