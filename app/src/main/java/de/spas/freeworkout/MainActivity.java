@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -63,6 +64,7 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
+    public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private de.spas.freeworkout.workoutPack workoutPack;
     private de.spas.freeworkout.specialPack specialPack;
     private de.spas.freeworkout.exercisePack exercisePack;
@@ -139,7 +141,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private boolean history2update = false; // Wenn true dann liegt ein neues WO in der History (SQLite) zum Abspeichern bereit
     private String method;
     private WorkoutMemoDataSource dataSource;
-
+    final Context context = this;
 /*
 Binärwerte für Skills:
 1 Pullups
@@ -154,8 +156,11 @@ Binärwerte für Skills:
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
+        dataSource = new WorkoutMemoDataSource(this);
+        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        dataSource.open();
         try {
             InputStream source = getAssets().open("workouts.xml");
             Serializer serializer = new Persister();
@@ -189,7 +194,6 @@ Binärwerte für Skills:
 
 // show the action bar
        // actionBar.show();
-        dataSource = new WorkoutMemoDataSource(this);
         loadDate();
         checkForExtraText();
         this.findViewById(R.id.button_prefs).setOnClickListener(this);
@@ -227,7 +231,8 @@ Binärwerte für Skills:
         // Ende Testbereich
 
     }
-    @Override
+
+        @Override
     public void onClick(View view) {
         if(view.getId()==R.id.button_prefs) {
             //Toast.makeText(getBaseContext(), "Button ", Toast.LENGTH_LONG).show();
@@ -247,7 +252,7 @@ Binärwerte für Skills:
         //SharedPreferences sp = getPreferences(MODE_PRIVATE);
         if(authCode.equals("")){
             //ToDo: Login oder Registrierung
-            Toast.makeText(getApplicationContext(),"authCode.equals(\"\")",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Login oder Registrierung erforderlich!",Toast.LENGTH_LONG).show();
             dialog_login();
         }
         else
@@ -262,6 +267,8 @@ Binärwerte für Skills:
                     Toast.makeText(getApplicationContext(),"Neu einloggen "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
                     //Prüfung des AuthCodes auf dem Server
                     updateCheckData();
+                    updateHistory();
+                    printWorkout();
                 }
             }
             else {
@@ -271,6 +278,51 @@ Binärwerte für Skills:
 
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //checkForLogin();
+        // Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
+        // showAllListEntries();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        dataSource.close();
+    }
+
+    private class WOdaten2serverTask extends AsyncTask<Integer, Integer, Long> {
+
+        protected Long doInBackground(Integer... quant) {
+            List<WorkoutMemo> workoutMemoList = dataSource.getIsUploadedFalse();
+
+            WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(0);
+
+            //int anzahl=workoutMemoList.size();
+
+            MainActivity.this.setTitle(String.valueOf(memo.getName()));
+
+
+            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
+            Long totalSize=0L;
+            return totalSize;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+            // gebe aktuellen Fortschritt aus
+        }
+
+        protected void onPostExecute(Long result) {
+
+            // Task abgeschlossen, Ergebnis kann verwendet werden
+        }
     }
 
     public void serverCheckRegister(String email, String password) {
@@ -304,22 +356,24 @@ Binärwerte für Skills:
     }
     public void updateHistory() {
         method="upHistory";
-        List<WorkoutMemo> workoutMemoList = new ArrayList<WorkoutMemo>();
+        List<WorkoutMemo> workoutMemoList = dataSource.getIsUploadedFalse();
+        int quant=workoutMemoList.size();
+        if(quant>0){
+            WOdaten2serverTask wodaten2servertask = new WOdaten2serverTask();
+            new WOdaten2serverTask().execute(quant);
+        }
+        //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(0);
 
-        workoutMemoList = dataSource.getAllWorkoutMemos();
+        //int anzahl=workoutMemoList.size();
 
-
-       // adapter.notifyDataSetChanged();
-
-/*        int anzahl=workoutMemoList.size();
-        MainActivity.this.setTitle(String.valueOf(anzahl));
+        //MainActivity.this.setTitle(String.valueOf(memo.getName()));
 
 
         //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
 
 
 
-        String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)+"&lastupdate="+String.valueOf(lastUpdate)};
+        /*String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)+"&lastupdate="+String.valueOf(lastUpdate)};
         //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
 
         GetServerTask getServerTask = new GetServerTask();
@@ -401,7 +455,6 @@ Binärwerte für Skills:
         GetServerTask getServerTask = new GetServerTask();
         new GetServerTask().execute(inquiry1);
     }
-
 
 
 

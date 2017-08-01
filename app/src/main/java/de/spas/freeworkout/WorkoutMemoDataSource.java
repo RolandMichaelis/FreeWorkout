@@ -171,10 +171,10 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
                 null,
                 null,
                 null, null, WorkoutMemoDbHelper.COLUMN_STARTTIME+" DESC");
-/*
-int quantity=1;
-int type=2;
-String name="Metis";
+        /*
+        int quantity=1;
+        int type=2;
+        String name="Metis";
         Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, null, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(quantity),name,String.valueOf(type)},
                 null, null, null);*/
         cursor.moveToFirst();
