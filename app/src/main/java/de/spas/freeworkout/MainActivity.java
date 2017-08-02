@@ -13,26 +13,18 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import android.preference.PreferenceManager;
-import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -59,8 +51,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -142,6 +132,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private String method;
     private WorkoutMemoDataSource dataSource;
     final Context context = this;
+    private List<WorkoutMemo> workoutMemoList;
 /*
 Binärwerte für Skills:
 1 Pullups
@@ -297,30 +288,96 @@ Binärwerte für Skills:
         dataSource.close();
     }
 
-    private class WOdaten2serverTask extends AsyncTask<Integer, Integer, Long> {
-
-        protected Long doInBackground(Integer... quant) {
-            List<WorkoutMemo> workoutMemoList = dataSource.getIsUploadedFalse();
-
-            WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(0);
-
-            //int anzahl=workoutMemoList.size();
-
-            MainActivity.this.setTitle(String.valueOf(memo.getName()));
+    private class WOdaten2serverTask extends AsyncTask<Void, Integer, Boolean> {
 
 
+        protected Boolean doInBackground(Void... params) {
+
+            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList[0];
+            int n=workoutMemoList.size();
+            //MainActivity.this.setTitle(String.valueOf(memo.getName()));
             //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
-            Long totalSize=0L;
-            return totalSize;
+            String inquiry;
+            for (int i=0; i < n; i++) {
+                WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(i);
+                inquiry = "authcode="+authCode+"&customid="+String.valueOf(customID)+"&wore="+String.valueOf(memo.getWore())+"&number="+String.valueOf(memo.getNumber())+"&name="+String.valueOf(memo.getName())+"&type="+String.valueOf(memo.getType())+"&quant="+String.valueOf(memo.getQuantity())+"&start="+String.valueOf(memo.getStartTime())+"&end="+String.valueOf(memo.getEndTime())+"&dura="+String.valueOf(memo.getDuration())+"&extimes="+String.valueOf(memo.getExTimes())+"&star="+String.valueOf(memo.getStar())+"&check="+String.valueOf(memo.isChecked());
+                final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=";
+
+                String getString = URL_PARAMETER;
+                getString += method;
+                getString += "&authkey=" + authkey;
+                getString += "&" + inquiry;
+
+                Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
+                // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
+                HttpURLConnection httpURLConnection = null;
+                BufferedReader bufferedReader = null;
+
+                // In diesen String speichern wir die Aktiendaten im XML-Format
+                String RegisterString = "";
+
+                try {
+                    URL url = new URL(getString);
+
+                    // Aufbau der Verbindung zu Server
+                    httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                    InputStream inputStream = httpURLConnection.getInputStream();
+
+                    if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
+                        return null;
+                    }
+                    bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        RegisterString += line ;
+                    }
+                    if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
+                        return null;
+                    }
+                    Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                    //publishProgress(1, 1);
+
+                } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
+                    Log.e(LOG_TAG, "Error ", e);
+                    return null;
+                } finally {
+                    if (httpURLConnection != null) {
+                        httpURLConnection.disconnect();
+                    }
+                    if (bufferedReader != null) {
+                        try {
+                            bufferedReader.close();
+                        } catch (final IOException e) {
+                            Log.e(LOG_TAG, "Error closing stream", e);
+                        }
+                    }
+                }
+
+                Log.d(LOG_TAG, "memo: "+i+" "+inquiry);
+                if (i%5 == 4) {
+                    publishProgress(i + 1, n);
+                }
+                if(RegisterString=="uphistory true!") {
+                    WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemo(memo.getId(), memo.getWore(), memo.getNumber(), memo.getName(), memo.getType(), memo.getQuantity(), memo.getStartTime(), memo.getEndTime(), memo.getDuration(), memo.getExTimes(), memo.getStar(), (!memo.isUpload()), memo.isChecked());
+                    Log.d(LOG_TAG, "Uploaded-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isUpload());
+                }
+            }
+
+
+            //MainActivity.this.setTitle(String.valueOf(quant));
+            return true;
         }
 
         protected void onProgressUpdate(Integer... progress) {
 
             // gebe aktuellen Fortschritt aus
+            Toast.makeText(MainActivity.this, progress[0] + " von " + progress[1] + " geladen",
+                    Toast.LENGTH_SHORT).show();
         }
 
-        protected void onPostExecute(Long result) {
-
+        protected void onPostExecute(Boolean result) {
             // Task abgeschlossen, Ergebnis kann verwendet werden
         }
     }
@@ -356,11 +413,12 @@ Binärwerte für Skills:
     }
     public void updateHistory() {
         method="upHistory";
-        List<WorkoutMemo> workoutMemoList = dataSource.getIsUploadedFalse();
+        //workoutMemoList.clear();
+        workoutMemoList = dataSource.getIsUploadedFalse();
         int quant=workoutMemoList.size();
         if(quant>0){
             WOdaten2serverTask wodaten2servertask = new WOdaten2serverTask();
-            new WOdaten2serverTask().execute(quant);
+            new WOdaten2serverTask().execute();
         }
         //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(0);
 
@@ -869,7 +927,7 @@ Binärwerte für Skills:
             loadDate();
             if(isConnectingToInternet(MainActivity.this)) {
                 updateCheckData();
-                updateHistory();
+                //updateHistory();
             }
 
         } else {
