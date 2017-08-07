@@ -151,7 +151,7 @@ public class WorkoutMemo extends BaseGameActivity {
         }
 
 
-        String output = id + ". " + formattedTime + " " + xhalf+q+xmeter+name + " " + Types[type]+ " " + timeFormat((int)(duration/1000));
+        String output = id + ". " + formattedTime + " " + xhalf+q+xmeter+name + " " + Types[type]+ " " + timeFormat((int)(duration/1000))+ " " +upload;
 
         return output;
     }

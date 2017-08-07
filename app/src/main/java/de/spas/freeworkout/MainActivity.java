@@ -130,9 +130,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private long lastUpdate;
     private boolean history2update = false; // Wenn true dann liegt ein neues WO in der History (SQLite) zum Abspeichern bereit
     private String method;
+    private String methodWO;
     private WorkoutMemoDataSource dataSource;
     final Context context = this;
     private List<WorkoutMemo> workoutMemoList;
+    private int howMuchWOsClient;
 /*
 Binärwerte für Skills:
 1 Pullups
@@ -251,20 +253,22 @@ Binärwerte für Skills:
             if(isConnectingToInternet(MainActivity.this)) {
                 //ToDo: hier dann AuthCode auf dem Server checken wenn lastAuthDatestamp älter als 1h
                 //Toast.makeText(getApplicationContext(),"internet is available "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
-                if(lastAuthDatestamp>Long.parseLong(getDateAsString())-360000L){
+                /*if(lastAuthDatestamp>Long.parseLong(getDateAsString())-360000L){
                     printWorkout();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Neu einloggen "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
+                }*/
+                /*else {*/
+                    //Toast.makeText(getApplicationContext(),"Neu einloggen "+String.valueOf(Long.parseLong(getDateAsString())-360000L),Toast.LENGTH_LONG).show();
                     //Prüfung des AuthCodes auf dem Server
                     updateCheckData();
                     updateHistory();
+                    downloadHistory();
                     printWorkout();
-                }
+                //}
             }
             else {
                 //ToDo: hier dann lastAuthDatestamp check (4 weeks)
-                Toast.makeText(getApplicationContext(),"internet is not available",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Internet is not available!",Toast.LENGTH_LONG).show();
+                printWorkout();
             }
 
         }
@@ -288,23 +292,28 @@ Binärwerte für Skills:
         dataSource.close();
     }
 
-    private class WOdaten2serverTask extends AsyncTask<Void, Integer, Boolean> {
+    private class WOdaten2serverTask extends AsyncTask<Void, Integer, Integer> {
 
 
-        protected Boolean doInBackground(Void... params) {
+        protected Integer doInBackground(Void... params) {
 
             //WorkoutMemo memo = (WorkoutMemo) workoutMemoList[0];
             int n=workoutMemoList.size();
             //MainActivity.this.setTitle(String.valueOf(memo.getName()));
             //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
             String inquiry;
+
             for (int i=0; i < n; i++) {
                 WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(i);
-                inquiry = "authcode="+authCode+"&customid="+String.valueOf(customID)+"&wore="+String.valueOf(memo.getWore())+"&number="+String.valueOf(memo.getNumber())+"&name="+String.valueOf(memo.getName())+"&type="+String.valueOf(memo.getType())+"&quant="+String.valueOf(memo.getQuantity())+"&start="+String.valueOf(memo.getStartTime())+"&end="+String.valueOf(memo.getEndTime())+"&dura="+String.valueOf(memo.getDuration())+"&extimes="+String.valueOf(memo.getExTimes())+"&star="+String.valueOf(memo.getStar())+"&check="+String.valueOf(memo.isChecked());
+                String s="0";
+                if(memo.getStar()) s="1";
+                String c="0";
+                if(memo.getStar()) c="1";
+                inquiry = "authcode="+authCode+"&customid="+String.valueOf(customID)+"&wore="+String.valueOf(memo.getWore())+"&number="+String.valueOf(memo.getNumber())+"&name="+String.valueOf(memo.getName())+"&type="+String.valueOf(memo.getType())+"&quant="+String.valueOf(memo.getQuantity())+"&start="+String.valueOf(memo.getStartTime())+"&end="+String.valueOf(memo.getEndTime())+"&dura="+String.valueOf(memo.getDuration())+"&extimes="+String.valueOf(memo.getExTimes())+"&star="+s+"&check="+c;
                 final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=";
 
                 String getString = URL_PARAMETER;
-                getString += method;
+                getString += methodWO;
                 getString += "&authkey=" + authkey;
                 getString += "&" + inquiry;
 
@@ -359,15 +368,17 @@ Binärwerte für Skills:
                 if (i%5 == 4) {
                     publishProgress(i + 1, n);
                 }
-                if(RegisterString=="uphistory true!") {
-                    WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemo(memo.getId(), memo.getWore(), memo.getNumber(), memo.getName(), memo.getType(), memo.getQuantity(), memo.getStartTime(), memo.getEndTime(), memo.getDuration(), memo.getExTimes(), memo.getStar(), (!memo.isUpload()), memo.isChecked());
-                    Log.d(LOG_TAG, "Uploaded-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isUpload());
+                if(RegisterString.equals("Error: Row is not updated")) {
+                    memo.setUpload(false);
+                }
+                else{
+                    memo.setUpload(true);
                 }
             }
 
 
             //MainActivity.this.setTitle(String.valueOf(quant));
-            return true;
+            return n;
         }
 
         protected void onProgressUpdate(Integer... progress) {
@@ -377,8 +388,17 @@ Binärwerte für Skills:
                     Toast.LENGTH_SHORT).show();
         }
 
-        protected void onPostExecute(Boolean result) {
+        protected void onPostExecute(Integer n) {
             // Task abgeschlossen, Ergebnis kann verwendet werden
+            for (int i=0; i < n; i++) {
+                WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(i);
+                if(memo.isUpload()) {
+                    WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemoUpload(memo.getId(), memo.getWore(), memo.getNumber(), memo.getName(), memo.getType(), memo.getQuantity(), memo.getStartTime(), memo.getEndTime(), memo.getDuration(), memo.getExTimes(), memo.getStar(), true, memo.isChecked());
+                    Log.d(LOG_TAG, "Uploaded-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isUpload());
+                } else {
+                    Log.d(LOG_TAG, "Error: Uploaded-Status von Eintrag: " + memo.toString() + " ist: " + memo.isUpload());
+                }
+            }
         }
     }
 
@@ -412,10 +432,11 @@ Binärwerte für Skills:
         new GetServerTask().execute(inquiry);
     }
     public void updateHistory() {
-        method="upHistory";
+        methodWO="upHistory";
         //workoutMemoList.clear();
         workoutMemoList = dataSource.getIsUploadedFalse();
         int quant=workoutMemoList.size();
+        Log.d(LOG_TAG, "UpHistory quant: " + String.valueOf(quant));
         if(quant>0){
             WOdaten2serverTask wodaten2servertask = new WOdaten2serverTask();
             new WOdaten2serverTask().execute();
@@ -437,6 +458,17 @@ Binärwerte für Skills:
         GetServerTask getServerTask = new GetServerTask();
         new GetServerTask().execute(inquiry);*/
     }
+    public void downloadHistory() {
+        //Checken ob Download erforderlich ist:
+        //Anzahl der Datensätze auf Client ermitteln
+        //Anzahl der Datensätze auf Server ermitteln
+        //Wenn #Client<#Server dann Download der fehlenden Datensätze
+        method="getQuantityEntrys";
+        howMuchWOsClient=dataSource.getAllWorkoutEntrys();
+        String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)};
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry);
+    }
     public void update2server() throws UnsupportedEncodingException {
         method="u2s";
 
@@ -445,7 +477,6 @@ Binärwerte für Skills:
         //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
         GetServerTask getServerTask = new GetServerTask();
         new GetServerTask().execute(inquiry);
-
     }
     public void u2sCWOs(){
         // Zusammenbauen der completedWorkouts. Wenn vorhanden mit neuerm Task auf Server speichern
@@ -692,6 +723,18 @@ Binärwerte für Skills:
                     }
                     break;
                 }
+                case ("getQuantityEntrys"): {
+ /*                   int howMuchWOsServer=Integer.valueOf(strings);
+
+                    //MainActivity.this.setTitle("Anzahl: "+String.valueOf(howMuchWOsServer));
+                   if(howMuchWOsClient<howMuchWOsServer){
+                        Toast.makeText(MainActivity.this, "howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer), Toast.LENGTH_LONG).show();
+                    }
+                    else Toast.makeText(MainActivity.this, "howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer), Toast.LENGTH_LONG).show();
+*/
+                    break;
+                }
+
         }
 
         }

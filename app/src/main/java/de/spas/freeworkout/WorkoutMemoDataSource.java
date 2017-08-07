@@ -92,8 +92,10 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + workoutMemo.toString());
     }
 
-    public WorkoutMemo updateWorkoutMemo(long id, int newWore, int newNumber, String newName, int newType, int newQuantity, long newStartTime, long newEndTime, long newDuration, String newExTimes, boolean newStar, boolean newChecked, boolean newUpload) {
+    public WorkoutMemo updateWorkoutMemo(long id, int newWore, int newNumber, String newName, int newType, int newQuantity, long newStartTime, long newEndTime, long newDuration, String newExTimes, boolean newStar, boolean newUpload, boolean newChecked) {
         int intValueChecked = (newChecked)? 1 : 0;
+        int intValueUpload =  0;
+        if(newUpload==true)intValueUpload =  1;
 
         ContentValues values = new ContentValues();
         values.put(WorkoutMemoDbHelper.COLUMN_WORE, newWore);
@@ -107,7 +109,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         values.put(WorkoutMemoDbHelper.COLUMN_EXTIMES, newExTimes);
         values.put(WorkoutMemoDbHelper.COLUMN_STAR, newStar);
         values.put(WorkoutMemoDbHelper.COLUMN_CHECKED, intValueChecked);
-        values.put(WorkoutMemoDbHelper.COLUMN_UPLOAD, newUpload);
+        values.put(WorkoutMemoDbHelper.COLUMN_UPLOAD, intValueUpload);
 
         database.update(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
                 values,
@@ -157,9 +159,43 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
 
         boolean isChecked = (intValueChecked != 0);
         boolean isStar = (intValueStar != 0);
-        boolean isUploaded = (intValueUploaded != 0);
+        boolean isUploaded = (intValueUploaded != 0); // bei intValueUploaded==0: false
 
         WorkoutMemo workoutMemo = new WorkoutMemo(wore, number, name, type, id, isChecked, quantity, startTime, endTime, duration, exTimes, isStar, isUploaded);
+
+        return workoutMemo;
+    }
+    public WorkoutMemo updateWorkoutMemoUpload(long id, int newWore, int newNumber, String newName, int newType, int newQuantity, long newStartTime, long newEndTime, long newDuration, String newExTimes, boolean newStar, boolean newUpload, boolean newChecked) {
+        int intValueChecked =  0;
+        if(newChecked)intValueChecked =  1;
+        int intValueUpload = 1;
+
+        ContentValues values = new ContentValues();
+        values.put(WorkoutMemoDbHelper.COLUMN_WORE, newWore);
+        values.put(WorkoutMemoDbHelper.COLUMN_NUMBER, newNumber);
+        values.put(WorkoutMemoDbHelper.COLUMN_NAME, newName);
+        values.put(WorkoutMemoDbHelper.COLUMN_TYPE, newType);
+        values.put(WorkoutMemoDbHelper.COLUMN_QUANTITY, newQuantity);
+        values.put(WorkoutMemoDbHelper.COLUMN_STARTTIME, newStartTime);
+        values.put(WorkoutMemoDbHelper.COLUMN_ENDTIME, newEndTime);
+        values.put(WorkoutMemoDbHelper.COLUMN_DURATION, newDuration);
+        values.put(WorkoutMemoDbHelper.COLUMN_EXTIMES, newExTimes);
+        values.put(WorkoutMemoDbHelper.COLUMN_STAR, newStar);
+        values.put(WorkoutMemoDbHelper.COLUMN_CHECKED, intValueChecked);
+        values.put(WorkoutMemoDbHelper.COLUMN_UPLOAD, intValueUpload);
+
+        database.update(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
+                values,
+                WorkoutMemoDbHelper.COLUMN_ID + "=" + id,
+                null);
+
+        Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
+                columns, WorkoutMemoDbHelper.COLUMN_ID + "=" + id,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        WorkoutMemo workoutMemo = cursorToWorkoutMemo(cursor);
+        cursor.close();
 
         return workoutMemo;
     }
@@ -190,6 +226,27 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         cursor.close();
 
         return workoutMemoList;
+    }
+    public int getAllWorkoutEntrys() {
+        //Liefert die Anzahl aller gespeicherten Workouts zurück
+        int howMuchRows = 0;
+        List<WorkoutMemo> workoutMemoList = new ArrayList<>();
+        Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
+                columns,
+                null,
+                null,
+                null, null, null);
+        cursor.moveToFirst();
+        WorkoutMemo workoutMemo;
+        while(!cursor.isAfterLast()) {
+            workoutMemo = cursorToWorkoutMemo(cursor);
+            workoutMemoList.add(workoutMemo);
+            //Log.d(LOG_TAG, "ID: " + workoutMemo.getId() + ", Inhalt: " + workoutMemo.toString());
+            cursor.moveToNext();
+        }
+        cursor.close();
+        howMuchRows=workoutMemoList.size();
+        return howMuchRows;
     }
     public  List<WorkoutMemo> getIsUploadedFalse(){
         List<WorkoutMemo> workoutMemoList = new ArrayList<>();
