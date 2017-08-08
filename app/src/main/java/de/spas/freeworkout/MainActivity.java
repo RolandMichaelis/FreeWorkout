@@ -291,6 +291,82 @@ Binärwerte für Skills:
         Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
     }
+    private class WOdaten2clientTask extends AsyncTask<Integer, Void, String> {
+// Download der Workout Daten vom Server zum Client
+
+        protected String doInBackground(Integer... params) {
+            //Lädt einzelne Workouts herunter S2C mit laufender Nummer
+
+            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList[0];
+            int n = params[0];
+            //MainActivity.this.setTitle(String.valueOf(memo.getName()));
+            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
+            String inquiry;
+
+            inquiry = "authcode=" + authCode + "&customid=" + String.valueOf(customID) + "&count=" + n;
+            final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=";
+
+            String getString = URL_PARAMETER;
+            getString += "WOdownloadCount";
+            getString += "&authkey=" + authkey;
+            getString += "&" + inquiry;
+
+            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
+            // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
+            HttpURLConnection httpURLConnection = null;
+            BufferedReader bufferedReader = null;
+
+            String RegisterString = "";
+
+            try {
+                URL url = new URL(getString);
+
+                // Aufbau der Verbindung zu Server
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
+                    return null;
+                }
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    RegisterString += line;
+                }
+                if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
+                    return null;
+                }
+                Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                //publishProgress(1, 1);
+
+            } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
+                Log.e(LOG_TAG, "Error ", e);
+                return null;
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+
+            return RegisterString;
+        }
+
+        protected void onPostExecute(String string) {
+            // Task abgeschlossen, Ergebnis kann verwendet werden
+
+            Log.d(LOG_TAG, "Count-Rückgabe: " + string);
+
+        }
+    }
 
     private class WOdaten2serverTask extends AsyncTask<Void, Integer, Integer> {
 
@@ -401,6 +477,104 @@ Binärwerte für Skills:
             }
         }
     }
+    public void downloadHistory() {
+        //Checken ob Download erforderlich ist:
+        //Anzahl der Datensätze auf Client ermitteln
+        //Anzahl der Datensätze auf Server ermitteln
+        //Wenn #Client<#Server dann Download der fehlenden Datensätze
+        howMuchWOsClient=dataSource.getAllWorkoutEntrys();
+        //String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)};
+        GetQuantityEntrysTask getQuantityEntrysTask = new GetQuantityEntrysTask();
+        new GetQuantityEntrysTask().execute();
+    }
+    private class GetQuantityEntrysTask extends AsyncTask<Void, Void, String> {
+
+
+        protected String doInBackground(Void... strings) {
+
+            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList[0];
+            //int n=workoutMemoList.size();
+            //MainActivity.this.setTitle(String.valueOf(memo.getName()));
+            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
+            String inquiry = "authcode="+authCode+"&customid="+String.valueOf(customID);
+
+
+                //inquiry = "authcode="+authCode+"&customid="+String.valueOf(customID)+"&wore="+String.valueOf(memo.getWore())+"&number="+String.valueOf(memo.getNumber())+"&name="+String.valueOf(memo.getName())+"&type="+String.valueOf(memo.getType())+"&quant="+String.valueOf(memo.getQuantity())+"&start="+String.valueOf(memo.getStartTime())+"&end="+String.valueOf(memo.getEndTime())+"&dura="+String.valueOf(memo.getDuration())+"&extimes="+String.valueOf(memo.getExTimes())+"&star="+s+"&check="+c;
+                final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=";
+
+                String getString = URL_PARAMETER;
+                getString += "getQuantityEntrys";
+                getString += "&authkey=" + authkey;
+                getString += "&" + inquiry;
+
+                Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
+                // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
+                HttpURLConnection httpURLConnection = null;
+                BufferedReader bufferedReader = null;
+
+                // In diesen String speichern wir die Aktiendaten im XML-Format
+                String RegisterString = "";
+
+                try {
+                    URL url = new URL(getString);
+
+                    // Aufbau der Verbindung zu Server
+                    httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                    InputStream inputStream = httpURLConnection.getInputStream();
+
+                    if (inputStream == null) { // Keinen Daten-Stream erhalten, daher Abbruch
+                        return null;
+                    }
+                    bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        RegisterString += line ;
+                    }
+                    if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
+                        return null;
+                    }
+                    Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                    //publishProgress(1, 1);
+
+                } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
+                    Log.e(LOG_TAG, "Error ", e);
+                    return null;
+                } finally {
+                    if (httpURLConnection != null) {
+                        httpURLConnection.disconnect();
+                    }
+                    if (bufferedReader != null) {
+                        try {
+                            bufferedReader.close();
+                        } catch (final IOException e) {
+                            Log.e(LOG_TAG, "Error closing stream", e);
+                        }
+                    }
+                }
+
+            //MainActivity.this.setTitle(String.valueOf(quant));
+            return RegisterString;
+        }
+
+
+
+        protected void onPostExecute(String strings) {
+            // Task abgeschlossen, Ergebnis kann verwendet werden
+
+                  int howMuchWOsServer=Integer.valueOf(strings);
+
+                //MainActivity.this.setTitle("Anzahl: "+String.valueOf(howMuchWOsServer));
+                   if(howMuchWOsClient<howMuchWOsServer){
+                        //Toast.makeText(MainActivity.this, "howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer), Toast.LENGTH_LONG).show();
+                       Log.i(LOG_TAG, "Download Server 2 Client da howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer));
+                    }
+                    else  Log.i(LOG_TAG, "Kein Download da howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer));
+
+            }
+
+    }
 
     public void serverCheckRegister(String email, String password) {
 
@@ -458,17 +632,7 @@ Binärwerte für Skills:
         GetServerTask getServerTask = new GetServerTask();
         new GetServerTask().execute(inquiry);*/
     }
-    public void downloadHistory() {
-        //Checken ob Download erforderlich ist:
-        //Anzahl der Datensätze auf Client ermitteln
-        //Anzahl der Datensätze auf Server ermitteln
-        //Wenn #Client<#Server dann Download der fehlenden Datensätze
-        method="getQuantityEntrys";
-        howMuchWOsClient=dataSource.getAllWorkoutEntrys();
-        String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)};
-        GetServerTask getServerTask = new GetServerTask();
-        new GetServerTask().execute(inquiry);
-    }
+
     public void update2server() throws UnsupportedEncodingException {
         method="u2s";
 
@@ -684,6 +848,7 @@ Binärwerte für Skills:
                     }
                     else if(strings.substring(0,3).equals("u2c")){
                         // Daten an Client senden
+                        Log.i(LOG_TAG, "Aufruf: update2client: " + strings.substring(3,strings.length()));
                         update2client(strings.substring(3,strings.length()));
                     }
                     else if(strings.equals("Error: authcode different")){
@@ -723,17 +888,7 @@ Binärwerte für Skills:
                     }
                     break;
                 }
-                case ("getQuantityEntrys"): {
- /*                   int howMuchWOsServer=Integer.valueOf(strings);
 
-                    //MainActivity.this.setTitle("Anzahl: "+String.valueOf(howMuchWOsServer));
-                   if(howMuchWOsClient<howMuchWOsServer){
-                        Toast.makeText(MainActivity.this, "howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer), Toast.LENGTH_LONG).show();
-                    }
-                    else Toast.makeText(MainActivity.this, "howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer), Toast.LENGTH_LONG).show();
-*/
-                    break;
-                }
 
         }
 
