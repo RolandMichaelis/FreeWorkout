@@ -135,6 +135,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
     final Context context = this;
     private List<WorkoutMemo> workoutMemoList;
     private int howMuchWOsClient;
+    private int restOf; //zum Zählen der noch herunterzuladenden Workouts vom Server
+    private int howMuchWOsServer;
+    private int counterWO;
+    private int wore;
+    private int number;
+    private String name;
+    private int type;
+    private int quantity;
+    private long startTime;
+    private long endTime;
+    private int duration;
+    private String exTimes;
+    private boolean star;
+    private boolean checkedWO;
+
 /*
 Binärwerte für Skills:
 1 Pullups
@@ -292,18 +307,67 @@ Binärwerte für Skills:
         dataSource.close();
     }
     private class WOdaten2clientTask extends AsyncTask<Integer, Void, String> {
-// Download der Workout Daten vom Server zum Client
+    // Download der Workout Daten vom Server zum Client
+
+        //WorkoutMemo workoutMemo;
+        //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(0);
+
+        private void flexWOstring(String s){
+            wore=Integer.valueOf(s.substring(0,1));
+            int n = s.indexOf(";");
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            number = Integer.valueOf(s.substring(0,n));
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            name=s.substring(0,n);
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            type = Integer.valueOf(s.substring(0,n));
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            quantity = Integer.valueOf(s.substring(0,n));
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            startTime = Long.valueOf(s.substring(0,n));
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            endTime = Long.valueOf(s.substring(0,n));
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            duration = Integer.valueOf(s.substring(0,n));
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            exTimes=s.substring(0,n);
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            star = (!s.substring(0,n).equals("0"));
+            s=s.substring(n+1,s.length());
+            n = s.indexOf(";");
+            checkedWO = (!s.substring(0,n).equals("0"));
+            /*memo.setWore(wore);
+            memo.setNumber(number);
+            memo.setName(name);
+            memo.setType(type);
+            memo.setQuantity(quantity);
+            memo.setStartTime(startTime);
+            memo.setEndTime(endTime);
+            memo.setDuration(duration);
+            memo.setExTimes(exTimes);
+            memo.setStar(star);
+            memo.setChecked(checked);*/
+        }
 
         protected String doInBackground(Integer... params) {
             //Lädt einzelne Workouts herunter S2C mit laufender Nummer
 
             //WorkoutMemo memo = (WorkoutMemo) workoutMemoList[0];
-            int n = params[0];
+            //int n = params[0];
             //MainActivity.this.setTitle(String.valueOf(memo.getName()));
             //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
             String inquiry;
 
-            inquiry = "authcode=" + authCode + "&customid=" + String.valueOf(customID) + "&count=" + n;
+            inquiry = "authcode=" + authCode + "&customid=" + String.valueOf(customID) + "&count=" + counterWO;
             final String URL_PARAMETER = "https://www.myphysiodoc.com/reg.php?method=";
 
             String getString = URL_PARAMETER;
@@ -363,8 +427,29 @@ Binärwerte für Skills:
         protected void onPostExecute(String string) {
             // Task abgeschlossen, Ergebnis kann verwendet werden
 
-            Log.d(LOG_TAG, "Count-Rückgabe: " + string);
+            //Log.d(LOG_TAG, "Count-Rückgabe: " + string);
+            //Hier Prüfung ob das Workout schon auf Client DB vorhanden ist (number, starttime, endtime)
+            //Wenn nicht, restOf=restOf-1 (und speichern des WOs), damit nicht mehr runtergeladen wird, wenn bereits alle fehlenden WOs in Client DB gespeichert wurden;
+            if(restOf>1) {
+                WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
+                new WOdaten2clientTask().execute(counterWO);
+                counterWO++;
+                if(string.substring(0,3).equals("w2c")){
+                    flexWOstring(string.substring(3,string.length())); //Übergabe ohne w2c nach Kontrolle
+                    //Log.d(LOG_TAG, "workoutMemo: " + workoutMemo.getName());
+                    if(!dataSource.getWOexist(number,startTime,endTime)){
+                        Log.d(LOG_TAG, "WO unbekannt: " + string);
+                        //dataSource.createWorkoutMemo(wore, number, name, type, quantity, startTime, endTime, duration, exTimes,star,checkedWO,true);
 
+                    }
+                    else Log.d(LOG_TAG, "WO bekannt!!!: " + string);
+                }
+                else Log.d(LOG_TAG, "Error return value w2c: " + string);
+                restOf--;
+                Log.d(LOG_TAG, "restOf: " + restOf);
+
+            }
+            else  Log.d(LOG_TAG, "restOf Ende: " + restOf);
         }
     }
 
@@ -373,10 +458,7 @@ Binärwerte für Skills:
 
         protected Integer doInBackground(Void... params) {
 
-            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList[0];
             int n=workoutMemoList.size();
-            //MainActivity.this.setTitle(String.valueOf(memo.getName()));
-            //WorkoutMemo memo = (WorkoutMemo) workoutMemoList.getItemAtPosition(0);
             String inquiry;
 
             for (int i=0; i < n; i++) {
@@ -563,13 +645,17 @@ Binärwerte für Skills:
         protected void onPostExecute(String strings) {
             // Task abgeschlossen, Ergebnis kann verwendet werden
 
-                  int howMuchWOsServer=Integer.valueOf(strings);
+                  howMuchWOsServer=Integer.valueOf(strings);
 
                 //MainActivity.this.setTitle("Anzahl: "+String.valueOf(howMuchWOsServer));
                    if(howMuchWOsClient<howMuchWOsServer){
-                        //Toast.makeText(MainActivity.this, "howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer), Toast.LENGTH_LONG).show();
+                       //Toast.makeText(MainActivity.this, "howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer), Toast.LENGTH_LONG).show();
                        Log.i(LOG_TAG, "Download Server 2 Client da howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer));
-                    }
+                       restOf=howMuchWOsServer-howMuchWOsClient;
+                       counterWO=0;
+                       WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
+                       new WOdaten2clientTask().execute(counterWO);
+                   }
                     else  Log.i(LOG_TAG, "Kein Download da howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer));
 
             }

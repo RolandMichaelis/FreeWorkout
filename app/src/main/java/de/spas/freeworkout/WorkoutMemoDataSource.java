@@ -365,4 +365,30 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         }
         return out;
     }
+    public Boolean getWOexist(int number,long starttime,long endtime){
+
+        Boolean out=false;
+        List<WorkoutMemo> workoutMemoList = new ArrayList<>();
+/*        Cursor cc = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,  new String[] { "max(" + WorkoutMemoDbHelper.COLUMN_STARTTIME + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_NUMBER + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_STARTTIME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_ENDTIME + "=?", new String[] {String.valueOf(number),String.valueOf(starttime),String.valueOf(endtime)},
+                null, null, null);*/
+        Cursor cc = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { "min(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_NUMBER + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_STARTTIME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_ENDTIME + "=?", new String[] {String.valueOf(number),String.valueOf(starttime),String.valueOf(endtime)},
+                null, null, null);
+        cc.moveToFirst();
+        int rowIDcc = cc.getInt(1);
+        cc.close();
+
+        if(rowIDcc!=0) {
+            out=true;
+        }
+        /*
+        Cursor cc = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { "min(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(1),"Metis",String.valueOf(1)},
+                null, null, null);
+        cc.moveToFirst();
+        int rowIDcc = cc.getInt(1);
+        if(rowIDcc!=0) {
+            out=true;
+        }
+        cc.close();*/
+        return out;
+    }
 }
