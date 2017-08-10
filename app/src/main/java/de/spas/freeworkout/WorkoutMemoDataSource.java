@@ -374,6 +374,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         Cursor cc = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_NUMBER + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_STARTTIME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_ENDTIME + "=?", new String[] {String.valueOf(number),String.valueOf(starttime),String.valueOf(endtime)},
                 null, null, null);
         cc.moveToFirst();
+
         //int rowIDcc = cc.getInt(0);
 
         //int rowIDcc=0;
