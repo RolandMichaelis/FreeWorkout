@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FreeWorkout 0.14 Log in</string>
+    <string name="app_name">FreeWorkout V0.15</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Passwort</string>

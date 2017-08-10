@@ -175,7 +175,7 @@ Binärwerte für Skills:
             workoutPack = serializer.read(de.spas.freeworkout.workoutPack.class, source);
             //Toast.makeText(this, "Wow! Klappt!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Oh oh! workoutPack", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Oh oh! workoutPack", Toast.LENGTH_LONG).show();
             Log.e(getClass().getSimpleName(), "loading levels threw exception", e);
         }
         try {
@@ -184,7 +184,7 @@ Binärwerte für Skills:
             exercisePack = serializer.read(de.spas.freeworkout.exercisePack.class, source);
             //Toast.makeText(this, "Wow! Klappt!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Oh oh! exercisePack", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Oh oh! exercisePack", Toast.LENGTH_LONG).show();
             Log.e(getClass().getSimpleName(), "loading levels threw exception", e);
         }
         try {
@@ -193,7 +193,7 @@ Binärwerte für Skills:
             specialPack = serializer.read(de.spas.freeworkout.specialPack.class, source);
             //Toast.makeText(this, "Wow! Klappt!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Oh oh! specialPack", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Oh oh! specialPack", Toast.LENGTH_LONG).show();
             Log.e(getClass().getSimpleName(), "loading levels threw exception", e);
         }
        // ActionBar actionBar = getActionBar();
@@ -402,7 +402,7 @@ Binärwerte für Skills:
                 if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
                     return null;
                 }
-                Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                //Log.v(LOG_TAG, "Register-String: " + RegisterString);
                 //publishProgress(1, 1);
 
             } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
@@ -430,26 +430,24 @@ Binärwerte für Skills:
             //Log.d(LOG_TAG, "Count-Rückgabe: " + string);
             //Hier Prüfung ob das Workout schon auf Client DB vorhanden ist (number, starttime, endtime)
             //Wenn nicht, restOf=restOf-1 (und speichern des WOs), damit nicht mehr runtergeladen wird, wenn bereits alle fehlenden WOs in Client DB gespeichert wurden;
-            if(restOf>1) {
-                WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
-                new WOdaten2clientTask().execute(counterWO);
-                counterWO++;
                 if(string.substring(0,3).equals("w2c")){
                     flexWOstring(string.substring(3,string.length())); //Übergabe ohne w2c nach Kontrolle
                     //Log.d(LOG_TAG, "workoutMemo: " + workoutMemo.getName());
                     if(!dataSource.getWOexist(number,startTime,endTime)){
                         Log.d(LOG_TAG, "WO unbekannt: " + string);
                         dataSource.createWorkoutMemo(wore, number, name, type, quantity, startTime, endTime, duration, exTimes,star,checkedWO,true);
-
+                        restOf--;
                     }
                     else Log.d(LOG_TAG, "WO bekannt!!!: " + string);
                 }
-                else Log.d(LOG_TAG, "Error return value w2c: " + string);
-                restOf--;
+               // else Log.d(LOG_TAG, "Error return value w2c: " + string);
                 Log.d(LOG_TAG, "restOf: " + restOf);
-
+            if(restOf>0 && counterWO<howMuchWOsServer-1) {
+                counterWO++;
+                WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
+                new WOdaten2clientTask().execute(counterWO);
             }
-            else  Log.d(LOG_TAG, "restOf Ende: " + restOf);
+            else  Log.d(LOG_TAG, "restOf Ende: " + restOf+" counterWO: "+counterWO+" howMuchWOsServer: "+howMuchWOsServer);
         }
     }
 
@@ -503,7 +501,7 @@ Binärwerte für Skills:
                     if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
                         return null;
                     }
-                    Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                    //Log.v(LOG_TAG, "Register-String: " + RegisterString);
                     //publishProgress(1, 1);
 
                 } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
@@ -565,6 +563,8 @@ Binärwerte für Skills:
         //Anzahl der Datensätze auf Server ermitteln
         //Wenn #Client<#Server dann Download der fehlenden Datensätze
         howMuchWOsClient=dataSource.getAllWorkoutEntrys();
+        Log.e(LOG_TAG, "howMuchWOsClient: "+howMuchWOsClient);
+
         //String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)};
         GetQuantityEntrysTask getQuantityEntrysTask = new GetQuantityEntrysTask();
         new GetQuantityEntrysTask().execute();
@@ -617,7 +617,7 @@ Binärwerte für Skills:
                     if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
                         return null;
                     }
-                    Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                    //Log.v(LOG_TAG, "Register-String: " + RegisterString);
                     //publishProgress(1, 1);
 
                 } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
@@ -863,7 +863,7 @@ Binärwerte für Skills:
                 if (RegisterString.length() == 0) { // Keine Daten ausgelesen, Abbruch
                     return null;
                 }
-                Log.v(LOG_TAG, "Register-String: " + RegisterString);
+                //Log.v(LOG_TAG, "Register-String: " + RegisterString);
                 //publishProgress(1, 1);
 
             } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
@@ -900,7 +900,8 @@ Binärwerte für Skills:
                         SharedPreferences sp = getPreferences(MODE_PRIVATE);
                         int customID = sp.getInt("customID", 0);
 
-                        MainActivity.this.setTitle(customID+"|"+strings);
+                        //MainActivity.this.setTitle(customID+"|"+strings);
+                        Log.i(LOG_TAG,customID+"|"+strings);
                     }
                     break;
                 }
@@ -913,7 +914,8 @@ Binärwerte für Skills:
                         saveAuthCodeCustomID(strings);
                         Toast.makeText(MainActivity.this, "User angemeldet!",Toast.LENGTH_SHORT).show();
                         SharedPreferences sp = getPreferences(MODE_PRIVATE);
-                        MainActivity.this.setTitle(customID+"|"+strings);
+                        //MainActivity.this.setTitle(customID+"|"+strings);
+                        Log.i(LOG_TAG,customID+"|"+strings);
                         if(isConnectingToInternet(MainActivity.this)){
                             updateCheckData();
                             updateHistory();
@@ -924,10 +926,11 @@ Binärwerte für Skills:
                 }
                 case ("update"): {
 
-                    MainActivity.this.setTitle(strings+"|"+ String.valueOf(customID));
+                    //MainActivity.this.setTitle(strings+"|"+ String.valueOf(customID));
+                    Log.i(LOG_TAG, strings+"|"+ String.valueOf(customID));
                     if(strings.equals("Error: send me update")){
                         // Daten an Server senden
-                        Toast.makeText(MainActivity.this, "s "+strings,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "s "+strings,Toast.LENGTH_SHORT).show();
                         try {
                             update2server();
                             printWorkout();
@@ -942,24 +945,24 @@ Binärwerte für Skills:
                     }
                     else if(strings.equals("Error: authcode different")){
                         // Daten an Server senden
-                        Toast.makeText(MainActivity.this, "a "+strings,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "a "+strings,Toast.LENGTH_SHORT).show();
                         dialog_login();
 
                     }
                     else if(strings.equals("Error: no update")){
                         // Daten an Server senden
-                        MainActivity.this.setTitle(String.valueOf(lastUpdate)+"nu");
+                        //MainActivity.this.setTitle(String.valueOf(lastUpdate)+"nu");
                         printWorkout();
                     }
                     break;
                 }
                 case ("u2s"): {
                     if(strings.substring(0, 6).equals("Error:")){
-                        Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
                         printWorkout();
                     }
                     else {
-                            MainActivity.this.setTitle(String.valueOf(lastUpdate)+"u2s");
+                           // MainActivity.this.setTitle(String.valueOf(lastUpdate)+"u2s");
                             u2sCWOs();
 
                     }
@@ -967,12 +970,14 @@ Binärwerte für Skills:
                 }
                 case ("u2sCWOs"): {
                     if(strings.substring(0, 6).equals("Error:")){
-                        Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
-                        MainActivity.this.setTitle(String.valueOf(lastUpdate)+"|"+customID+"|"+strings);
+                        //Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        //MainActivity.this.setTitle(String.valueOf(lastUpdate)+"|"+customID+"|"+strings);
+                        Log.i(LOG_TAG,String.valueOf(lastUpdate)+"|"+customID+"|"+strings);
                         printWorkout();
                     }
                     else {
-                        MainActivity.this.setTitle(String.valueOf(lastUpdate)+"u2sCWOs");
+                        //MainActivity.this.setTitle(String.valueOf(lastUpdate)+"u2sCWOs");
+                        Log.i(LOG_TAG,String.valueOf(lastUpdate)+"u2sCWOs");
                         printWorkout();
                     }
                     break;
@@ -1544,7 +1549,7 @@ Binärwerte für Skills:
     public void delCompletedWorkouts(){
         SharedPreferences sp1 = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ee = sp1.edit();
-        Toast.makeText(this, "size WorkoutListArray1 "+String.valueOf(WorkoutListArray1.size()), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "size WorkoutListArray1 "+String.valueOf(WorkoutListArray1.size()), Toast.LENGTH_LONG).show();
         for(int day=0; day<days+1; day++) {
 
             switch (day) {
