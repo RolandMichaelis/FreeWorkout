@@ -439,7 +439,7 @@ Binärwerte für Skills:
                     //Log.d(LOG_TAG, "workoutMemo: " + workoutMemo.getName());
                     if(!dataSource.getWOexist(number,startTime,endTime)){
                         Log.d(LOG_TAG, "WO unbekannt: " + string);
-                        //dataSource.createWorkoutMemo(wore, number, name, type, quantity, startTime, endTime, duration, exTimes,star,checkedWO,true);
+                        dataSource.createWorkoutMemo(wore, number, name, type, quantity, startTime, endTime, duration, exTimes,star,checkedWO,true);
 
                     }
                     else Log.d(LOG_TAG, "WO bekannt!!!: " + string);
@@ -807,14 +807,13 @@ Binärwerte für Skills:
             int n = s.indexOf(":");
 
             authCode = s.substring(0, n); //kompletter String bis :
-            int customID = Integer.valueOf(s.substring(n+1, s.length()));
+            customID = Integer.valueOf(s.substring(n+1, s.length()));
 
             SharedPreferences sp = getPreferences(MODE_PRIVATE);
             SharedPreferences.Editor e = sp.edit();
             e.putInt("customID", customID);
             e.putString("authCode", authCode);
             e.commit();
-
 
             return authCode;
         }
@@ -914,10 +913,14 @@ Binärwerte für Skills:
                         saveAuthCodeCustomID(strings);
                         Toast.makeText(MainActivity.this, "User angemeldet!",Toast.LENGTH_SHORT).show();
                         SharedPreferences sp = getPreferences(MODE_PRIVATE);
-                        int customID = sp.getInt("customID", 0);
                         MainActivity.this.setTitle(customID+"|"+strings);
-                        if(isConnectingToInternet(MainActivity.this)) updateCheckData();
-                    }                    break;
+                        if(isConnectingToInternet(MainActivity.this)){
+                            updateCheckData();
+                            updateHistory();
+                            downloadHistory();
+                        }
+                    }
+                    break;
                 }
                 case ("update"): {
 
