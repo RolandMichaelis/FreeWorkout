@@ -1055,9 +1055,9 @@ Binärwerte für Skills:
                         cnc=false;
                     }
                     String[] input = new String[2];
-                    input = ex2CheckForExtraText(st2);
+                    if(!st2.equals(""))input = ex2CheckForExtraText(st2);
                     //Hier weitermachen. Nach Import wird falsches Workout abgehakt :-((
-                    e.putString("completedWorkouts"+input[0]+input[1], st2); //Tag und Position
+                    if(!st2.equals(""))e.putString("completedWorkouts"+input[0]+input[1], st2); //Tag und Position
 
                     if(nx>0){st =  st.substring(n+1,st.length());}
                 }while(cnc);
