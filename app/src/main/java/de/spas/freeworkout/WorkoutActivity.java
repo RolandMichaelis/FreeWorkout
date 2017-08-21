@@ -162,8 +162,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             checked_pos = Integer.valueOf(s1.substring(0,s1.length()));
 
 
-
-            //Toast.makeText(this, "wore: "+String.valueOf(wore)+"wore: "+String.valueOf(number)+"quantity: "+String.valueOf(quantity)+" checked_day: "+String.valueOf(checked_day)+" checked_pos: "+String.valueOf(checked_pos), Toast.LENGTH_LONG).show();
+            Log.i(LOG_TAG, "wore: "+String.valueOf(wore)+"wore: "+String.valueOf(number)+"quantity: "+String.valueOf(quantity)+" checked_day: "+String.valueOf(checked_day)+" checked_pos: "+String.valueOf(checked_pos));
 
             for (int i = 0; i < 30; i++){
                 roundList[i] = new ArrayList();
@@ -202,7 +201,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                                 counter_rounds++;
                             }
                         }
-                        //Toast.makeText(this, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice)+" | "+String.valueOf(wo), Toast.LENGTH_LONG).show();
+                        Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice)+" | "+String.valueOf(wo));
                         break;
                     }
                     case 1: {
@@ -230,7 +229,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                                 counter_rounds++;
                             }
                         }
-                        //Toast.makeText(this, "specialPack Anzahl: "+String.valueOf(counter_rounds)+"|"+String.valueOf(counter_practice)+" | "+String.valueOf(wo), Toast.LENGTH_LONG).show();
+                        Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice)+" | "+String.valueOf(wo));
                         break;
                     }
                     default: {
@@ -256,12 +255,12 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                                     }
                                     roundList[counter_rounds].add(xhalf + q + xmeter + " " + p.getName());
                                     counter_practice++;
-                                    //Toast.makeText(this, "specialPack Anzahl: "+String.valueOf(counter_rounds)+"|"+String.valueOf(counter_practice), Toast.LENGTH_LONG).show();
+                                    Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice));
                                 }
                                 counter_rounds++;
                             }
                         }
-                        //Toast.makeText(this, "specialPack Anzahl: "+String.valueOf(counter_rounds)+"|"+String.valueOf(counter_practice)+" | "+String.valueOf(wo), Toast.LENGTH_LONG).show();
+                        Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice)+" | "+String.valueOf(wo));
                         break;
                     }
 
@@ -525,7 +524,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
 
 
             //Exercise w = exercisePack.getExercises().get(number); // XML für Exercise laden, number = Exercisenummer
-            //Toast.makeText(this, "specialPack Anzahl: "+String.valueOf(), Toast.LENGTH_LONG).show();
 
 
 
@@ -540,10 +538,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             case android.R.id.home: // Activity Bar Back Button override to go to previous Activity
                 onBackPressed();
                 return true;
-            //case R.id.menu_add_icon:
-            //    Toast.makeText(this, "Plus: ", Toast.LENGTH_LONG).show();
-            //    return(true);
-        }
+         }
         return(super.onOptionsItemSelected(item));
 
     }
@@ -634,12 +629,12 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                     public void onClick(DialogInterface dialog,int id) {
                         // if this button is clicked, close
                         // current activity
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//nach dem WO den Screen wieder frei geben für ausschalten
                         if(wl.isHeld())wl.release();
                         String tlt="";
                         for(int x=0;x<quantElements;x++){
                             if(x<quantElements-1)tlt=tlt+timeList.get(x).toString()+"|";
-                            else tlt=tlt+timeList.get(x).toString();
+                            else tlt=tlt+timeList.get(x).toString(); //tlt: Zeiten der einzelnen WOs
 
                         }
                         dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
@@ -708,7 +703,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
 
                 // your on click here
                 if(view.getId()==R.id.button_wo_display) {
-                    Toast.makeText(WorkoutActivity.this, "Workout display", Toast.LENGTH_LONG).show();
+                    Log.i(LOG_TAG, "Workout display");
                     hideView(R.id.container_1);
                     hideView(R.id.button_wo_display);
                     showView(R.id.container_2);
@@ -721,7 +716,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                     if(!datasGhost.equals(""))run_view_ghost();
                 }
                 if(view.getId()==R.id.button_wo_start) {
-                    Toast.makeText(WorkoutActivity.this, "Workout starten", Toast.LENGTH_LONG).show();
+                    Log.i(LOG_TAG, "Workout starten");
                     //statList.set(0,tsLong);
                     showView(R.id.button_wo_back);
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -730,9 +725,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                     //tts = new TextToSpeech(WorkoutActivity.this,WorkoutActivity.this);
                 }
                 if(view.getId()==R.id.button_wo_back) {
-                    //Toast.makeText(this, "button_wo_cancel", Toast.LENGTH_LONG).show();
-                    //Toast.makeText(WorkoutActivity.this, "button_wo_back", Toast.LENGTH_LONG).show();
-                    if(wo_pointer>1) {
+                     if(wo_pointer>1) {
                         wo_pointer--;
                         start_pointer--;
                         workoutOrRoundMinus();
@@ -767,8 +760,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                                 run_view();
                                 if(!datasGhost.equals(""))run_view_ghost();
                                 calc_best_diff();
-
-                                //Toast.makeText(this, "timestamp; "+tsLong.toString(), Toast.LENGTH_LONG).show();
                             }
                             else {
                                 //Stopp!!! Letzte Exercise fertig!
@@ -783,16 +774,13 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                                 if(!datasGhost.equals(""))run_view_ghost();
 
                                 dialog_finish();
-                                 //Toast.makeText(this, "Ich habe fertig!", Toast.LENGTH_LONG).show();
-
-                                //String tx=String.valueOf(lengthElement)+"|"+String.valueOf(secondWidth)+"|"+String.valueOf(wo_pointer)+"|"+String.valueOf(quantElements);
+                                 //String tx=String.valueOf(lengthElement)+"|"+String.valueOf(secondWidth)+"|"+String.valueOf(wo_pointer)+"|"+String.valueOf(quantElements);
                                 //((TextView) findViewById(R.id.time_lt)).setText(String.valueOf(wo_pointer));
                             }
                         }
                     }
                 }
                 if(view.getId()==R.id.button_wo_add) {
-                    //Toast.makeText(this, "button_wo_cancel", Toast.LENGTH_LONG).show();
                     dialog_add();
                 }
 
@@ -891,14 +879,12 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             statList.add((long) 0L); //Für die Pause dazu
             timeList.add((long) 0L);//Für die Pause dazu
         }
-        //Toast.makeText(this,  String.valueOf(counter_rounds), Toast.LENGTH_LONG).show();
         counter_rounds_pre_add=counter_rounds;
         for(int x=0;x<(counter_rounds_pre_add/quantity);x++){
             roundList[counter_rounds].addAll(roundList[x]);
             counter_rounds++;
         }
         if(!roundlistLastRest.equals(""))roundList[counter_rounds - 1].remove(counter_practice - 1); //Allerletzte Runde raus, wenn "Rest"
-        //Toast.makeText(this,  String.valueOf(counter_rounds), Toast.LENGTH_LONG).show();
 
         for (int rLx = counter_rounds_pre_add; rLx < counter_rounds; rLx++) {
             int r=rLx+1;
@@ -941,7 +927,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             showView(R.id.time_pb);
             ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
             datasGhost=dataSource.getMinDurationGhost(quantity,TextName,type); //Abfrage Ghostdaten in DB für kürzestes WO
-            //Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         }
         text_lt=dataSource.getMaxStartTime(quantity,TextName,type); //Abfrage DB letztes WO
         //Toast.makeText(this, "getMaxStartTime return:"+text_lt, Toast.LENGTH_LONG).show();
@@ -960,7 +945,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
         list_view();
         calc_view();
         if(!datasGhost.equals(""))run_view_ghost(); else clear_run_view_ghost();
-        //Toast.makeText(this, "Add: "+text_pb+"|"+String.valueOf(text_lt), Toast.LENGTH_LONG).show();
         calc_best_diff();
     }
     private void countup() {
@@ -1307,9 +1291,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                 if(quantElements<8) quant=quantElements;
                 for(int tvx = 0; tvx < quant; tvx++){
                     if(timeList.get(start_pointer+tvx)>0L){
-                        //Toast.makeText(getContext(), "timestamp: "+statList.get(start_pointer+tvx).toString(), Toast.LENGTH_LONG).show();
-
-
                         lengthElement= (int) (secondWidth*(timeList.get(start_pointer+tvx)/1000));
                         paint.setColor(Color.parseColor("#92ffa1")); //light green
                         if(ghostList.size()>0) {
@@ -1333,14 +1314,10 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                 if(quantElements<8) quant=quantElements;
                 for(int tvx = 0; tvx < quant; tvx++){
                     if(ghostList.get(start_pointer+tvx)>0){
-                        //Toast.makeText(getContext(), "timestamp: "+statList.get(start_pointer+tvx).toString(), Toast.LENGTH_LONG).show();
-
-
 
                         t=tvList.get(tvx).getTop();
                         l=tvList.get(tvx).getLeft();
                         h=tvList.get(tvx).getHeight();
-
 
                         ghostTime=ghostTime+ghostList.get(start_pointer+tvx);
                         currTimeCounter = (System.currentTimeMillis()) - (timestampStart);
@@ -1387,14 +1364,11 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             super.onDraw(canvas);
             left=tvList.get(wo_pointer-start_pointer).getLeft();
             Paint paint=new Paint();
-            //Toast.makeText(getContext(), "Ghost:"+ghostList.get(1), Toast.LENGTH_LONG).show();
             if(quantElements>0){
                 int quant=8;
                 if(quantElements<8) quant=quantElements;
                 for(int tvx = 0; tvx < quant; tvx++){
                     if(ghostList.get(start_pointer+tvx)>0){
-                        //Toast.makeText(getContext(), "timestamp: "+statList.get(start_pointer+tvx).toString(), Toast.LENGTH_LONG).show();
-
 
                         lengthElement= (int) (secondWidth*(ghostList.get(start_pointer+tvx)/1000));
 
