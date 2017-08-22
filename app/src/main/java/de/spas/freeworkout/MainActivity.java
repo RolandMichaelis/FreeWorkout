@@ -242,18 +242,22 @@ Binärwerte für Skills:
 
         @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.button_prefs) {
-            //Toast.makeText(getBaseContext(), "Button ", Toast.LENGTH_LONG).show();
-            dialog_settings();
+/*            if(view.getId()==R.id.forgot_pw) {
+                //Toast.makeText(getBaseContext(), "Button forgot pw", Toast.LENGTH_LONG).show();
+                this.cancel();
+            }*/
+            if(view.getId()==R.id.button_prefs) {
+                //Toast.makeText(getBaseContext(), "Button ", Toast.LENGTH_LONG).show();
+                dialog_settings();
+            }
+            if(view.getId()==R.id.button_calc) {
+                //Toast.makeText(getBaseContext(), "Button Calc", Toast.LENGTH_LONG).show();
+                generalList();
+                WorkoutCalc();
+                saveDate();
+                printWorkout();
+            }
         }
-        if(view.getId()==R.id.button_calc) {
-            //Toast.makeText(getBaseContext(), "Button Calc", Toast.LENGTH_LONG).show();
-            generalList();
-            WorkoutCalc();
-            saveDate();
-            printWorkout();
-        }
-    }
     private void checkForLogin(){
         // authCode vom Server erhalten nach erfolgreichem Login
         //lastAuthDatestamp = hinterlegter datestamp nach letztem erfolgreichem Login
@@ -662,6 +666,16 @@ Binärwerte für Skills:
 
     }
 
+    public void serverForgotPassword(String email) {
+
+        method="forgotPassword";
+
+        String[] inquiry ={"email="+email};
+        //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
+
+        GetServerTask getServerTask = new GetServerTask();
+        new GetServerTask().execute(inquiry);
+    }
     public void serverCheckRegister(String email, String password) {
 
         method="register";
@@ -890,6 +904,19 @@ Binärwerte für Skills:
             // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
 
             switch (method) {
+                case ("forgotPassword"): {
+                    if(strings.substring(0, 6).equals("Error:")){
+                        Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        //dialog_login();
+                    }
+                    else {
+                        //Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.send_password),Toast.LENGTH_SHORT).show();
+                        //Log.i(LOG_TAG,customID+"|"+strings);
+                        //dialog_login();
+                    }
+                    break;
+                }
                 case ("register"): {
                     if(strings.substring(0, 6).equals("Error:")){
                         Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
@@ -1984,6 +2011,8 @@ Binärwerte für Skills:
                 {
                     View view = super.getView(position, convertView, parent);
                     TextView text = (TextView) view.findViewById(android.R.id.text1);
+
+
                     if(exChecked(checked[0],position)==true) {
                         text.setTextColor(Color.parseColor("#999999"));
                         text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -2724,7 +2753,9 @@ Binärwerte für Skills:
                     public void onClick(DialogInterface dialog, int id) {
                         editTextEmail=email.getText().toString().toLowerCase();
                         editTextPassword=password.getText().toString();
-                        if(!isValidEmail(editTextEmail)) {
+
+
+                      if(!isValidEmail(editTextEmail)) {
                             Toast.makeText(MainActivity.this,editTextEmail+" is not a valid email!", Toast.LENGTH_LONG).show();
                             dialog_login();
                         }
@@ -2748,18 +2779,27 @@ Binärwerte für Skills:
 
 
 
-
         // create alert dialog
-        AlertDialog alertDialog = builder.create();
+        final AlertDialog alertDialog = builder.create();
+        final TextView textView = (TextView) dialogsViewNL.findViewById(R.id.forgot_pw);
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
 
 
-        // show it
-        alertDialog.show();
+       dialogsViewNL.findViewById(R.id.forgot_pw).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               //Toast.makeText(MainActivity.this, getString(R.string.send_password), Toast.LENGTH_LONG).show();
+               editTextEmail=email.getText().toString().toLowerCase();
+               serverForgotPassword(editTextEmail);
+               //alertDialog.dismiss();
+           }
+       });
+       // show it
+       alertDialog.show();
 
 
-
-    }
+   }
     public void dialog_settings() {
         android.app.AlertDialog.Builder builder =  new android.app.AlertDialog.Builder(
                 new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));

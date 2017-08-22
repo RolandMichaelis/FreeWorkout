@@ -13,6 +13,8 @@
     completions."</string>
     <string name="action_sign_in">Anmelden oder Registrieren</string>
     <string name="error_sign_in">Bitte eMail und Passwort eingeben!</string>
+    <string name="forgot_password">Passwort vergessen</string>
+    <string name="send_password">Wir haben dir ein neues Passwort per Email gesendet.</string>
     <string name="dialog_button_sign_in">Anmelden</string>
     <string name="dialog_button_register">Neu registrieren</string>
     <string name="menu_name">Einstellungen</string>
@@ -20,6 +22,7 @@
     <string name="menu_workouts">Workouts</string>
     <string name="menu_exercises">Exercises</string>
     <string name="menu_logout">Abmelden</string>
+    <string name="dialog_title_login">Anmelden oder Registrieren</string>
     <string name="dialog_skills">Skills:</string>
     <string name="dialog_type">Fokus:</string>
     <string name="dialog_days">Tage/Woche:</string>
