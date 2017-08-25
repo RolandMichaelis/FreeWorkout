@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
@@ -167,7 +168,7 @@ Binärwerte für Skills:
 
         setContentView(R.layout.activity_main);
         dataSource = new WorkoutMemoDataSource(this);
-        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        Log.i(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
         try {
             InputStream source = getAssets().open("workouts.xml");
@@ -307,7 +308,7 @@ Binärwerte für Skills:
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        Log.i(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
     }
     private class WOdaten2clientTask extends AsyncTask<Integer, Void, String> {
@@ -379,7 +380,7 @@ Binärwerte für Skills:
             getString += "&authkey=" + authkey;
             getString += "&" + inquiry;
 
-            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
+            Log.i(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
             // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
             HttpURLConnection httpURLConnection = null;
             BufferedReader bufferedReader = null;
@@ -438,20 +439,20 @@ Binärwerte für Skills:
                     flexWOstring(string.substring(3,string.length())); //Übergabe ohne w2c nach Kontrolle
                     //Log.d(LOG_TAG, "workoutMemo: " + workoutMemo.getName());
                     if(!dataSource.getWOexist(number,startTime,endTime)){
-                        Log.d(LOG_TAG, "WO unbekannt: " + string);
+                        Log.i(LOG_TAG, "WO unbekannt: " + string);
                         dataSource.createWorkoutMemo(wore, number, name, type, quantity, startTime, endTime, duration, exTimes,star,checkedWO,true);
                         restOf--;
                     }
-                    else Log.d(LOG_TAG, "WO bekannt!!!: " + string);
+                    else Log.i(LOG_TAG, "WO bekannt!!!: " + string);
                 }
                // else Log.d(LOG_TAG, "Error return value w2c: " + string);
-                Log.d(LOG_TAG, "restOf: " + restOf);
+                Log.i(LOG_TAG, "restOf: " + restOf);
             if(restOf>0 && counterWO<howMuchWOsServer-1) {
                 counterWO++;
                 WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
                 new WOdaten2clientTask().execute(counterWO);
             }
-            else  Log.d(LOG_TAG, "restOf Ende: " + restOf+" counterWO: "+counterWO+" howMuchWOsServer: "+howMuchWOsServer);
+            else  Log.i(LOG_TAG, "restOf Ende: " + restOf+" counterWO: "+counterWO+" howMuchWOsServer: "+howMuchWOsServer);
         }
     }
 
@@ -477,7 +478,7 @@ Binärwerte für Skills:
                 getString += "&authkey=" + authkey;
                 getString += "&" + inquiry;
 
-                Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
+                Log.i(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
                 // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
                 HttpURLConnection httpURLConnection = null;
                 BufferedReader bufferedReader = null;
@@ -524,7 +525,7 @@ Binärwerte für Skills:
                     }
                 }
 
-                Log.d(LOG_TAG, "memo: "+i+" "+inquiry);
+                Log.i(LOG_TAG, "memo: "+i+" "+inquiry);
                 if (i%5 == 4) {
                     publishProgress(i + 1, n);
                 }
@@ -554,9 +555,9 @@ Binärwerte für Skills:
                 WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(i);
                 if(memo.isUpload()) {
                     WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemoUpload(memo.getId(), memo.getWore(), memo.getNumber(), memo.getName(), memo.getType(), memo.getQuantity(), memo.getStartTime(), memo.getEndTime(), memo.getDuration(), memo.getExTimes(), memo.getStar(), true, memo.isChecked());
-                    Log.d(LOG_TAG, "Uploaded-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isUpload());
+                    Log.i(LOG_TAG, "Uploaded-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isUpload());
                 } else {
-                    Log.d(LOG_TAG, "Error: Uploaded-Status von Eintrag: " + memo.toString() + " ist: " + memo.isUpload());
+                    Log.i(LOG_TAG, "Error: Uploaded-Status von Eintrag: " + memo.toString() + " ist: " + memo.isUpload());
                 }
             }
         }
@@ -567,7 +568,7 @@ Binärwerte für Skills:
         //Anzahl der Datensätze auf Server ermitteln
         //Wenn #Client<#Server dann Download der fehlenden Datensätze
         howMuchWOsClient=dataSource.getAllWorkoutEntrys();
-        Log.e(LOG_TAG, "howMuchWOsClient: "+howMuchWOsClient);
+        Log.i(LOG_TAG, "howMuchWOsClient: "+howMuchWOsClient);
 
         //String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)};
         GetQuantityEntrysTask getQuantityEntrysTask = new GetQuantityEntrysTask();
@@ -593,7 +594,7 @@ Binärwerte für Skills:
                 getString += "&authkey=" + authkey;
                 getString += "&" + inquiry;
 
-                Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
+                Log.i(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
                 // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
                 HttpURLConnection httpURLConnection = null;
                 BufferedReader bufferedReader = null;
@@ -691,6 +692,8 @@ Binärwerte für Skills:
         method="loginNew";
 
         String[] inquiry ={"email="+email+"&password="+password};
+
+        Log.i(LOG_TAG,"Abfrage loginNew gestartet: "+inquiry[0]);
         //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
 
         GetServerTask getServerTask = new GetServerTask();
@@ -710,7 +713,7 @@ Binärwerte für Skills:
         //workoutMemoList.clear();
         workoutMemoList = dataSource.getIsUploadedFalse();
         int quant=workoutMemoList.size();
-        Log.d(LOG_TAG, "UpHistory quant: " + String.valueOf(quant));
+        Log.i(LOG_TAG, "UpHistory quant: " + String.valueOf(quant));
         if(quant>0){
             WOdaten2serverTask wodaten2servertask = new WOdaten2serverTask();
             new WOdaten2serverTask().execute();
@@ -850,12 +853,11 @@ Binärwerte für Skills:
             getString += "&authkey=" + authkey;
             getString += "&" + strings[0];
 
-            Log.v(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
+            Log.i(LOG_TAG, "Zusammengesetzter Anfrage-String: " + getString);
             // Die URL-Verbindung und der BufferedReader, werden im finally-Block geschlossen
             HttpURLConnection httpURLConnection = null;
             BufferedReader bufferedReader = null;
 
-            // In diesen String speichern wir die Aktiendaten im XML-Format
             String RegisterString = "";
 
             try {
@@ -935,15 +937,16 @@ Binärwerte für Skills:
                 }
                 case ("loginNew"): {
                     if(strings.substring(0, 6).equals("Error:")){
+                        Log.i(LOG_TAG,"loginNew: "+strings);
                         Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
                         dialog_login();
                     }
                     else {
                         saveAuthCodeCustomID(strings);
+                        Log.i(LOG_TAG,"loginNew: "+customID+"|"+strings);
                         Toast.makeText(MainActivity.this, "User angemeldet!",Toast.LENGTH_SHORT).show();
-                        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+
                         //MainActivity.this.setTitle(customID+"|"+strings);
-                        Log.i(LOG_TAG,customID+"|"+strings);
                         if(isConnectingToInternet(MainActivity.this)){
                             updateCheckData();
                             updateHistory();
@@ -2695,6 +2698,10 @@ Binärwerte für Skills:
         // Wir prüfen, ob Menü-Element mit der ID "action_settings"
         // ausgewählt wurde und geben eine Meldung aus
         int id = item.getItemId();
+        if (id == R.id.action_profile) {
+            dialog_profile();
+            return true;
+        }
         if (id == R.id.action_settings) {
             dialog_settings();
             return true;
@@ -2712,6 +2719,46 @@ Binärwerte für Skills:
         if (id == R.id.action_exercises) {
             Intent in = new Intent(MainActivity.this,ExercisesActivity.class);
             startActivity(in);
+            return true;
+        }
+        if (id == R.id.action_logout) {
+            delCompletedWorkouts();
+            SharedPreferences sp1 = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor e = sp1.edit();
+            e.remove("customID");
+            e.remove("authCode");
+            e.remove("spWorkoutList1");
+            e.remove("spWorkoutList2");
+            e.remove("spWorkoutList3");
+            e.remove("spWorkoutList4");
+            e.remove("spWorkoutList5");
+            e.remove("spWorkoutList6");
+            e.remove("spWorkoutList7");
+            e.remove("sp_changeprefs");
+            e.remove("lastUpdate");
+            e.remove("datestamp");
+            e.remove("coachuser");
+            e.remove("lastAuthDatestamp");
+            e.remove("sp_skills");
+            e.remove("sp_current_days");
+            e.remove("sp_days");
+            e.remove("p_hardness");
+            e.remove("sp_fokus");
+            e.commit();
+            dataSource.delete();
+            authCode="";
+            customID=0;
+            datestamp=0;
+            lastUpdate=0;
+            changeprefs=false;
+            fokus = 1;
+            skills = 9;
+            days = 3;
+            hardness = 2;
+            loadDate();
+            checkForLogin();
+
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -2736,8 +2783,15 @@ Binärwerte für Skills:
 
                         if(!editTextEmail.equals("") && !editTextPassword.equals("")){
                             //updateData(editTextEmail,editTextPassword);
+                            Log.i(LOG_TAG,"Login: "+editTextEmail);
+                            /*SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                            SharedPreferences.Editor e = sp.edit();
+                            e.putString("email", editTextEmail);
+
+                            e.commit();*/
                             serverCheckLogin(editTextEmail,editTextPassword);
-                            //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
+
+                             //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
                         }
                         else {
                             Toast.makeText(MainActivity.this, getString(R.string.error_sign_in), Toast.LENGTH_LONG).show();
@@ -2761,9 +2815,10 @@ Binärwerte für Skills:
                         }
                         else if(!editTextEmail.equals("") && !editTextPassword.equals("")){
                             //updateData(editTextEmail,editTextPassword);
+                            Log.i(LOG_TAG,"Register: "+editTextEmail);
                             serverCheckRegister(editTextEmail,editTextPassword);
                             //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
-                        }
+                      }
                         else {
                             Toast.makeText(MainActivity.this, getString(R.string.error_sign_in), Toast.LENGTH_LONG).show();
                             dialog_login();
@@ -2799,7 +2854,102 @@ Binärwerte für Skills:
        alertDialog.show();
 
 
+
    }
+    public void dialog_profile() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(
+                new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        View dialogsViewNL = inflater.inflate(R.layout.dialog_profile, null);
+        builder.setView(dialogsViewNL);
+        final EditText email = (EditText) dialogsViewNL.findViewById(R.id.profile_email);
+        final EditText password = (EditText) dialogsViewNL.findViewById(R.id.profile_password);
+        builder.setTitle(R.string.dialog_title_profile)
+                .setPositiveButton(R.string.dialog_button_save, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        editTextEmail=email.getText().toString().toLowerCase();
+                        editTextPassword=password.getText().toString();
+                        //Toast.makeText(MainActivity.this, "Done = "+ email.getText().toString()+" "+ password.getText().toString(), Toast.LENGTH_LONG).show();
+
+                        if(!editTextEmail.equals("") && !editTextPassword.equals("")){
+                            //updateData(editTextEmail,editTextPassword);
+                            Log.i(LOG_TAG,"Profil: "+editTextEmail);
+                            /*SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                            SharedPreferences.Editor e = sp.edit();
+                            e.putString("email", editTextEmail);
+
+                            e.commit();*/
+                            //serverCheckLogin(editTextEmail,editTextPassword);
+
+                            //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            //Toast.makeText(MainActivity.this, getString(R.string.error_sign_in), Toast.LENGTH_LONG).show();
+                            //dialog_login();
+                        }
+                        dialog.dismiss();
+                        //serverCheckLogin();
+                        // dialog.cancel();
+                    }
+                })
+
+                .setNeutralButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        editTextEmail=email.getText().toString().toLowerCase();
+                        editTextPassword=password.getText().toString();
+
+
+                        /*if(!isValidEmail(editTextEmail)) {
+                            Toast.makeText(MainActivity.this,editTextEmail+" is not a valid email!", Toast.LENGTH_LONG).show();
+                            dialog_login();
+                        }
+                        else if(!editTextEmail.equals("") && !editTextPassword.equals("")){
+                            //updateData(editTextEmail,editTextPassword);
+                            Log.i(LOG_TAG,"Register: "+editTextEmail);
+                            serverCheckRegister(editTextEmail,editTextPassword);
+                            //Toast.makeText(MainActivity.this, "Done = "+ edt.getText().toString(), Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this, getString(R.string.error_sign_in), Toast.LENGTH_LONG).show();
+                            dialog_login();
+                        }*/
+                        /*generalList();
+                        WorkoutCalc();
+                        saveDate();
+                        loadDate();
+                        printWorkout();
+                        */
+                        dialog.cancel();
+                    }
+                });
+
+
+
+        // create alert dialog
+        final AlertDialog alertDialog = builder.create();
+//        final TextView textView = (TextView) dialogsViewNL.findViewById(R.id.forgot_pw);
+//        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+
+
+/*        dialogsViewNL.findViewById(R.id.forgot_pw).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, getString(R.string.send_password), Toast.LENGTH_LONG).show();
+                editTextEmail=email.getText().toString().toLowerCase();
+                serverForgotPassword(editTextEmail);
+                //alertDialog.dismiss();
+            }
+        });*/
+        // show it
+        alertDialog.show();
+
+
+
+    }
     public void dialog_settings() {
         android.app.AlertDialog.Builder builder =  new android.app.AlertDialog.Builder(
                 new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));

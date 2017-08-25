@@ -18,6 +18,7 @@
     <string name="dialog_button_sign_in">Anmelden</string>
     <string name="dialog_button_register">Neu registrieren</string>
     <string name="menu_name">Einstellungen</string>
+    <string name="menu_profile">Profil</string>
     <string name="menu_history">Historie</string>
     <string name="menu_workouts">Workouts</string>
     <string name="menu_exercises">Exercises</string>
@@ -132,4 +133,17 @@
         <item>30000m</item>
         <item>42195m</item>
     </string-array>
+    <string name="dialog_title_profile">Profil</string>
+    <string name="profile_name">Familienname:</string>
+    <string name="profile_firstname">Vorname:</string>
+    <string name="profile_email">Email:</string>
+    <string name="profile_password">Passwort:</string>
+    <string name="profile_birthday">Geburtstag:</string>
+    <string name="profile_gender">Geschlecht:</string>
+    <string name="profile_gender_male">männlich</string>
+    <string name="profile_gender_female">weiblich</string>
+    <string name="profile_username">Benutzername:</string>
+    <string name="dialog_button_cancel">ABBRECHEN</string>
+    <string name="dialog_button_save">SPEICHERN</string>
+
 </resources>

@@ -15,6 +15,7 @@
     <string name="forgot_password">Forgot password</string>
     <string name="send_password">We have sent you a new password by email.</string>
     <string name="menu_name">Settings</string>
+    <string name="menu_profile">Profile</string>
     <string name="menu_history">History</string>
     <string name="menu_workouts">Workouts</string>
     <string name="menu_exercises">Exercises</string>
@@ -131,7 +132,17 @@
         <item>30000m</item>
         <item>42195m</item>
     </string-array>
-    <string name="preference_aktienliste_key">aktienliste</string>
-    <string name="preference_aktienliste_default">BMW.DE,DAI.DE,VOW3.DE,SAP.DE,^GDAXI</string>
+    <string name="dialog_title_profile">Profile</string>
+    <string name="profile_firstname">first given name:</string>
+    <string name="profile_name">family name:</string>
+    <string name="profile_username">user name</string>
+    <string name="profile_email">email:</string>
+    <string name="profile_password">password:</string>
+    <string name="profile_birthday">birthday:</string>
+    <string name="profile_gender">gender:</string>
+    <string name="profile_gender_male">male</string>
+    <string name="profile_gender_female">female</string>
+    <string name="dialog_button_cancel">CANCEL</string>
+    <string name="dialog_button_save">SAVE</string>
 
 </resources>

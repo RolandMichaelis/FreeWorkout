@@ -10,6 +10,11 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_profile"
+        android:title="@string/menu_profile"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_history"
         android:title="@string/menu_history"
         android:orderInCategory="100"

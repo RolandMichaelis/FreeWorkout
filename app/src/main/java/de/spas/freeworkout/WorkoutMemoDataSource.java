@@ -17,10 +17,15 @@ import tools.BaseGameActivity;
 public class WorkoutMemoDataSource extends BaseGameActivity {
 
     private static final String LOG_TAG = WorkoutMemoDataSource.class.getSimpleName();
+    public static final String TABLE_WORKOUT_LIST = "workout_list";
+    public static final String SQL_DROP = "DROP TABLE IF EXISTS " + TABLE_WORKOUT_LIST;
 
     private SQLiteDatabase database;
     private WorkoutMemoDbHelper dbHelper;
-// EXTIMES: Zeitdauer (msec) der einzelnen Exercises als String
+    //public static final String TABLE_WORKOUT_LIST = "workout_list";
+    //public static final String SQL_DROP = "DELETE FROM " + TABLE_WORKOUT_LIST;
+
+    // EXTIMES: Zeitdauer (msec) der einzelnen Exercises als String
     private String[] columns = {
             WorkoutMemoDbHelper.COLUMN_ID,
             WorkoutMemoDbHelper.COLUMN_WORE,
@@ -53,6 +58,11 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
+    public void delete() {
+        Log.i(LOG_TAG, "Die Tabelle "+TABLE_WORKOUT_LIST+" wird entfernt.");
+        database.delete(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,null,null);
+        Log.i(LOG_TAG, "Die Tabelle wurde entfernt.");
+    }
     public WorkoutMemo createWorkoutMemo(int wore, int number, String name, int type, int quantity, long startTime, long endTime, long duration, String exTimes, boolean star, boolean checked, boolean upload) {
         ContentValues values = new ContentValues();
         values.put(WorkoutMemoDbHelper.COLUMN_WORE, wore);

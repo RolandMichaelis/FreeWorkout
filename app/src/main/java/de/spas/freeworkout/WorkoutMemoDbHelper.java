@@ -73,4 +73,5 @@ public class WorkoutMemoDbHelper extends SQLiteOpenHelper{
         db.execSQL(SQL_DROP);
         onCreate(db);
     }
+
 }
