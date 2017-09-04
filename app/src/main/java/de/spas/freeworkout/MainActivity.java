@@ -2852,9 +2852,6 @@ Binärwerte für Skills:
        });
        // show it
        alertDialog.show();
-
-
-
    }
     public void dialog_profile() {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(
