@@ -17,6 +17,7 @@
     <string name="menu_name">Settings</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_history">History</string>
+    <string name="menu_matrix">Matrix</string>
     <string name="menu_workouts">Workouts</string>
     <string name="menu_exercises">Exercises</string>
     <string name="menu_logout">Sign out</string>

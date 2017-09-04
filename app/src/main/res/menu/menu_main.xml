@@ -20,6 +20,11 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_matrix"
+        android:title="@string/menu_matrix"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_workouts"
         android:title="@string/menu_workouts"
         android:orderInCategory="100"
