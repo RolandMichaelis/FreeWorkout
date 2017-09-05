@@ -2711,6 +2711,11 @@ Binärwerte für Skills:
             startActivity(in);
             return true;
         }
+        if (id == R.id.action_matrix) {
+            Intent in = new Intent(MainActivity.this,MatrixActivity.class);
+            startActivity(in);
+            return true;
+        }
         if (id == R.id.action_workouts) {
             Intent in = new Intent(MainActivity.this,WorkoutsActivity.class);
             startActivity(in);

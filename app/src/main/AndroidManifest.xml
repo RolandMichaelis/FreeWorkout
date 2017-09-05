@@ -43,6 +43,15 @@
                 android:value="de.spas.freeworkout.MainActivity" />
         </activity>
         <activity
+            android:name=".MatrixActivity"
+            android:label="Matrix"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.spas.freeworkout.MainActivity" />
+        </activity>
+        <activity
             android:name=".WorkoutsActivity"
             android:label="Workouts Overview"
             android:parentActivityName=".MainActivity"

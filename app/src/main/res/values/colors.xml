@@ -8,5 +8,7 @@
     <color name="colorWoTextViewRound">#3f51b5</color>
     <color name="colorWoTextViewNormal">#000000</color>
     <color name="colorWoTextViewDone">#707070</color>
+    <color name="colorLighterGray">#cecece</color>
+    <color name="colorLightBlack">#111111</color>
 
 </resources>
