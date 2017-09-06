@@ -2040,7 +2040,7 @@ Binärwerte für Skills:
                     // Hier check-Status prüfen
                     //Toast.makeText(getApplicationContext(), "checked[0]: "+String.valueOf(checked[0]) + "|" + String.valueOf(id), Toast.LENGTH_SHORT).show();
 
-                    // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
+                    // Intent erzeugen und Starten der ...Activity mit explizitem Intent
                     if(exChecked(checked[0],position)==false) {
                         int n = Integer.valueOf(WorkoutListArrayShadow1.get(position).substring(0, 1));
                         Intent workoutFragmentIntent;
