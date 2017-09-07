@@ -38,7 +38,7 @@
     <string name="dialog_button_start">Start</string>
     <string name="text_wo_cancel">Are you sure you want to cancel your workout?</string>
     <string name="text_wo_add">Du möchtest dich steigern und das Workout noch ein Mal hinzufügen? Tu dies nur, wenn Du sicher bist, dass du es ohne Bedenken schaffst!</string>
-    <string name="text_wo_finish">Hast du das Workout versehentlich beendet? Dann drücke auf ZURÜCK. Du möchtest auf 2x erhöhen? Dann drücke auf +. Drücke zum Beenden deines Workouts auf OK.</string>
+    <string name="text_wo_finish">Hast du das Workout versehentlich beendet? Dann drücke auf ZURÜCK. Du möchtest auf 2x erhöhen? Dann drücke auf +. Drücke zum Beenden deines Workouts auf SPEICHERN.</string>
     <string name="button_new_week">Calculate new week</string>
     <string name="button_new_prefs">Settings</string>
     <string name="text_day_1">Day 1</string>
