@@ -74,7 +74,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private boolean changeprefs = false;
     private int sp_changeprefs;
     private Button neutralButton;
-    private int current_days; // Verwendung in der printWorkout() damit nicht days aus Prefs verwendet wird
+    private int current_days=3; // Verwendung in der printWorkout() damit nicht days aus Prefs verwendet wird
+    private boolean calc=false; // Berechnen der neuen Coachwoche auf dem Server==true! Hinterlegt für Testuser, da bisher Berechnung nur auf dem Client möglich ist
 
 
     //private String [] WorkoutListArray1;
@@ -254,12 +255,37 @@ Binärwerte für Skills:
             if(view.getId()==R.id.button_calc) {
                 //Toast.makeText(getBaseContext(), "Button Calc", Toast.LENGTH_LONG).show();
                 generalList();
-                WorkoutCalc();
+                checkForCalc(); // Prüfen ob auf Server oder beim Client die Workoutwoche berechnet werden soll
+                //WorkoutCalc();
                 saveDate();
                 printWorkout();
             }
         }
-    private void checkForLogin(){
+    private void checkForCalc() {
+        Log.i(LOG_TAG, "calc="+calc);
+
+        if(isConnectingToInternet(MainActivity.this)) {
+            if(calc){
+                // Berechnung der neuen Coachwoche auf dem Server, da für den User so auf DB eingestellt (Wert CALC auf TRUE)
+                method="calc";
+
+                 String[] inquiry ={"authcode="+authCode+"&customid="+String.valueOf(customID)+"&days="+String.valueOf(days)+"&focus="+String.valueOf(fokus)};
+                //Toast.makeText(MainActivity.this, "emailPass = "+ emailPass[0]+" "+ emailPass[1], Toast.LENGTH_LONG).show();
+                GetServerTask getServerTask = new GetServerTask();
+                new GetServerTask().execute(inquiry);
+
+            }
+            else {
+                // Berechnung der neuen Coachwoche auf dem Client, da für den User so auf DB eingestellt (Wert CALC auf FALSE)
+                WorkoutCalc();
+            }
+        }
+        else {
+            // Berechnung der neuen Coachwoche auf dem Client, da kein Internet verfügbar ist
+            WorkoutCalc();
+        }
+    }
+        private void checkForLogin(){
         // authCode vom Server erhalten nach erfolgreichem Login
         //lastAuthDatestamp = hinterlegter datestamp nach letztem erfolgreichem Login
         //SharedPreferences sp = getPreferences(MODE_PRIVATE);
@@ -927,11 +953,14 @@ Binärwerte für Skills:
                     else {
                         saveAuthCodeCustomID(strings);
                         Toast.makeText(MainActivity.this, "User registriert!",Toast.LENGTH_SHORT).show();
-                        SharedPreferences sp = getPreferences(MODE_PRIVATE);
-                        int customID = sp.getInt("customID", 0);
+                        //SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                        //int customID = sp.getInt("customID", 0);
 
                         //MainActivity.this.setTitle(customID+"|"+strings);
-                        Log.i(LOG_TAG,customID+"|"+strings);
+                        Log.i(LOG_TAG,"register: "+customID+"|"+strings+" ... days"+days);
+                        //checkForCalc();
+                        printWorkout();
+                        Log.i(LOG_TAG,"register2: "+customID+"|"+strings+" ... days"+days);
                     }
                     break;
                 }
@@ -1013,6 +1042,67 @@ Binärwerte für Skills:
                     }
                     break;
                 }
+                case ("calc"): {
+                    if(strings.substring(0, 6).equals("Error:")){
+                        //Toast.makeText(MainActivity.this, strings,Toast.LENGTH_SHORT).show();
+                        //MainActivity.this.setTitle(String.valueOf(lastUpdate)+"|"+customID+"|"+strings);
+                        Log.i(LOG_TAG,customID+": "+strings);
+                        printWorkout();
+                    }
+                    else {
+                        //MainActivity.this.setTitle(String.valueOf(lastUpdate)+"u2sCWOs");
+                        Log.i(LOG_TAG,"Calc: "+customID+" ... "+strings);
+                        //ToDo: Hier Empfang und Aktualisierung der neuen Coachwoche
+                        delCompletedWorkouts();
+                        WorkoutListArray1.clear();
+                        WorkoutListArray2.clear();
+                        WorkoutListArray3.clear();
+                        WorkoutListArray4.clear();
+                        WorkoutListArray5.clear();
+                        WorkoutListArray6.clear();
+                        WorkoutListArray7.clear();
+
+                        spWorkoutList1 = "";
+                        spWorkoutList2 = "";
+                        spWorkoutList3 = "";
+                        spWorkoutList4 = "";
+                        spWorkoutList5 = "";
+                        spWorkoutList6 = "";
+                        spWorkoutList7 = "";
+
+                        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                        SharedPreferences.Editor e = sp.edit();
+                        String s = strings;
+                        int p = s.indexOf("|");
+                        lastUpdate = Long.valueOf(s.substring(4, p));
+                        e.putLong("lastUpdate", lastUpdate);
+
+                        s=s.substring(p+1, s.length());
+
+                        String s2;
+                        boolean cnc; // kommt "|" noch vor? Wenn nicht letzter Durchlauf der Schleife!
+                        int c1=0;
+                        do {
+                            int n = s.indexOf("|");
+                            if(n>0) {
+                                s2 = s.substring(0, n); //kompletter String bis |
+                                cnc=true;
+                            }else {
+                                s2 = s;
+                                cnc=false;
+                            }
+                            if(s2.substring(0,1).equals("l")) {
+                                c1++;
+                                e.putString("spWorkoutList"+c1, s2.substring(1,s2.length()));
+                            }
+                            if(n>0){s =  s.substring(n+1,s.length());}
+                        }while(cnc);
+                        e.commit();
+                        loadDate();
+                        printWorkout();
+                    }
+                    break;
+                }
 
 
         }
@@ -1053,6 +1143,18 @@ Binärwerte für Skills:
             }else if(s2.substring(0,1).equals("c")){
                 e.putInt("checked"+c2, Integer.valueOf(s2.substring(1,s2.length())));
                 c2++;
+            }
+            else if(s2.substring(0,1).equals("a")){
+                String st = s2.substring(1,s2.length());
+
+                if(st.equals("1")){
+                    e.putBoolean("calc", true);
+                    Log.i(LOG_TAG, "update2client true: calc st"+st);
+                }
+                else {
+                    e.putBoolean("calc", false);
+                    Log.i(LOG_TAG, "update2client false: calc st"+st);
+                }
             }
             else if(s2.substring(0,1).equals("d")){
                 e.putInt("datestamp", Integer.valueOf(s2.substring(1,s2.length())));
@@ -1651,8 +1753,8 @@ Binärwerte für Skills:
                 }
             }
         }
-        if(ee.commit()==true)Log.i(LOG_TAG, "delCompletedWorkouts: commit==true");
-        else Log.i(LOG_TAG, "delCompletedWorkouts: commit==false");
+        //if(ee.commit()==true)Log.i(LOG_TAG, "delCompletedWorkouts: commit==true");
+        //else Log.i(LOG_TAG, "delCompletedWorkouts: commit==false");
     }
     public void WorkoutCalc(){
 
@@ -1875,6 +1977,7 @@ Binärwerte für Skills:
         e.putInt("checked5", 0);
         e.putInt("checked6", 0);
         e.commit();
+        current_days=days;
         changeprefs = false;
         if(isConnectingToInternet(MainActivity.this)) updateCheckData();
     }
@@ -1969,6 +2072,7 @@ Binärwerte für Skills:
     public void printWorkout() {
 
         if(datestamp==0){
+            current_days=0;
             showView(R.id.button_calc);
             showView(R.id.button_prefs);
             hideView(R.id.text_days_till_new_week);}
@@ -2556,13 +2660,14 @@ Binärwerte für Skills:
         datestamp = sp.getInt("datestamp", 0);
         authCode = sp.getString("authCode", "");
         coachUser = sp.getBoolean("coachuser", false);
+        calc = sp.getBoolean("calc", false);
 
         lastAuthDatestamp = sp.getLong("lastAuthDatestamp", 0L);
         //rndType1 = sp.getInt("rndType1", 0);
         //wo_int1 = sp.getInt("wo_int1", 0);
         //rndx1 = sp.getInt("rndx1", 0);
         int sp_skills = sp.getInt("sp_skills", 0);
-        current_days = sp.getInt("sp_current_days", 0);
+
         if (sp_skills != 0){
             skills = sp_skills;
         }
@@ -2571,6 +2676,10 @@ Binärwerte für Skills:
         if (sp_days != 0){
             days = sp_days;
         }
+        int sp_current_days = sp.getInt("sp_current_days", 0);
+ /*       if (sp_current_days == 0){
+            current_days = days;
+        }*/
         int sp_hardness = sp.getInt("sp_hardness", 0);
 
         if (sp_hardness != 0){
@@ -2698,10 +2807,10 @@ Binärwerte für Skills:
         // Wir prüfen, ob Menü-Element mit der ID "action_settings"
         // ausgewählt wurde und geben eine Meldung aus
         int id = item.getItemId();
-        if (id == R.id.action_profile) {
+        /*if (id == R.id.action_profile) {
             dialog_profile();
             return true;
-        }
+        }*/
         if (id == R.id.action_settings) {
             dialog_settings();
             return true;
@@ -2745,11 +2854,13 @@ Binärwerte für Skills:
             e.remove("coachuser");
             e.remove("lastAuthDatestamp");
             e.remove("sp_skills");
-            e.remove("sp_current_days");
             e.remove("sp_days");
-            e.remove("p_hardness");
+            e.remove("sp_hardness");
+            e.remove("sp_current_days");
             e.remove("sp_fokus");
+            e.remove("calc");
             e.commit();
+            //current_days=3;
             dataSource.delete();
             authCode="";
             customID=0;
@@ -2760,6 +2871,7 @@ Binärwerte für Skills:
             skills = 9;
             days = 3;
             hardness = 2;
+            calc=false;
             loadDate();
             checkForLogin();
 
@@ -3037,7 +3149,8 @@ Binärwerte für Skills:
                 .setNeutralButton(R.string.dialog_button_calc, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         generalList();
-                        WorkoutCalc();
+                        checkForCalc();
+                        //WorkoutCalc();
                         saveDate();
                         loadDate();
                         printWorkout();
