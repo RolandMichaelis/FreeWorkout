@@ -19,6 +19,9 @@ public class Exercise {
     @Attribute
     private int difficulty;
 
+    @Attribute
+    private int nr;
+
     @Element
     private Endurance endurance;
     @Element
@@ -37,6 +40,10 @@ public class Exercise {
 
     public int getDifficulty() {
         return difficulty;
+    }
+
+    public int getNr() {
+        return nr;
     }
 
     public Endurance getEndurance() {

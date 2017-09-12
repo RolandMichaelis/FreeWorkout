@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<warmupPack name="A">
+    <warmups>
+        <warmup name="Upper Body" duration="5" difficulty="1" type="1">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="30" name="Skipping Jumps" exercise="43" />
+                <unit quantity="30" name="High Knees" exercise="11" />
+                <unit quantity="30" name="Kick-Backs" exercise="44" />
+                <unit quantity="20" name="Sprawls" exercise="18" />
+                <unit quantity="20" name="Hip Circles" exercise="60" />
+                <unit quantity="15" name="Shoulder Circling Backward" exercise="58" />
+                <unit quantity="15" name="Shoulder Circling Forward" exercise="57" />
+                <unit quantity="15" name="Arm Circling Forward" exercise="55" />
+                <unit quantity="15" name="Arm Circling Backward" exercise="56" />
+                <unit quantity="30" name="Twists" exercise="49" />
+                <unit quantity="20" name="Standing Scale" exercise="54" />
+                <unit quantity="30" name="Spine Rolling" exercise="61" />
+                <unit quantity="30" name="Spine Rotation" exercise="62" />
+            </units>
+        </warmup>
+        <warmup name="Lower Body" duration="5" difficulty="1" type="1">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+            <units>
+                <unit quantity="30" name="Skipping Jumps" exercise="43" />
+                <unit quantity="30" name="Jumping Jacks" exercise="22" />
+                <unit quantity="30" name="Regular Skip" exercise="45" />
+                <unit quantity="60" name="Mountain Climbers" exercise="14" />
+                <unit quantity="15" name="Heel Raises Left" exercise="50" />
+                <unit quantity="15" name="Heel Raises Right" exercise="51" />
+                <unit quantity="60" name="Standing Scale" exercise="54" />
+                <unit quantity="30" name="Spine Rolling" exercise="61" />
+                <unit quantity="30" name="Spine Rotation" exercise="62" />
+            </units>
+        </warmup>
+    </warmups>
+</warmupPack>

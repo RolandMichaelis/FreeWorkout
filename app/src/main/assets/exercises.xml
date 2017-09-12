@@ -1,217 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
 <exercisePack name="A">
     <exercises>
-        <exercise name="Crunches" duration="1" difficulty="1">
+        <exercise name="Crunches" duration="1" difficulty="1" nr="0">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Situps" duration="2" difficulty="2">
+        <exercise name="Situps" duration="2" difficulty="2" nr="1">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Toes to Bar" duration="3" difficulty="3">
+        <exercise name="Toes to Bar" duration="3" difficulty="3" nr="2">
             <endurance skill="8"/>
             <standard skill="8"/>
             <strength skill="8"/>
         </exercise>
-        <exercise name="HH Leg Raises" duration="1" difficulty="1">
+        <exercise name="HH Leg Raises" duration="1" difficulty="1" nr="3">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Straight Leg Raises" duration="2" difficulty="2">
+        <exercise name="Straight Leg Raises" duration="2" difficulty="2" nr="4">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Leg Raises To Bottom" duration="3" difficulty="3">
+        <exercise name="Leg Raises To Bottom" duration="3" difficulty="3" nr="5">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Jackknifes" duration="3" difficulty="3">
+        <exercise name="Jackknifes" duration="3" difficulty="3" nr="6">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="HH Lunge Walk" duration="1" difficulty="1">
+        <exercise name="HH Lunge Walk" duration="1" difficulty="1" nr="7">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Lunge Walk" duration="2" difficulty="2">
+        <exercise name="Lunge Walk" duration="2" difficulty="2" nr="8">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="HH Squats" duration="1" difficulty="1">
+        <exercise name="HH Squats" duration="1" difficulty="1" nr="9">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="HH Standups" duration="1" difficulty="1">
+        <exercise name="HH Standups" duration="1" difficulty="1" nr="10">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="High Knees" duration="1" difficulty="1">
+        <exercise name="High Knees" duration="1" difficulty="1" nr="11">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Jumping Pullups" duration="1" difficulty="1">
+        <exercise name="Jumping Pullups" duration="1" difficulty="1" nr="12">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Knee Pushups" duration="1" difficulty="1">
+        <exercise name="Knee Pushups" duration="1" difficulty="1" nr="13">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Mountain Climbers" duration="1" difficulty="1">
+        <exercise name="Mountain Climbers" duration="1" difficulty="1" nr="14">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Pikes" duration="1" difficulty="1">
+        <exercise name="Pikes" duration="1" difficulty="1" nr="15">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Jumping OH Pullups" duration="2" difficulty="2">
+        <exercise name="Jumping OH Pullups" duration="2" difficulty="2" nr="16">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Sprawl Frogs" duration="1" difficulty="1">
+        <exercise name="Sprawl Frogs" duration="1" difficulty="1" nr="17">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Sprawls" duration="1" difficulty="1">
+        <exercise name="Sprawls" duration="1" difficulty="1" nr="18">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Burpee Frogs" duration="2" difficulty="2">
+        <exercise name="Burpee Frogs" duration="2" difficulty="2" nr="19">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Burpees" duration="2" difficulty="2">
+        <exercise name="Burpees" duration="2" difficulty="2" nr="20">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Climbers" duration="2" difficulty="2">
+        <exercise name="Climbers" duration="2" difficulty="2" nr="21">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Jumping Jacks" duration="1" difficulty="2">
+        <exercise name="Jumping Jacks" duration="1" difficulty="2" nr="22">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Jumps" duration="2" difficulty="2">
+        <exercise name="Jumps" duration="2" difficulty="2" nr="23">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Kipping HS Pushups" duration="2" difficulty="2">
+        <exercise name="Kipping HS Pushups" duration="2" difficulty="2" nr="24">
             <endurance skill="2"/>
             <standard skill="2"/>
             <strength skill="2"/>
         </exercise>
-        <exercise name="Dips" duration="2" difficulty="2">
+        <exercise name="Dips" duration="2" difficulty="2" nr="25">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Lunges" duration="2" difficulty="2">
+        <exercise name="Lunges" duration="2" difficulty="2" nr="26">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Pullups" duration="2" difficulty="2">
+        <exercise name="Pullups" duration="2" difficulty="2" nr="27">
             <endurance skill="1"/>
             <standard skill="1"/>
             <strength skill="1"/>
         </exercise>
-        <exercise name="Pushups" duration="2" difficulty="2">
+        <exercise name="Pushups" duration="2" difficulty="2" nr="28">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Squats" duration="2" difficulty="2">
+        <exercise name="Squats" duration="2" difficulty="2" nr="29">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Standups" duration="2" difficulty="2">
+        <exercise name="Standups" duration="2" difficulty="2" nr="30">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Burpee Deep Frogs" duration="3" difficulty="3">
+        <exercise name="Burpee Deep Frogs" duration="3" difficulty="3" nr="31">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Burpee Squat Jumps" duration="3" difficulty="3">
+        <exercise name="Burpee Squat Jumps" duration="3" difficulty="3" nr="32">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Froggers" duration="3" difficulty="3">
+        <exercise name="Froggers" duration="3" difficulty="3" nr="33">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="High Jumps" duration="3" difficulty="3">
+        <exercise name="High Jumps" duration="3" difficulty="3" nr="34">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Muscleups" duration="3" difficulty="3">
+        <exercise name="Muscleups" duration="3" difficulty="3" nr="35">
             <endurance skill="32"/>
             <standard skill="32"/>
             <strength skill="32"/>
         </exercise>
-        <exercise name="OH Pushups" duration="3" difficulty="3">
+        <exercise name="OH Pushups" duration="3" difficulty="3" nr="36">
             <endurance skill="4"/>
             <standard skill="4"/>
             <strength skill="4"/>
         </exercise>
-        <exercise name="Pistols" duration="3" difficulty="3">
+        <exercise name="Pistols" duration="3" difficulty="3" nr="37">
             <endurance skill="16"/>
             <standard skill="16"/>
             <strength skill="16"/>
         </exercise>
-        <exercise name="Split Lunges" duration="3" difficulty="3">
+        <exercise name="Split Lunges" duration="3" difficulty="3" nr="38">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Standup Jumps" duration="3" difficulty="3">
+        <exercise name="Standup Jumps" duration="3" difficulty="3" nr="39">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Strict HS Pushups" duration="3" difficulty="3">
+        <exercise name="Strict HS Pushups" duration="3" difficulty="3" nr="40">
             <endurance skill="4"/>
             <standard skill="4"/>
             <strength skill="4"/>
         </exercise>
-        <exercise name="Sprint" duration="1" difficulty="1">
+        <exercise name="Sprint" duration="1" difficulty="1" nr="41">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
-        <exercise name="Run" duration="2" difficulty="1">
+        <exercise name="Run" duration="2" difficulty="1" nr="42">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Skipping Jumps" duration="1" difficulty="1" nr="43">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Kick-Backs" duration="1" difficulty="1" nr="44">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Regular Skip" duration="1" difficulty="1" nr="45">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Scissors" duration="1" difficulty="1" nr="46">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Corkscrew" duration="1" difficulty="1" nr="47">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Leg Wipers" duration="1" difficulty="1" nr="48">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Twists" duration="1" difficulty="1" nr="49">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Heel Raises Left" duration="1" difficulty="1" nr="50">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Heel Raises Right" duration="1" difficulty="1" nr="51">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Knee Wipers" duration="1" difficulty="1" nr="52">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Plank Knees-to-chest" duration="1" difficulty="1" nr="53">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Standing Scale" duration="1" difficulty="1" nr="54">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Arm Circling Forward" duration="1" difficulty="1" nr="55">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Arm Circling Backward" duration="1" difficulty="1" nr="56">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Shoulder Circling Forward" duration="1" difficulty="1" nr="57">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Shoulder Circling Backward" duration="1" difficulty="1" nr="58">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Head Nodding" duration="1" difficulty="1" nr="59">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Hip Circles" duration="1" difficulty="1" nr="60">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Spine rolling" duration="1" difficulty="1" nr="61">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Spine rotation" duration="1" difficulty="1" nr="62">
             <endurance skill="0"/>
             <standard skill="0"/>
             <strength skill="0"/>
