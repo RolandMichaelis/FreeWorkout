@@ -2680,6 +2680,8 @@ Binärwerte für Skills:
  /*       if (sp_current_days == 0){
             current_days = days;
         }*/
+        current_days = sp_current_days;
+
         int sp_hardness = sp.getInt("sp_hardness", 0);
 
         if (sp_hardness != 0){

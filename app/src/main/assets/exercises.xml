@@ -316,5 +316,30 @@
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
+        <exercise name="Handstand back to wall" duration="1" difficulty="2" nr="63">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Handstand abdominal to wall" duration="2" difficulty="2" nr="64">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Handstand back to wall arm lift shoulder" duration="2" difficulty="3" nr="65">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Handstand back to wall arm lift legs" duration="2" difficulty="3" nr="66">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Handstand abdominal to wall run" duration="2" difficulty="3" nr="67">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
     </exercises>
 </exercisePack>
