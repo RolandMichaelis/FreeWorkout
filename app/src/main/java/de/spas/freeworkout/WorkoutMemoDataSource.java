@@ -277,6 +277,29 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
 
         return workoutMemoList;
     }
+    public String getMaxDuration(int q,String n,int t){
+
+        Cursor c = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { "max(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(q),n,String.valueOf(t)},
+                null, null, null);
+        c.moveToFirst();
+        int rowID = c.getInt(1);
+        c.close();
+        if(rowID!=0) {
+            Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
+                    columns, WorkoutMemoDbHelper.COLUMN_ID + "=" +  String.valueOf(rowID),
+                    null, null, null, null);
+            cursor.moveToFirst();
+            WorkoutMemo workoutMemo;
+            workoutMemo = cursorToWorkoutMemo(cursor);
+            cursor.close();
+            return "PB: " + timeFormat((int) workoutMemo.getDuration() / 1000);
+
+        }
+
+        else {
+            return "";
+        }
+    }
     public String getMinDuration(int q,String n,int t){
 
         Cursor c = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, new String[] { "min(" + WorkoutMemoDbHelper.COLUMN_DURATION + ")",WorkoutMemoDbHelper.COLUMN_ID }, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(q),n,String.valueOf(t)},

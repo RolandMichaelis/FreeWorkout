@@ -85,8 +85,11 @@ public class ExercisesActivity extends Activity {
 
             //WorkoutListArray0.add("1,"+String.valueOf(i)+",3,10,1"); //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (ExercisesActivity))
             //WorkoutListArrayPrint0.add(w.getName());
-
-            ExerciseListArray.add(new ExerciseClass(w.getName(),i,"1,"+String.valueOf(i)+",3,10,1"));//Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (ExercisesActivity))
+            int q = 10;
+            if(w.getQuantHidden()==1){
+                q=1;
+            }
+            ExerciseListArray.add(new ExerciseClass(w.getName(),i,"1,"+String.valueOf(i)+",3,"+String.valueOf(q)+",1"));//Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (ExercisesActivity))
          /*   msg.insert(0, "Add: "+ExerciseListArray.get(i).name+ "\n");
             light_text.setText(msg);
             light_text.invalidate();*/

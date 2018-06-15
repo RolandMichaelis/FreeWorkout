@@ -44,6 +44,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     private String TextType = "";
     private int type;
     private int quantity;
+    private int time; // Festlegung ob Zeitmessung für PB positiv oder negativ gewertet wird: 0=je schneller desto besser, 1=je länger desto besser: für PB-Ausgabe
+    private int exQuantHidden; // Festlegung ob Mengenauswahl (0) oder reine Zeitmessung (1)
     private int fromWhere;
     private String[] Types = {"Endurance", "Standard", "Strength",""};
     private int counter_rounds = 0;
@@ -145,6 +147,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         }
         Exercise w = exercisePack.getExercises().get(number);
         TextName = w.getName();
+        time = w.getTime();
+        exQuantHidden = w.getQuantHidden();
         printTitle();
         // Erzeugen einer Instanz von GetDataTask und starten des asynchronen Tasks
         GetDataTask getDataTask = new GetDataTask();
@@ -174,60 +178,63 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         else if(xmeter.equals(" m ") && TextName.equals("Run")){
             spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeRunMeter);
         }
+        if(exQuantHidden==0){
+        // exQuantHidden = Soll Spinner angezeigt werden? Mengenauswahl gewünscht?
+            if(fromWhere==1) {
+                showView(R.id.edit_spinner_quantity);
+                ArrayAdapter<String> adapterSpinnerType;
+                spSpinnerType = (Spinner) this.findViewById(R.id.edit_spinner_quantity);
+                adapterSpinnerType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerQuantityListType);
+                adapterSpinnerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        if(fromWhere==1) {
-            showView(R.id.edit_spinner_quantity);
-            ArrayAdapter<String> adapterSpinnerType;
-            spSpinnerType = (Spinner) this.findViewById(R.id.edit_spinner_quantity);
-            adapterSpinnerType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerQuantityListType);
-            adapterSpinnerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            spSpinnerType.setAdapter(adapterSpinnerType);
+                spSpinnerType.setAdapter(adapterSpinnerType);
 
 
-            if(xmeter.equals(" x ")) {
-                int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity) + "x");
-                if (selectionPosition != -1) spSpinnerType.setSelection(selectionPosition);
-            }
-            else if(xmeter.equals(" m ")){
-                if(quantity==20)spSpinnerType.setSelection(0);
-                else if(quantity==40)spSpinnerType.setSelection(1);
-                else if(quantity==80)spSpinnerType.setSelection(2);
-                else if(quantity>80){
-                    int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity) + "m");
+                if(xmeter.equals(" x ")) {
+                    int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity) + "x");
                     if (selectionPosition != -1) spSpinnerType.setSelection(selectionPosition);
                 }
+                else if(xmeter.equals(" m ")){
+                    if(quantity==20)spSpinnerType.setSelection(0);
+                    else if(quantity==40)spSpinnerType.setSelection(1);
+                    else if(quantity==80)spSpinnerType.setSelection(2);
+                    else if(quantity>80){
+                        int selectionPosition = adapterSpinnerType.getPosition(String.valueOf(quantity) + "m");
+                        if (selectionPosition != -1) spSpinnerType.setSelection(selectionPosition);
+                    }
 
+                }
+                spSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapter, View v,
+                                               int position, long id) {
+                        // On selecting a spinner item
+
+                        String s1=adapter.getItemAtPosition(position).toString();
+                        s1 = s1.substring(0, s1.length()-1);
+                        if(xmeter.equals(" m ")){
+                            if(s1.equals("2x 10"))s1="20";
+                            else if(s1.equals("2x 20"))s1="40";
+                            else if(s1.equals("2x 40"))s1="80";
+                        }
+                        if (quantity != Integer.valueOf(s1)) {
+                            quantity = Integer.valueOf(s1);
+                            //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
+                            printTitle();
+                            GetDataTask holeDatenTask = new GetDataTask();
+                            holeDatenTask.execute("PBLT");
+                            check_for_add();
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                        //nothing to do
+                    }
+                });
             }
-            spSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapter, View v,
-                                           int position, long id) {
-                    // On selecting a spinner item
-
-                    String s1=adapter.getItemAtPosition(position).toString();
-                    s1 = s1.substring(0, s1.length()-1);
-                    if(xmeter.equals(" m ")){
-                        if(s1.equals("2x 10"))s1="20";
-                        else if(s1.equals("2x 20"))s1="40";
-                        else if(s1.equals("2x 40"))s1="80";
-                    }
-                    if (quantity != Integer.valueOf(s1)) {
-                        quantity = Integer.valueOf(s1);
-                        //Toast.makeText(MainActivity.this, "days = "+ String.valueOf(days), Toast.LENGTH_LONG).show();
-                        printTitle();
-                        GetDataTask holeDatenTask = new GetDataTask();
-                        holeDatenTask.execute("PBLT");
-                        check_for_add();
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    //nothing to do
-                }
-            });
         }
+
         check_for_add();
     }
     private void check_for_add(){
@@ -263,7 +270,14 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
             hideView(R.id.time_lt);
             text_pb="";
             text_lt="";
-            text_pb = dataSource.getMinDuration(quantity, TextName, type);
+            if(time==0){
+                text_pb = dataSource.getMinDuration(quantity, TextName, type);
+            }
+            else
+            {
+                text_pb = dataSource.getMaxDuration(quantity, TextName, type);
+
+            }
             if (!text_pb.equals("")) {
                 showView(R.id.time_pb);
                 ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
@@ -564,8 +578,12 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
             q = q / 2;
             xhalf = "2x ";
         }
-        this.setTitle(xhalf+q+xmeter+TextName);
-
+        if(exQuantHidden==0) {
+            this.setTitle(xhalf + q + xmeter + TextName);
+        }
+        else {
+            this.setTitle(TextName);
+        }
     }
     private void cleanSounds(){
         if(mpMusic!=null) {

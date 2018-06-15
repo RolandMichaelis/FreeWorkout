@@ -151,6 +151,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private String exTimes;
     private boolean star;
     private boolean checkedWO;
+    private long startTimeDownload;
+    private long finishTimeDownload;
+    private int globalTimeDownload;
+
 
 /*
 Binärwerte für Skills:
@@ -434,7 +438,7 @@ Binärwerte für Skills:
                     return null;
                 }
                 //Log.v(LOG_TAG, "Register-String: " + RegisterString);
-                //publishProgress(1, 1);
+
 
             } catch (IOException e) { // Beim Holen der Daten trat ein Fehler auf, daher Abbruch
                 Log.e(LOG_TAG, "Error ", e);
@@ -453,6 +457,13 @@ Binärwerte für Skills:
             }
 
             return RegisterString;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+            // gebe aktuellen Fortschritt aus
+            Toast.makeText(MainActivity.this, progress[0] + " von " + progress[1] + " geladen",
+                    Toast.LENGTH_SHORT).show();
         }
 
         protected void onPostExecute(String string) {
@@ -475,10 +486,19 @@ Binärwerte für Skills:
                 Log.i(LOG_TAG, "restOf: " + restOf);
             if(restOf>0 && counterWO<howMuchWOsServer-1) {
                 counterWO++;
+
                 WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
                 new WOdaten2clientTask().execute(counterWO);
             }
-            else  Log.i(LOG_TAG, "restOf Ende: " + restOf+" counterWO: "+counterWO+" howMuchWOsServer: "+howMuchWOsServer);
+            else  {
+                Log.i(LOG_TAG, "restOf Ende: " + restOf+" counterWO: "+counterWO+" howMuchWOsServer: "+howMuchWOsServer);
+                // TimeStamp nehmen um Zeit zu stoppen bis Daten holen beendet ist:
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                int gTd  = (int) (timestamp.getTime() - startTimeDownload)/1000;
+
+                Log.i(LOG_TAG, "Download Zeit: " + timeFormat(gTd));
+
+            }
         }
     }
 
@@ -684,6 +704,9 @@ Binärwerte für Skills:
                        Log.i(LOG_TAG, "Download Server 2 Client da howMuchEntrys(C/S) = "+ String.valueOf(howMuchWOsClient)+"/"+String.valueOf(howMuchWOsServer));
                        restOf=howMuchWOsServer-howMuchWOsClient;
                        counterWO=0;
+                       // TimeStamp nehmen um Zeit zu stoppen bis Daten holen beendet ist:
+                       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                       startTimeDownload = timestamp.getTime();
                        WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
                        new WOdaten2clientTask().execute(counterWO);
                    }
@@ -1347,7 +1370,7 @@ Binärwerte für Skills:
 
 
                 //Toast.makeText(this, "ch_checked: "+String.valueOf(ch_checked_day)+"|"+String.valueOf(ch_checked_pos), Toast.LENGTH_LONG).show();
-             //Toast.makeText(this, "ch_checked: "+newString, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "ch_checked: "+newString, Toast.LENGTH_LONG).show();
 
             }
             else {
@@ -1372,7 +1395,7 @@ Binärwerte für Skills:
             return;
         }
 
-        }
+    }
     public void generalList() {
         // Erstellung der Liste aller erlaubten Workouts nach Skills
         WorkoutListArray0.clear();

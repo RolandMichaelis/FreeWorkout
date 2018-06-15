@@ -1917,6 +1917,7 @@
                     <practice name="Crunches" quantity="30"/>
                     <practice name="HH Squats" quantity="30"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Mountain Climbers" quantity="20"/>
@@ -1924,6 +1925,7 @@
                     <practice name="Crunches" quantity="20"/>
                     <practice name="HH Squats" quantity="20"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Mountain Climbers" quantity="10"/>
@@ -1931,6 +1933,7 @@
                     <practice name="Crunches" quantity="10"/>
                     <practice name="HH Squats" quantity="10"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Mountain Climbers" quantity="20"/>
@@ -1938,6 +1941,7 @@
                     <practice name="Crunches" quantity="20"/>
                     <practice name="HH Squats" quantity="20"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Mountain Climbers" quantity="30"/>
@@ -1945,6 +1949,7 @@
                     <practice name="Crunches" quantity="30"/>
                     <practice name="HH Squats" quantity="30"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
 
             </endurance>
@@ -1956,6 +1961,7 @@
                     <practice name="Situps" quantity="30"/>
                     <practice name="Squats" quantity="30"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Climbers" quantity="20"/>
@@ -1963,6 +1969,7 @@
                     <practice name="Situps" quantity="20"/>
                     <practice name="Squats" quantity="20"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Climbers" quantity="10"/>
@@ -1970,6 +1977,7 @@
                     <practice name="Situps" quantity="10"/>
                     <practice name="Squats" quantity="10"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Climbers" quantity="20"/>
@@ -1977,6 +1985,7 @@
                     <practice name="Situps" quantity="20"/>
                     <practice name="Squats" quantity="20"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Climbers" quantity="30"/>
@@ -1984,6 +1993,7 @@
                     <practice name="Situps" quantity="30"/>
                     <practice name="Squats" quantity="30"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
 
 
@@ -1996,6 +2006,7 @@
                     <practice name="Jackknifes" quantity="30"/>
                     <practice name="Pistol Squats" quantity="30"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Froggers" quantity="20"/>
@@ -2003,6 +2014,7 @@
                     <practice name="Jackknifes" quantity="20"/>
                     <practice name="Pistol Squats" quantity="20"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Froggers" quantity="10"/>
@@ -2010,6 +2022,7 @@
                     <practice name="Jackknifes" quantity="10"/>
                     <practice name="Pistol Squats" quantity="10"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Froggers" quantity="20"/>
@@ -2017,6 +2030,7 @@
                     <practice name="Jackknifes" quantity="20"/>
                     <practice name="Pistol Squats" quantity="20"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
                 <round>
                     <practice name="Froggers" quantity="30"/>
@@ -2024,6 +2038,7 @@
                     <practice name="Jackknifes" quantity="30"/>
                     <practice name="Pistol Squats" quantity="30"/>
                     <practice name="Jumping Jacks" quantity="50"/>
+                    <practice name="Rest" quantity="30"/>
                 </round>
 
             </strength>
