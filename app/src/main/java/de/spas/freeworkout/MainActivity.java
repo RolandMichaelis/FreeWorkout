@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import android.widget.ProgressBar;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -152,8 +153,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private boolean star;
     private boolean checkedWO;
     private long startTimeDownload;
-    private long finishTimeDownload;
-    private int globalTimeDownload;
+    private ProgressBar progressBar;
+    private int progressStatus = 0;
+
 
 
 /*
@@ -341,7 +343,7 @@ Binärwerte für Skills:
         Log.i(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
     }
-    private class WOdaten2clientTask extends AsyncTask<Integer, Void, String> {
+    private class WOdaten2clientTask extends AsyncTask<Integer, Integer, String> {
     // Download der Workout Daten vom Server zum Client
 
         //WorkoutMemo workoutMemo;
@@ -455,6 +457,9 @@ Binärwerte für Skills:
                     }
                 }
             }
+            if ((counterWO%10 == 0) && (counterWO != 0)) {
+                publishProgress(counterWO, howMuchWOsServer);
+            }
 
             return RegisterString;
         }
@@ -487,6 +492,7 @@ Binärwerte für Skills:
             if(restOf>0 && counterWO<howMuchWOsServer-1) {
                 counterWO++;
 
+
                 WOdaten2clientTask wOdaten2clientTask = new WOdaten2clientTask();
                 new WOdaten2clientTask().execute(counterWO);
             }
@@ -495,6 +501,7 @@ Binärwerte für Skills:
                 // TimeStamp nehmen um Zeit zu stoppen bis Daten holen beendet ist:
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 int gTd  = (int) (timestamp.getTime() - startTimeDownload)/1000;
+                Toast.makeText(MainActivity.this, counterWO+1 + " von " + howMuchWOsServer + " geladen",Toast.LENGTH_SHORT).show();
 
                 Log.i(LOG_TAG, "Download Zeit: " + timeFormat(gTd));
 
