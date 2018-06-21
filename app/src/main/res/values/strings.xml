@@ -41,6 +41,7 @@
     <string name="text_wo_finish">Hast du das Workout versehentlich beendet? Dann drücke auf ZURÜCK. Du möchtest auf 2x erhöhen? Dann drücke auf +. Drücke zum Beenden deines Workouts auf SPEICHERN.</string>
     <string name="button_new_week">Calculate new week</string>
     <string name="button_new_prefs">Settings</string>
+    <string name="text_rounds">Rounds:</string>
     <string name="text_day_1">Day 1</string>
     <string name="text_day_2">Day 2</string>
     <string name="text_day_3">Day 3</string>
@@ -95,7 +96,8 @@
     <string name="cab_delete">delete entrys</string>
     <string name="cab_checked_string">selected</string>
     <string name="cab_change">Change entry</string>
-    <string name="points">Points: %1$d</string>
+    <string name="points">%1$d</string>
+    <string name="text_points">Points:</string>
     <string-array name="spinnerQuantityListType">
         <item>10x</item>
         <item>20x</item>

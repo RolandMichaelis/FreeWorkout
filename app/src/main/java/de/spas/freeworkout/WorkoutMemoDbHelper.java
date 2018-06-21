@@ -11,7 +11,7 @@ public class WorkoutMemoDbHelper extends SQLiteOpenHelper{
     private static final String LOG_TAG = WorkoutMemoDbHelper.class.getSimpleName();
 
     public static final String DB_NAME = "workout_list.db";
-    public static final int DB_VERSION = 6;
+    public static final int DB_VERSION = 7;
     public static final String TABLE_WORKOUT_LIST = "workout_list";
 
     public static final String COLUMN_ID = "_id";
@@ -20,6 +20,7 @@ public class WorkoutMemoDbHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_QUANTITY = "quantity";
+    public static final String COLUMN_ROUNDS = "rounds";
     public static final String COLUMN_STARTTIME = "startTime";
     public static final String COLUMN_ENDTIME = "endTime";
     public static final String COLUMN_DURATION = "duration";
@@ -37,6 +38,7 @@ public class WorkoutMemoDbHelper extends SQLiteOpenHelper{
                     COLUMN_NAME + " TEXT NOT NULL, " +
                     COLUMN_TYPE + " INTEGER NOT NULL, " +
                     COLUMN_QUANTITY + " INTEGER NOT NULL, " +
+                    COLUMN_ROUNDS + " INTEGER NOT NULL DEFAULT 0, " +
                     COLUMN_STARTTIME + " DATE NOT NULL, " +
                     COLUMN_ENDTIME + " DATE NOT NULL, " +
                     COLUMN_DURATION + " INTEGER NOT NULL, " +

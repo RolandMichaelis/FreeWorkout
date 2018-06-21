@@ -141,11 +141,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private int restOf; //zum Zählen der noch herunterzuladenden Workouts vom Server
     private int howMuchWOsServer;
     private int counterWO;
-    private int wore;
+    private int wore; //Workout oder Exercise: 0=WO, 1=Ex
     private int number;
     private String name;
     private int type;
     private int quantity;
+    private int rounds;
     private long startTime;
     private long endTime;
     private int duration;
@@ -482,7 +483,7 @@ Binärwerte für Skills:
                     //Log.d(LOG_TAG, "workoutMemo: " + workoutMemo.getName());
                     if(!dataSource.getWOexist(number,startTime,endTime)){
                         Log.i(LOG_TAG, "WO unbekannt: " + string);
-                        dataSource.createWorkoutMemo(wore, number, name, type, quantity, startTime, endTime, duration, exTimes,star,checkedWO,true);
+                        dataSource.createWorkoutMemo(wore, number, name, type, quantity, rounds, startTime, endTime, duration, exTimes,star,checkedWO,true);
                         restOf--;
                     }
                     else Log.i(LOG_TAG, "WO bekannt!!!: " + string);
@@ -607,7 +608,7 @@ Binärwerte für Skills:
             for (int i=0; i < n; i++) {
                 WorkoutMemo memo = (WorkoutMemo) workoutMemoList.get(i);
                 if(memo.isUpload()) {
-                    WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemoUpload(memo.getId(), memo.getWore(), memo.getNumber(), memo.getName(), memo.getType(), memo.getQuantity(), memo.getStartTime(), memo.getEndTime(), memo.getDuration(), memo.getExTimes(), memo.getStar(), true, memo.isChecked());
+                    WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemoUpload(memo.getId(), memo.getWore(), memo.getNumber(), memo.getName(), memo.getType(), memo.getQuantity(), memo.getRounds(), memo.getStartTime(), memo.getEndTime(), memo.getDuration(), memo.getExTimes(), memo.getStar(), true, memo.isChecked());
                     Log.i(LOG_TAG, "Uploaded-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isUpload());
                 } else {
                     Log.i(LOG_TAG, "Error: Uploaded-Status von Eintrag: " + memo.toString() + " ist: " + memo.isUpload());

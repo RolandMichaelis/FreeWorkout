@@ -94,7 +94,9 @@
     <string name="cab_delete">Einträge löschen</string>
     <string name="cab_checked_string">ausgewählt</string>
     <string name="cab_change">Eintrag ändern</string>
-    <string name="points">Punkte: %1$d</string>
+    <string name="points">%1$d</string>
+    <string name="text_points">Punkte:</string>
+    <string name="text_rounds">Runden:</string>
     <string-array name="spinnerQuantityListType">
         <item>10x</item>
         <item>20x</item>

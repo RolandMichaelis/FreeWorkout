@@ -85,7 +85,7 @@ public class HistoryActivity extends Activity {
                 // Hier den checked-Wert des Memo-Objekts umkehren, bspw. von true auf false
                 // Dann ListView neu zeichnen mit showAllListEntries()
 
-                WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemo(memo.getId(), memo.getWore(), memo.getNumber(),  memo.getName(), memo.getType(),  memo.getQuantity(),  memo.getStartTime(),  memo.getEndTime(),  memo.getDuration(),   memo.getExTimes(),  memo.getStar(),  memo.isUpload(), (!memo.isChecked()));
+                WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemo(memo.getId(), memo.getWore(), memo.getNumber(),  memo.getName(), memo.getType(),  memo.getQuantity(),  memo.getRounds(),  memo.getStartTime(),  memo.getEndTime(),  memo.getDuration(),   memo.getExTimes(),  memo.getStar(),  memo.isUpload(), (!memo.isChecked()));
                 Log.d(LOG_TAG, "Checked-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isChecked());
                 showAllListEntries();
             }

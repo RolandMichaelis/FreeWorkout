@@ -15,6 +15,7 @@ public class WorkoutMemo extends BaseGameActivity {
     private String name;
     private int type;
     private int quantity;
+    private int rounds;
     private long startTime;
     private long endTime;
     private long duration;
@@ -23,9 +24,10 @@ public class WorkoutMemo extends BaseGameActivity {
     private boolean checked;
     private boolean upload;
     private String[] Types = {"Endurance","Standard","Strength",""};
+    private String rOut;
 
 
-    public WorkoutMemo(int wore, int number, String name, int type, long id, boolean checked, int quantity, long startTime, long endTime, long duration, String exTimes, boolean star, boolean upload) {
+    public WorkoutMemo(int wore, int number, String name, int type, long id, boolean checked, int quantity, int rounds, long startTime, long endTime, long duration, String exTimes, boolean star, boolean upload) {
         this.wore = wore;
         this.number = number;
         this.name = name;
@@ -33,6 +35,7 @@ public class WorkoutMemo extends BaseGameActivity {
         this.id = id;
         this.checked = checked;
         this.quantity = quantity;
+        this.rounds = rounds;
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
@@ -90,6 +93,13 @@ public class WorkoutMemo extends BaseGameActivity {
         this.quantity = quantity;
     }
 
+    public int getRounds() {
+        return rounds;
+    }
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
+    }
+
     public long getStartTime() {
         return startTime;
     }
@@ -138,6 +148,7 @@ public class WorkoutMemo extends BaseGameActivity {
         String xmeter = " x ";
         String xhalf = "";
         int q = quantity;
+        int r = rounds;
         if (name.equals("Sprint")) xmeter = " m ";
         if (name.equals("Run")) xmeter = " m ";
         if (name.equals("Lunge Walk"))  xmeter = " m ";
@@ -150,8 +161,9 @@ public class WorkoutMemo extends BaseGameActivity {
             xhalf = "2x ";
         }
 
+        if (r!=0) rOut = " " +String.valueOf(r); else rOut="";
 
-        String output = id + ". " + formattedTime + " " + xhalf+q+xmeter+name + " " + Types[type]+ " " + timeFormat((int)(duration/1000))+ " " +upload;
+        String output = id + ". " + formattedTime + " " + xhalf+q+xmeter+name + " " + Types[type]+ " " + timeFormat((int)(duration/1000))+ rOut;
 
         return output;
     }

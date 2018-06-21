@@ -33,6 +33,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
             WorkoutMemoDbHelper.COLUMN_NAME,
             WorkoutMemoDbHelper.COLUMN_TYPE,
             WorkoutMemoDbHelper.COLUMN_QUANTITY,
+            WorkoutMemoDbHelper.COLUMN_ROUNDS,
             WorkoutMemoDbHelper.COLUMN_STARTTIME,
             WorkoutMemoDbHelper.COLUMN_ENDTIME,
             WorkoutMemoDbHelper.COLUMN_DURATION,
@@ -63,13 +64,14 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         database.delete(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,null,null);
         Log.i(LOG_TAG, "Die Tabelle wurde entfernt.");
     }
-    public WorkoutMemo createWorkoutMemo(int wore, int number, String name, int type, int quantity, long startTime, long endTime, long duration, String exTimes, boolean star, boolean checked, boolean upload) {
+    public WorkoutMemo createWorkoutMemo(int wore, int number, String name, int type, int quantity, int rounds, long startTime, long endTime, long duration, String exTimes, boolean star, boolean checked, boolean upload) {
         ContentValues values = new ContentValues();
         values.put(WorkoutMemoDbHelper.COLUMN_WORE, wore);
         values.put(WorkoutMemoDbHelper.COLUMN_NUMBER, number);
         values.put(WorkoutMemoDbHelper.COLUMN_NAME, name);
         values.put(WorkoutMemoDbHelper.COLUMN_TYPE, type);
         values.put(WorkoutMemoDbHelper.COLUMN_QUANTITY, quantity);
+        values.put(WorkoutMemoDbHelper.COLUMN_ROUNDS, quantity);
         values.put(WorkoutMemoDbHelper.COLUMN_STARTTIME, startTime);
         values.put(WorkoutMemoDbHelper.COLUMN_ENDTIME, endTime);
         values.put(WorkoutMemoDbHelper.COLUMN_DURATION, duration);
@@ -102,7 +104,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + workoutMemo.toString());
     }
 
-    public WorkoutMemo updateWorkoutMemo(long id, int newWore, int newNumber, String newName, int newType, int newQuantity, long newStartTime, long newEndTime, long newDuration, String newExTimes, boolean newStar, boolean newUpload, boolean newChecked) {
+    public WorkoutMemo updateWorkoutMemo(long id, int newWore, int newNumber, String newName, int newType, int newQuantity, int newRounds, long newStartTime, long newEndTime, long newDuration, String newExTimes, boolean newStar, boolean newUpload, boolean newChecked) {
         int intValueChecked = (newChecked)? 1 : 0;
         int intValueUpload =  0;
         if(newUpload==true)intValueUpload =  1;
@@ -113,6 +115,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         values.put(WorkoutMemoDbHelper.COLUMN_NAME, newName);
         values.put(WorkoutMemoDbHelper.COLUMN_TYPE, newType);
         values.put(WorkoutMemoDbHelper.COLUMN_QUANTITY, newQuantity);
+        values.put(WorkoutMemoDbHelper.COLUMN_ROUNDS, newQuantity);
         values.put(WorkoutMemoDbHelper.COLUMN_STARTTIME, newStartTime);
         values.put(WorkoutMemoDbHelper.COLUMN_ENDTIME, newEndTime);
         values.put(WorkoutMemoDbHelper.COLUMN_DURATION, newDuration);
@@ -144,6 +147,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         int idName = cursor.getColumnIndex(WorkoutMemoDbHelper.COLUMN_NAME);
         int idType = cursor.getColumnIndex(WorkoutMemoDbHelper.COLUMN_TYPE);
         int idQuantity = cursor.getColumnIndex(WorkoutMemoDbHelper.COLUMN_QUANTITY);
+        int idRounds = cursor.getColumnIndex(WorkoutMemoDbHelper.COLUMN_ROUNDS);
         int idStartTime = cursor.getColumnIndex(WorkoutMemoDbHelper.COLUMN_STARTTIME);
         int idEndTime = cursor.getColumnIndex(WorkoutMemoDbHelper.COLUMN_ENDTIME);
         int idDuration = cursor.getColumnIndex(WorkoutMemoDbHelper.COLUMN_DURATION);
@@ -159,6 +163,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         String name = cursor.getString(idName);
         int type = cursor.getInt(idType);
         int quantity = cursor.getInt(idQuantity);
+        int rounds = cursor.getInt(idRounds);
         long startTime = cursor.getLong(idStartTime);
         long endTime = cursor.getLong(idEndTime);
         long duration = cursor.getInt(idDuration);
@@ -171,11 +176,11 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         boolean isStar = (intValueStar != 0);
         boolean isUploaded = (intValueUploaded != 0); // bei intValueUploaded==0: false
 
-        WorkoutMemo workoutMemo = new WorkoutMemo(wore, number, name, type, id, isChecked, quantity, startTime, endTime, duration, exTimes, isStar, isUploaded);
+        WorkoutMemo workoutMemo = new WorkoutMemo(wore, number, name, type, id, isChecked, quantity, rounds, startTime, endTime, duration, exTimes, isStar, isUploaded);
 
         return workoutMemo;
     }
-    public WorkoutMemo updateWorkoutMemoUpload(long id, int newWore, int newNumber, String newName, int newType, int newQuantity, long newStartTime, long newEndTime, long newDuration, String newExTimes, boolean newStar, boolean newUpload, boolean newChecked) {
+    public WorkoutMemo updateWorkoutMemoUpload(long id, int newWore, int newNumber, String newName, int newType, int newQuantity, int newRounds, long newStartTime, long newEndTime, long newDuration, String newExTimes, boolean newStar, boolean newUpload, boolean newChecked) {
         int intValueChecked =  0;
         if(newChecked)intValueChecked =  1;
         int intValueUpload = 1;
@@ -186,6 +191,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         values.put(WorkoutMemoDbHelper.COLUMN_NAME, newName);
         values.put(WorkoutMemoDbHelper.COLUMN_TYPE, newType);
         values.put(WorkoutMemoDbHelper.COLUMN_QUANTITY, newQuantity);
+        values.put(WorkoutMemoDbHelper.COLUMN_ROUNDS, newRounds);
         values.put(WorkoutMemoDbHelper.COLUMN_STARTTIME, newStartTime);
         values.put(WorkoutMemoDbHelper.COLUMN_ENDTIME, newEndTime);
         values.put(WorkoutMemoDbHelper.COLUMN_DURATION, newDuration);

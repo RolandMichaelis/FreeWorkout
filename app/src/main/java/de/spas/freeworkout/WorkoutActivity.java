@@ -49,6 +49,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
     private String TextType = "";
     private int type;
     private int quantity;
+    private int rounds;
     private String[] Types = {"Endurance","Standard","Strength"};
     private int counter_rounds=0;
     //    private ArrayList<ArrayList> roundsList = new ArrayList<ArrayList>();
@@ -637,7 +638,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                             else tlt=tlt+timeList.get(x).toString(); //tlt: Zeiten der einzelnen WOs
 
                         }
-                        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
+                        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, rounds, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
 
                         Intent workoutFragmentIntent;
                         if(checked_day!=-1) {

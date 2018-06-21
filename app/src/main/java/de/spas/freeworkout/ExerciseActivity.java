@@ -44,6 +44,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     private String TextType = "";
     private int type;
     private int quantity;
+    private int rounds;
     private int time; // Festlegung ob Zeitmessung für PB positiv oder negativ gewertet wird: 0=je schneller desto besser, 1=je länger desto besser: für PB-Ausgabe
     private int exQuantHidden; // Festlegung ob Mengenauswahl (0) oder reine Zeitmessung (1)
     private int fromWhere;
@@ -110,6 +111,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         wl =  pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My WakeLock");
         if(!wl.isHeld())wl.acquire();
         dataSource = new WorkoutMemoDataSource(this);
+        rounds=0;
 
         try {
             InputStream source = getAssets().open("exercises.xml");
@@ -471,7 +473,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
                         String tlt="";
                         //Toast.makeText(ExerciseActivity.this, String.valueOf(wore)+"|"+ String.valueOf(number)+"|"+ String.valueOf(TextName)+"|"+ String.valueOf(type)+"|"+ String.valueOf(quantity)+"|"+ String.valueOf(timestampStart)+"|"+ String.valueOf(timestampCurr), Toast.LENGTH_LONG).show();
                         type=3;
-                        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
+                        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, rounds, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
                         //text_pb = dataSource.getMinDuration(quantity, TextName, type);
                         //Toast.makeText(ExerciseActivity.this, "getMinDuration:"+text_pb, Toast.LENGTH_LONG).show();
                         //finish();
