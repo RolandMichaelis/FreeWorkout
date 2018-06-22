@@ -11,9 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +40,12 @@ public class FragmentEndurance extends Fragment{
     private de.spas.freeworkout.workoutPack workoutPack;
     View rootView;
     int points;
+    int rounds;
     int quantity=1;
     int wo_choose;
+    private Spinner spSpinnerType;
+    private String[] spinnerRoundsListType;
+    private int spinner_value;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,10 +73,58 @@ public class FragmentEndurance extends Fragment{
         else{
             Workout w = workoutPack.getWorkouts().get(wo_choose);
             points=w.getEndurance().getPoints();
+            Endurance wo = workoutPack.getWorkouts().get(wo_choose).getEndurance();
+            rounds = 0;
+            for (Round r : wo.getRounds()) { // alle Round-Knoten durchlaufen
+                rounds++;
+            }
+            spinner_value=rounds-1; // anfangs immer letzte Position im Runden-Spinner z.B. auf 5/5
+            Toast.makeText(getContext(), "Runden: "+String.valueOf(rounds), Toast.LENGTH_LONG).show();
+
             TextView text = (TextView) rootView.findViewById(R.id.text_points);
             text.setText(getString(R.string.points, points));
             //Toast.makeText(getContext(), "Punkte: "+String.valueOf(points), Toast.LENGTH_LONG).show();
         }
+        spinnerRoundsListType = new String[rounds];
+        for(int i = 0; i < rounds; i++){
+            spinnerRoundsListType[i]=String.valueOf(i+1)+"/"+String.valueOf(rounds);
+        }
+
+        final ArrayAdapter<String> adapterSpinnerType;
+        spSpinnerType = (Spinner) this.rootView.findViewById(R.id.edit_spinner_rounds);
+        adapterSpinnerType = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerRoundsListType);
+        adapterSpinnerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spSpinnerType.setAdapter(adapterSpinnerType);
+        spSpinnerType.setSelection(rounds-1);
+
+        spSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                int quantRounds=0;
+                    Toast.makeText(getContext(), "Spinner geklickt! position="+String.valueOf(position), Toast.LENGTH_LONG).show();
+                    spinner_value=position;
+                    Workout w = workoutPack.getWorkouts().get(wo_choose);
+                    points=w.getEndurance().getPoints();
+                    int pointsPerRound =  points/rounds;
+                    if(quantity==1)  quantRounds = position+1;
+                    if(quantity==2)  quantRounds = rounds+position+1;
+                    if(quantity==3)  quantRounds = (2*rounds)+position+1;
+                    TextView text = (TextView) rootView.findViewById(R.id.text_points);
+                    text.setText(getString(R.string.points, quantRounds*pointsPerRound));
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+//
+            }
+        });
+
+
+
         RadioGroup radioGroup = (RadioGroup) rootView.findViewById(R.id.radioQuantity);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -83,18 +138,33 @@ public class FragmentEndurance extends Fragment{
                         // switch to fragment 1
                         quantity=1;
                         text.setText(getString(R.string.points, points));
+                        for(int i = 0; i < rounds; i++){
+                            spinnerRoundsListType[i]=String.valueOf(i+1)+"/"+String.valueOf(rounds);
+                        }
+                        adapterSpinnerType.notifyDataSetChanged();
 
+                        spSpinnerType.setSelection(rounds-1);
                         break;
                     case R.id.radio2x:
                         // Fragment 2
                         quantity=2;
                         text.setText(getString(R.string.points, points*2));
+                        for(int i = 0; i < rounds; i++){
+                            spinnerRoundsListType[i]=String.valueOf(i+1+rounds)+"/"+String.valueOf(2*rounds);
+                        }
+                        adapterSpinnerType.notifyDataSetChanged();
+                        spSpinnerType.setSelection(rounds-1);
                         break;
                     case R.id.radio3x:
                         // Fragment 3
                         // Toast.makeText(getContext(), "RB = 2x", Toast.LENGTH_LONG).show();
                         quantity=3;
                         text.setText(getString(R.string.points, points*3));
+                        for(int i = 0; i < rounds; i++){
+                            spinnerRoundsListType[i]=String.valueOf((i+1)+(2*rounds))+"/"+String.valueOf(3*rounds);
+                        }
+                        adapterSpinnerType.notifyDataSetChanged();
+                        spSpinnerType.setSelection(rounds-1);
                         break;
                 }
             }

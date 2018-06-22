@@ -65,7 +65,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     private int start_pointer = 0; // ab dort wird Liste angezeigt
     private ArrayList<String> runList = new ArrayList<String>(); // Liste alles zusammen (Runden und WOs)
     private ArrayList<TextView> tvList = new ArrayList<TextView>(); // TextViews
-    private ArrayList<Integer> propList = new ArrayList<Integer>(); //Art des Eintrags (0=normal; 1=Runde;2=Pause)
+    private ArrayList<Integer> propList = new ArrayList<Integer>(); //Art des Eintrags (0=normal; 1=Runde; 2=Pause)
     private ArrayList<Long> statList = new ArrayList<Long>(); //Timestamps
     private ArrayList<Long> timeList = new ArrayList<Long>(); //Sekunden/Exercise
     private ArrayList<Integer> ghostList = new ArrayList<Integer>(); // Liste Ghostzeiten
