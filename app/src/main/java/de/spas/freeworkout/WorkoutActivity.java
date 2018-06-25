@@ -144,7 +144,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
 
         Intent empfangenerIntent = this.getIntent();
         if (empfangenerIntent != null && empfangenerIntent.hasExtra(Intent.EXTRA_TEXT)) {
-            //Workout/Special,Workout/Exercise-Nummer,Type(Strth,Std,End.),Anzahl
+            //Workout/Special,Workout/Exercise-Nummer,Type(Strth,Std,End.),Anzahl,checked_day,checked_pos -1 wenn nicht über Coach gewählt
             String s = empfangenerIntent.getStringExtra(Intent.EXTRA_TEXT);
             wore = Integer.valueOf(s.substring(0,1)); //wore = Workout oder Exercise
             String s1=s.substring(2,s.length());
