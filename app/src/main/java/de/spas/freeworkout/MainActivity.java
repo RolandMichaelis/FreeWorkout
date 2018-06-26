@@ -2184,7 +2184,7 @@ Binärwerte für Skills:
                         } else {
                             workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
                         }
-                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow1.get(position) + ",0," + position);
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow1.get(position) + ",0," + position + ",0");
                         startActivity(workoutFragmentIntent);
                     }
 /*                    if(exChecked(checked[0],position)==false) {
@@ -2243,7 +2243,7 @@ Binärwerte für Skills:
                         } else {
                             workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
                         }
-                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow2.get(position) + ",1," + position);
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow2.get(position) + ",1," + position + ",0");
                         startActivity(workoutFragmentIntent);
                     }
                     /*if(exChecked(checked[1],position)==false) {
@@ -2303,7 +2303,7 @@ Binärwerte für Skills:
                         } else {
                             workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
                         }
-                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow3.get(position) + ",2," + position);
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow3.get(position) + ",2," + position + ",0");
                         startActivity(workoutFragmentIntent);
                     }
 /*
@@ -2364,7 +2364,7 @@ Binärwerte für Skills:
                         } else {
                             workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
                         }
-                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow4.get(position) + ",3," + position);
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow4.get(position) + ",3," + position + ",0");
                         startActivity(workoutFragmentIntent);
                     }
 /*
@@ -2425,7 +2425,7 @@ Binärwerte für Skills:
                         } else {
                             workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
                         }
-                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow5.get(position) + ",4," + position);
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow5.get(position) + ",4," + position + ",0");
                         startActivity(workoutFragmentIntent);
                     }
 /*
@@ -2487,7 +2487,7 @@ Binärwerte für Skills:
                         } else {
                             workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
                         }
-                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow6.get(position) + ",5," + position);
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow6.get(position) + ",5," + position + ",0");
                         startActivity(workoutFragmentIntent);
                     }
 /*
@@ -2550,7 +2550,7 @@ Binärwerte für Skills:
                         } else {
                             workoutFragmentIntent = new Intent(MainActivity.this, ExerciseActivity.class);
                         }
-                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow7.get(position) + ",6," + position);
+                        workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, WorkoutListArrayShadow7.get(position) + ",6," + position + ",0");
                         startActivity(workoutFragmentIntent);
                     }
 /*

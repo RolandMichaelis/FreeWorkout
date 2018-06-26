@@ -50,6 +50,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
     private int type;
     private int quantity;
     private int rounds;
+    private int quantRounds; // tatsächliche Rundenanzahl
+    private int roundsWO; // zum Auslesen der Rundenanzahl des Workouts
     private String[] Types = {"Endurance","Standard","Strength"};
     private int counter_rounds=0;
     //    private ArrayList<ArrayList> roundsList = new ArrayList<ArrayList>();
@@ -98,6 +100,8 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
     private int counter_rounds_pre_add;
     private int checked_day; //Vom Coach übergebener Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
     private int checked_pos; //Vom Coach übergebene Position am Tag für anschließendes Demarkieren des absolvierten Workouts, Wert "-1" wenn nicht vom Coach
+    private int counter_roundsValue; // tatsächliche Rundenanzahl (inklusive Wiederholungen)
+    private String printRounds; // Wenn individuelle Rundenzahl, Ausgabe der abweichenden Runden z.B.: (4/5)
     private MediaPlayer mpMusic;
 
     @Override
@@ -160,46 +164,69 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             n = s1.indexOf(",");
             checked_day = Integer.valueOf(s1.substring(0,n));
             s1=s1.substring(n+1,s1.length());
-            checked_pos = Integer.valueOf(s1.substring(0,s1.length()));
+            n = s1.indexOf(",");
+            checked_pos = Integer.valueOf(s1.substring(0,n));
+            s1=s1.substring(n+1,s1.length());
+            rounds = Integer.valueOf(s1.substring(0,s1.length()));
 
 
-            Log.i(LOG_TAG, "wore: "+String.valueOf(wore)+"wore: "+String.valueOf(number)+"quantity: "+String.valueOf(quantity)+" checked_day: "+String.valueOf(checked_day)+" checked_pos: "+String.valueOf(checked_pos));
+            Log.i(LOG_TAG, "wore: "+String.valueOf(wore)+"wore: "+String.valueOf(number)+"quantity: "+String.valueOf(quantity)+" checked_day: "+String.valueOf(checked_day)+" checked_pos: "+String.valueOf(checked_pos)+" rounds: "+String.valueOf(rounds));
 
             for (int i = 0; i < 30; i++){
                 roundList[i] = new ArrayList();
                 //mArrayAdapterList[i] = new ArrayList();
             }
-
             if(wore==0){
                 Workout w = workoutPack.getWorkouts().get(number);
                 TextName = w.getName();
                 TextType = Types[type];
-                this.setTitle(quantity+"x "+TextName+" "+TextType);
+                printRounds = "";
+                Endurance ww = workoutPack.getWorkouts().get(number).getEndurance();
+                // Zählen der Runden
+                roundsWO = 0;
+                for (Round r : ww.getRounds()) { // alle Round-Knoten durchlaufen
+                    roundsWO++;
+                }
+                quantRounds =((quantity-1)*roundsWO)+rounds;
+                if(rounds!=0) {
+                    quantRounds =((quantity-1)*roundsWO)+rounds;
+                    printRounds=" ("+quantRounds+"/"+quantity*roundsWO+")";
+                }
+                else {
+                    quantRounds=quantity*roundsWO;
+                    printRounds="";
+                }
+                Log.i(LOG_TAG, "quantRounds: " + String.valueOf(quantRounds));
+
+                this.setTitle(quantity+"x "+TextName+printRounds+" "+TextType);
                 switch (type) {
                     case 0: {
                         Endurance wo = workoutPack.getWorkouts().get(number).getEndurance();
+
+
                         for (int qidx = 0; qidx < quantity; qidx++) {
                             for (Round r : wo.getRounds()) { // alle Round-Knoten durchlaufen
-                                counter_practice = 0;
+                                if(counter_rounds < quantRounds){
+                                    counter_practice = 0;
 
-                                for (Practice p : r.getPractice()) {  // alle Practice-Knoten durchlaufen
-                                    xmeter = " x ";
-                                    String xhalf = "";
-                                    int q = p.getQuantity();
-                                    if (p.getName().equals("Sprint")) xmeter = " m ";
-                                    if (p.getName().equals("Run")) xmeter = " m ";
-                                    if (p.getName().equals("HH Lunge Walk"))  xmeter = " m ";
-                                    if (p.getName().equals("Sprawl Frogs"))  xmeter = " m ";
-
-                                    if (p.getName().equals("Rest")) xmeter = " s ";
-                                    if (xmeter.equals(" m ") && q < 100) {
-                                        q = q / 2;
-                                        xhalf = "2x ";
+                                    for (Practice p : r.getPractice()) {  // alle Practice-Knoten durchlaufen
+                                        xmeter = " x ";
+                                        String xhalf = "";
+                                        int q = p.getQuantity();
+                                        if (p.getName().equals("Sprint")) xmeter = " m ";
+                                        if (p.getName().equals("Run")) xmeter = " m ";
+                                        if (p.getName().equals("HH Lunge Walk"))  xmeter = " m ";
+                                        if (p.getName().equals("Sprawl Frogs"))  xmeter = " m ";
+                                        if (p.getName().equals("Rest")) xmeter = " s ";
+                                        if (xmeter.equals(" m ") && q < 100) {
+                                            q = q / 2;
+                                            xhalf = "2x ";
+                                        }
+                                        roundList[counter_rounds].add(xhalf + q + xmeter + " " + p.getName());
+                                        counter_practice++;
                                     }
-                                    roundList[counter_rounds].add(xhalf + q + xmeter + " " + p.getName());
-                                    counter_practice++;
+                                    counter_rounds++;
                                 }
-                                counter_rounds++;
                             }
                         }
                         Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice)+" | "+String.valueOf(wo));
@@ -209,25 +236,27 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                         Standard wo = workoutPack.getWorkouts().get(number).getStandard();
                         for (int qidx = 0; qidx < quantity; qidx++) {
                             for (Round r : wo.getRounds()) { // alle Round-Knoten durchlaufen
-                                counter_practice = 0;
+                                if (counter_rounds < quantRounds) {
+                                    counter_practice = 0;
 
-                                for (Practice p : r.getPractice()) {  // alle Practice-Knoten durchlaufen
-                                    xmeter = " x ";
-                                    String xhalf = "";
-                                    int q = p.getQuantity();
-                                    if (p.getName().equals("Sprint")) xmeter = " m ";
-                                    if (p.getName().equals("Run")) xmeter = " m ";
-                                    if (p.getName().equals("Lunge Walk"))  xmeter = " m ";
-                                    if (p.getName().equals("Burpee Frogs"))  xmeter = " m ";
-                                    if (p.getName().equals("Rest")) xmeter = " s ";
-                                    if (xmeter.equals(" m ") && q < 100) {
-                                        q = q / 2;
-                                        xhalf = "2x ";
+                                    for (Practice p : r.getPractice()) {  // alle Practice-Knoten durchlaufen
+                                        xmeter = " x ";
+                                        String xhalf = "";
+                                        int q = p.getQuantity();
+                                        if (p.getName().equals("Sprint")) xmeter = " m ";
+                                        if (p.getName().equals("Run")) xmeter = " m ";
+                                        if (p.getName().equals("Lunge Walk")) xmeter = " m ";
+                                        if (p.getName().equals("Burpee Frogs")) xmeter = " m ";
+                                        if (p.getName().equals("Rest")) xmeter = " s ";
+                                        if (xmeter.equals(" m ") && q < 100) {
+                                            q = q / 2;
+                                            xhalf = "2x ";
+                                        }
+                                        roundList[counter_rounds].add(xhalf + q + xmeter + " " + p.getName());
+                                        counter_practice++;
                                     }
-                                    roundList[counter_rounds].add(xhalf + q + xmeter + " " + p.getName());
-                                    counter_practice++;
+                                    counter_rounds++;
                                 }
-                                counter_rounds++;
                             }
                         }
                         Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice)+" | "+String.valueOf(wo));
@@ -238,27 +267,29 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                         for (int qidx = 0; qidx < quantity; qidx++) {
 
                             for (Round r : wo.getRounds()) { // alle Round-Knoten durchlaufen
-                                counter_practice = 0;
+                                if (counter_rounds < quantRounds) {
+                                    counter_practice = 0;
 
-                                for (Practice p : r.getPractice()) {  // alle Practice-Knoten durchlaufen
-                                    xmeter = " x ";
-                                    String xhalf = "";
-                                    int q = p.getQuantity();
-                                    if (p.getName().equals("Sprint")) xmeter = " m ";
-                                    if (p.getName().equals("Run")) xmeter = " m ";
-                                    if (p.getName().equals("Rest")) xmeter = " s ";
-                                    if (p.getName().equals("Lunge Walk"))  xmeter = " m ";
-                                    if (p.getName().equals("Burpee Deepfrogs"))  xmeter = " m ";
-                                    // quantity wird bei Laufstrecken unter 100 m halbiert für neue Darstellung von 40 m auf 2x 20 m
-                                    if (xmeter.equals(" m ") && q < 100) {
-                                        q = q / 2;
-                                        xhalf = "2x ";
+                                    for (Practice p : r.getPractice()) {  // alle Practice-Knoten durchlaufen
+                                        xmeter = " x ";
+                                        String xhalf = "";
+                                        int q = p.getQuantity();
+                                        if (p.getName().equals("Sprint")) xmeter = " m ";
+                                        if (p.getName().equals("Run")) xmeter = " m ";
+                                        if (p.getName().equals("Rest")) xmeter = " s ";
+                                        if (p.getName().equals("Lunge Walk")) xmeter = " m ";
+                                        if (p.getName().equals("Burpee Deepfrogs")) xmeter = " m ";
+                                        // quantity wird bei Laufstrecken unter 100 m halbiert für neue Darstellung von 40 m auf 2x 20 m
+                                        if (xmeter.equals(" m ") && q < 100) {
+                                            q = q / 2;
+                                            xhalf = "2x ";
+                                        }
+                                        roundList[counter_rounds].add(xhalf + q + xmeter + " " + p.getName());
+                                        counter_practice++;
+                                        Log.i(LOG_TAG, "specialPack Anzahl: " + String.valueOf(counter_rounds) + " | " + String.valueOf(counter_practice));
                                     }
-                                    roundList[counter_rounds].add(xhalf + q + xmeter + " " + p.getName());
-                                    counter_practice++;
-                                    Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice));
+                                    counter_rounds++;
                                 }
-                                counter_rounds++;
                             }
                         }
                         Log.i(LOG_TAG, "specialPack Anzahl: "+String.valueOf(counter_rounds)+" | "+String.valueOf(counter_practice)+" | "+String.valueOf(wo));
@@ -638,7 +669,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                             else tlt=tlt+timeList.get(x).toString(); //tlt: Zeiten der einzelnen WOs
 
                         }
-                        dataSource.createWorkoutMemo(wore, number, TextName, type, quantity, rounds, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
+                        dataSource.createWorkoutMemo(wore, number, TextName+printRounds, type, quantity, rounds, timestampStart, timestampCurr, timestampCurr-timestampStart,tlt,false,false,false);
 
                         Intent workoutFragmentIntent;
                         if(checked_day!=-1) {
@@ -646,7 +677,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                             workoutFragmentIntent = new Intent(WorkoutActivity.this, MainActivity.class);
                             Boolean star=false; // Platzhalter für später
                             //Übergabe an Coach: wore, name, quantity, type, Startzeit, Länge Format hh:mm:ss, star, checked_day, checked_pos
-                            workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(wore)+","+TextName+","+String.valueOf(quantity)+","+String.valueOf(type)+","+String.valueOf(timestampStart)+","+dur+","+String.valueOf(star)+","+String.valueOf(checked_day)+","+String.valueOf(checked_pos));
+                            workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(wore)+","+TextName+printRounds+","+String.valueOf(quantity)+","+String.valueOf(type)+","+String.valueOf(timestampStart)+","+dur+","+String.valueOf(star)+","+String.valueOf(checked_day)+","+String.valueOf(checked_pos));
                             startActivity(workoutFragmentIntent);
                         } else {
                             finish();
@@ -665,7 +696,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                             timestampAdd = statList.get(wo_pointer - 2);
                         else timestampAdd = statList.get(wo_pointer - 1);
                         showView(R.id.button_wo_back);
-                        if(quantity<3)showView(R.id.button_wo_add);
+                        if(quantity<3 && rounds==0)showView(R.id.button_wo_add);
                         handler.postDelayed(runnable, 1000);
                         dialog.cancel();
                     }
@@ -677,7 +708,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                         wo_pointer++;start_pointer++;
                         workoutOrRound();
                         showView(R.id.button_wo_back);
-                        if(quantity<3)showView(R.id.button_wo_add);
+                        if(quantity<3 && rounds==0)showView(R.id.button_wo_add);
                         handler.postDelayed(runnable, 1000);
                         dialog.cancel();
                     }
@@ -709,7 +740,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                     hideView(R.id.button_wo_display);
                     showView(R.id.container_2);
                     showView(R.id.button_wo_start);
-                    if(quantity<3)showView(R.id.button_wo_add);
+                    if(quantity<3 && rounds==0)showView(R.id.button_wo_add);
                     //showView(R.id.button_wo_cancel);
                     if(!wl.isHeld())wl.acquire();
                     init_view();
@@ -911,7 +942,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
         }
         quantity++;
         this.setTitle(quantity+"x "+TextName+" "+TextType);
-        if(quantity>2)hideView(R.id.button_wo_add);
+        if((quantity>2) && (rounds!=0))hideView(R.id.button_wo_add);
 
         text_pb="";
         text_lt="";
@@ -927,20 +958,20 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
         if(!text_pb.equals("")) {
             showView(R.id.time_pb);
             ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
-            datasGhost=dataSource.getMinDurationGhost(quantity,TextName,type); //Abfrage Ghostdaten in DB für kürzestes WO
+            datasGhost=dataSource.getMinDurationGhost(quantity,TextName+printRounds,type); //Abfrage Ghostdaten in DB für kürzestes WO
         }
         text_lt=dataSource.getMaxStartTime(quantity,TextName,type); //Abfrage DB letztes WO
         //Toast.makeText(this, "getMaxStartTime return:"+text_lt, Toast.LENGTH_LONG).show();
         if(!text_lt.equals("")) {
             showView(R.id.time_lt);
             ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
-            if(datasGhost.equals(""))datasGhost=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
+            if(datasGhost.equals(""))datasGhost=dataSource.getMaxStartTimeGhost(quantity,TextName+printRounds,type);
         }
         if(!datasGhost.equals("")){
             exDatasGhostString(datasGhost);
         }
         if(!text_lt.equals("")){
-            datasGhost2=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
+            datasGhost2=dataSource.getMaxStartTimeGhost(quantity,TextName+printRounds,type);
             exDatasGhostString2(datasGhost2);}
         if(text_lt.equals("") && text_pb.equals(""))  defaultPeriod=30;
         list_view();
@@ -1097,21 +1128,21 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
         hideView(R.id.time_pb);
         hideView(R.id.time_lt);
 
-        text_pb=dataSource.getMinDuration(quantity,TextName,type); //Abfrage DB kürzestes WO
+        text_pb=dataSource.getMinDuration(quantity,TextName+printRounds,type); //Abfrage DB kürzestes WO
         //Toast.makeText(this, "getMinDuration:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         if(!text_pb.equals("")) {
             showView(R.id.time_pb);
             ((TextView) findViewById(R.id.time_pb)).setText(text_pb);
-            datasGhost=dataSource.getMinDurationGhost(quantity,TextName,type); //Abfrage Ghostdaten in DB für kürzestes WO
+            datasGhost=dataSource.getMinDurationGhost(quantity,TextName+printRounds,type); //Abfrage Ghostdaten in DB für kürzestes WO
             //Toast.makeText(this, "getMinDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         }
-        text_lt=dataSource.getMaxStartTime(quantity,TextName,type); //Abfrage DB letztes WO
+        text_lt=dataSource.getMaxStartTime(quantity,TextName+printRounds,type); //Abfrage DB letztes WO
         //Toast.makeText(this, "getMaxStartTime:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
         if(!text_lt.equals("")) {
             showView(R.id.time_lt);
             ((TextView) findViewById(R.id.time_lt)).setText(text_lt);
-            if(datasGhost.equals(""))datasGhost=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
-            else datasGhost2=dataSource.getMaxStartTimeGhost(quantity,TextName,type);
+            if(datasGhost.equals(""))datasGhost=dataSource.getMaxStartTimeGhost(quantity,TextName+printRounds,type);
+            else datasGhost2=dataSource.getMaxStartTimeGhost(quantity,TextName+printRounds,type);
             //Toast.makeText(this, "getMaxDurationGhost:"+String.valueOf(quantity)+" "+TextName+" "+String.valueOf(type), Toast.LENGTH_LONG).show();
 
         }

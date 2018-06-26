@@ -174,9 +174,12 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         if(xmeter.equals(" x ")) {
             spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListType);
         }
-        else if(xmeter.equals(" m ") && TextName.equals("Sprint")){
+        else if(xmeter.equals(" m ") && !TextName.equals("Run")){
             spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeMeter);
         }
+        /*else if(xmeter.equals(" m ") && TextName.equals("Sprint")){
+            spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeMeter);
+        }*/
         else if(xmeter.equals(" m ") && TextName.equals("Run")){
             spinnerQuantityListType = getResources().getStringArray(R.array.spinnerQuantityListTypeRunMeter);
         }
@@ -575,7 +578,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         if (TextName.equals("HH Lunge Walk"))  xmeter = " m ";
         if (TextName.equals("Sprawl Frogs"))  xmeter = " m ";
         if (TextName.equals("Burpee Frogs"))  xmeter = " m ";
-        if (TextName.equals("Burpee Deepfrogs"))  xmeter = " m ";
+        if (TextName.equals("Burpee Deep Frogs"))  xmeter = " m ";
         if (xmeter.equals(" m ") && q < 100) {
             q = q / 2;
             xhalf = "2x ";

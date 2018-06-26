@@ -5,25 +5,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
-import android.view.ActionMode;
+
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
+
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,8 +26,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class MatrixActivity extends Activity {
@@ -232,7 +223,7 @@ public class MatrixActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         Intent workoutFragmentIntent = new Intent(MatrixActivity.this, WorkoutActivity.class);
-                        String ListTextShadow = "0,"+String.valueOf(n)+","+String.valueOf(d)+","+String.valueOf(q)+",-1,-1"; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl
+                        String ListTextShadow = "0,"+String.valueOf(n)+","+String.valueOf(d)+","+String.valueOf(q)+",-1,-1,0"; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl
 
                         workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, ListTextShadow);
                         startActivity(workoutFragmentIntent);                        //Toast.makeText(MainActivity.this, "Done = "+ email.getText().toString()+" "+ password.getText().toString(), Toast.LENGTH_LONG).show();

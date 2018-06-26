@@ -1,74 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_repeats"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:textSize="18sp" />
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
 
-        <RadioGroup
-            android:id="@+id/radioQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:orientation="horizontal"
-            android:checkedButton="@+id/radio1x">
-
-            <RadioButton
-                android:id="@+id/radio1x"
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1x"
-                android:layout_weight="2"/>
+                android:text="@string/text_repeats"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-            <RadioButton
-                android:id="@+id/radio2x"
+                <RadioGroup
+                    android:id="@+id/radioQuantity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:orientation="horizontal"
+                    android:checkedButton="@+id/radio1x">
+
+                    <RadioButton
+                        android:id="@+id/radio1x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1x"
+                        android:layout_weight="2"/>
+
+                    <RadioButton
+                        android:id="@+id/radio2x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2x"
+                        android:layout_weight="2"/>
+
+                    <RadioButton
+                        android:id="@+id/radio3x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3x"
+                        android:layout_weight="2"
+                        android:paddingRight="20dp"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:text="@string/text_rounds"
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:id="@+id/text_rounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <Spinner
+                android:id="@+id/edit_spinner_rounds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2x"
-                android:layout_weight="2"/>
+                android:paddingLeft="10dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
 
-            <RadioButton
-                android:id="@+id/radio3x"
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:text="@string/text_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:id="@+id/text_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row_dialog_lt" >
+            <TextView
+                android:text="LT:"
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/fragment_dialog_lt"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row_dialog_pb">
+
+            <TextView
+                android:text="PB:"
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/fragment_dialog_pb"
+                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3x"
-                android:layout_weight="2"
-                android:paddingRight="20dp"/>
+                />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <Button
+                android:layout_span="2"
+                android:id="@+id/button_wo_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:text="@string/dialog_button_wo_display" />
+        </TableRow>
+    </TableLayout>
 
-        </RadioGroup>
-
-    </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="40dp">
-
-
-
-        <TextView
-            android:textSize="18sp"
-            android:paddingLeft="10dp"
-            android:id="@+id/text_points"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <Button
-        android:id="@+id/button_wo_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:text="@string/dialog_button_wo_display" />
-
-</FrameLayout>
+</LinearLayout>

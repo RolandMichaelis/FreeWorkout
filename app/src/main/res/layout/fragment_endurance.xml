@@ -101,12 +101,46 @@
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row_dialog_lt" >
+        <TextView
+            android:text="LT:"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/fragment_dialog_lt"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/row_dialog_pb">
 
+            <TextView
+                android:text="PB:"
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/fragment_dialog_pb"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
         <Button
-            android:layout_column="1"
+            android:layout_span="2"
             android:id="@+id/button_wo_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
