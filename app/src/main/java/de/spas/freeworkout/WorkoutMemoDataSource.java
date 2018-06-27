@@ -216,6 +216,32 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         return workoutMemo;
     }
 
+    public List getWorkoutMemos(int q,String n,int t) {
+        // Für FragmentEndurance, FragmentStandard und FragmentStrength: Ausgabe der jeweiligen Workouts
+        List workoutMemoList = new ArrayList<>();
+        /*Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
+                columns,
+                null,
+                null,
+                null, null, WorkoutMemoDbHelper.COLUMN_STARTTIME+" DESC");*/
+
+        Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST, null, WorkoutMemoDbHelper.COLUMN_QUANTITY + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_NAME + "=?" + " AND " + WorkoutMemoDbHelper.COLUMN_TYPE + "=?", new String[] {String.valueOf(q),n,String.valueOf(t)},
+                null, null, null);
+        cursor.moveToFirst();
+        WorkoutMemo workoutMemo;
+
+        while(!cursor.isAfterLast()) {
+            workoutMemo = cursorToWorkoutMemo(cursor);
+            workoutMemoList.add(workoutMemo.toStringWO());
+            //Log.i(LOG_TAG, "ID: " + workoutMemo.getId() + ", Inhalt: " + workoutMemo.toStringWO());
+            //Log.d(LOG_TAG, "ID: " + workoutMemo.getId() + ", Inhalt: " + workoutMemo.toStringWO());
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return workoutMemoList;
+    }
     public List<WorkoutMemo> getAllWorkoutMemos() {
         List<WorkoutMemo> workoutMemoList = new ArrayList<>();
         Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,

@@ -4,7 +4,10 @@ package de.spas.freeworkout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +30,11 @@ import java.io.InputStream;
 
 
 
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by roland on 25.05.2017.
@@ -45,6 +55,7 @@ public class FragmentStrength extends Fragment{
     private String[] spinnerRoundsListType;
     private int roundsValue;
     private WorkoutMemoDataSource dataSource;
+    private ListView mWorkoutMemosListView;
     public static final String LOG_TAG = FragmentStrength.class.getSimpleName();
 
     @Override
@@ -53,9 +64,9 @@ public class FragmentStrength extends Fragment{
 
         rootView = inflater.inflate(R.layout.fragment_strength, container, false);
 
-        Log.i(LOG_TAG, "Die Datenbank wird geöffnet.");
+        //Log.i(LOG_TAG, "Die Datenbank wird geöffnet.");
         dataSource = new WorkoutMemoDataSource(getContext());
-        dataSource.open();
+        //dataSource.open();
 
         try {
             InputStream source = getActivity().getAssets().open("workouts.xml");
@@ -69,6 +80,7 @@ public class FragmentStrength extends Fragment{
         SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
         wo_choose = sp.getInt("wo_choose", -1);
         //Toast.makeText(getContext(), String.valueOf(wo_choose), Toast.LENGTH_LONG).show();
+        initializeWorkoutMemosListView();
 
         if(wo_choose<0) {
             Toast.makeText(getContext(), "Kein Wert in wo_choose!", Toast.LENGTH_LONG).show();
@@ -133,6 +145,7 @@ public class FragmentStrength extends Fragment{
                 Log.i(LOG_TAG, "wName+printRounds: "+wName+printRounds+" quantity: "+quantity);
 
                 printPBLT(quantity,wName+printRounds,type);
+                showAllListEntries(quantity,wName+printRounds,type);
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -162,6 +175,7 @@ public class FragmentStrength extends Fragment{
 
                         spSpinnerType.setSelection(rounds-1);
                         printPBLT(quantity,wName,type);
+                        showAllListEntries(quantity,wName,type);
 
                         break;
                     case R.id.radio2x:
@@ -174,6 +188,7 @@ public class FragmentStrength extends Fragment{
                         adapterSpinnerType.notifyDataSetChanged();
                         spSpinnerType.setSelection(rounds-1);
                         printPBLT(quantity,wName,type);
+                        showAllListEntries(quantity,wName,type);
                         break;
                     case R.id.radio3x:
                         // Fragment 3
@@ -186,6 +201,7 @@ public class FragmentStrength extends Fragment{
                         adapterSpinnerType.notifyDataSetChanged();
                         spSpinnerType.setSelection(rounds-1);
                         printPBLT(quantity,wName,type);
+                        showAllListEntries(quantity,wName,type);
                         break;
                 }
             }
@@ -215,7 +231,65 @@ public class FragmentStrength extends Fragment{
                 }
             }
         });
+
         return rootView;
+
+    }
+    private void initializeWorkoutMemosListView() {
+        List<WorkoutMemo> emptyListForInitialization = new ArrayList<>();
+
+        mWorkoutMemosListView = (ListView) rootView.findViewById(R.id.listview_workout_memos);
+
+        // Erstellen des ArrayAdapters für unseren ListView
+        ArrayAdapter<WorkoutMemo> shoppingMemoArrayAdapter = new ArrayAdapter<WorkoutMemo> (
+                this.getActivity(),
+                android.R.layout.simple_list_item_1,
+                emptyListForInitialization) {
+
+            // Wird immer dann aufgerufen, wenn der übergeordnete ListView die Zeile neu zeichnen muss
+/*            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View view =  super.getView(position, convertView, parent);
+                TextView textView = (TextView) view;
+
+                WorkoutMemo memo = (WorkoutMemo) mWorkoutMemosListView.getItemAtPosition(position);
+
+                if (memo.isChecked()) {
+                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    textView.setTextColor(Color.rgb(175,175,175));
+                }
+                else {
+                    textView.setPaintFlags( textView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                    textView.setTextColor(Color.DKGRAY);
+                }
+
+                return view;
+            }*/
+        };
+
+        mWorkoutMemosListView.setAdapter(shoppingMemoArrayAdapter);
+/*
+        mWorkoutMemosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                WorkoutMemo memo = (WorkoutMemo) adapterView.getItemAtPosition(position);
+
+                WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemo(memo.getId(), memo.getWore(), memo.getNumber(),  memo.getName(), memo.getType(),  memo.getQuantity(),  memo.getRounds(),  memo.getStartTime(),  memo.getEndTime(),  memo.getDuration(),   memo.getExTimes(),  memo.getStar(),  memo.isUpload(), (!memo.isChecked()));
+                Log.d(LOG_TAG, "Checked-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isChecked());
+                showAllListEntries();
+            }
+        });*/
+
+    }
+    private void showAllListEntries (int q,String n,int t) {
+        List<WorkoutMemo> workoutMemoList = dataSource.getWorkoutMemos(q,n,t);
+
+        ArrayAdapter<WorkoutMemo> adapter = (ArrayAdapter<WorkoutMemo>) mWorkoutMemosListView.getAdapter();
+        adapter.clear();
+        adapter.addAll(workoutMemoList);
+        adapter.notifyDataSetChanged();
+        Log.i(LOG_TAG, "workoutMemoList Eintrag: " + workoutMemoList);
 
     }
 
@@ -257,12 +331,20 @@ public class FragmentStrength extends Fragment{
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i(LOG_TAG, "Die Datenbank wird geschlossen.");
+    public void onResume() {
+        super.onResume();
+        //Log.d(LOG_TAG, "onResume: showAllListEntries: "+quantity+"/"+wName+printRounds+"/"+type);
+        dataSource.open();
+//        Toast.makeText(getContext(), "onResume: showAllListEntries: "+quantity+"/"+wName+printRounds+"/"+type, Toast.LENGTH_LONG).show();
+//        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
     }
 
 }
-
-

@@ -1,7 +1,6 @@
 package de.spas.freeworkout;
 
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,7 +24,6 @@ public class WorkoutMemo extends BaseGameActivity {
     private boolean upload;
     private String[] Types = {"Endurance","Standard","Strength",""};
     private String rOut;
-
 
     public WorkoutMemo(int wore, int number, String name, int type, long id, boolean checked, int quantity, int rounds, long startTime, long endTime, long duration, String exTimes, boolean star, boolean upload) {
         this.wore = wore;
@@ -138,6 +136,41 @@ public class WorkoutMemo extends BaseGameActivity {
     }
     public void setUpload (boolean upload) { this.upload = upload; }
 
+    public String toStringWO() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        long ts = startTime;
+        Date resultdate = new Date(ts);
+        String formattedTime=sdf.format(resultdate);
+        String xmeter = " x ";
+        String xhalf = "";
+        int q = quantity;
+        int r = rounds;
+        if (name.equals("Sprint")) xmeter = " m ";
+        if (name.equals("Run")) xmeter = " m ";
+        if (name.equals("Lunge Walk"))  xmeter = " m ";
+        if (name.equals("HH Lunge Walk"))  xmeter = " m ";
+        if (name.equals("Sprawl Frogs"))  xmeter = " m ";
+        if (name.equals("Burpee Frogs"))  xmeter = " m ";
+        if (name.equals("Burpee Deep Frogs"))  xmeter = " m ";
+        if (xmeter.equals(" m ") && q < 100) {
+            q = q / 2;
+            xhalf = "2x ";
+        }
+
+        if (r!=0) rOut = " " +String.valueOf(r); else rOut="";
+        //Resources.getSystem().getString(R.string.text_am)
+        String s = formattedTime;
+        int n = s.indexOf(" ");
+        String s1 = "";
+        String s2 = "";
+        if(n>0) {
+            s1 = s.substring(0, n); //kompletter String bis |
+            s2 = s.substring(n+1, s.length()); //kompletter String ab |
+        }
+        String output = timeFormat((int)(duration/1000))+ " am " + s1 + " um " + s2;
+
+        return output;
+    }
 
     @Override
     public String toString() {
@@ -155,7 +188,7 @@ public class WorkoutMemo extends BaseGameActivity {
         if (name.equals("HH Lunge Walk"))  xmeter = " m ";
         if (name.equals("Sprawl Frogs"))  xmeter = " m ";
         if (name.equals("Burpee Frogs"))  xmeter = " m ";
-        if (name.equals("Burpee Deepfrogs"))  xmeter = " m ";
+        if (name.equals("Burpee Deep Frogs"))  xmeter = " m ";
         if (xmeter.equals(" m ") && q < 100) {
             q = q / 2;
             xhalf = "2x ";

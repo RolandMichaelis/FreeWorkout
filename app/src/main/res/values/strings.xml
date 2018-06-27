@@ -149,5 +149,6 @@
     <string name="profile_gender_female">female</string>
     <string name="dialog_button_cancel">CANCEL</string>
     <string name="dialog_button_save">SAVE</string>
+    <string name="text_am">on</string>
 
 </resources>
