@@ -216,7 +216,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
         return workoutMemo;
     }
 
-    public List getWorkoutMemos(int q,String n,int t) {
+    public List getWorkoutMemos(int q,String n,int t,Context c) {
         // Für FragmentEndurance, FragmentStandard und FragmentStrength: Ausgabe der jeweiligen Workouts
         List workoutMemoList = new ArrayList<>();
         /*Cursor cursor = database.query(WorkoutMemoDbHelper.TABLE_WORKOUT_LIST,
@@ -232,7 +232,7 @@ public class WorkoutMemoDataSource extends BaseGameActivity {
 
         while(!cursor.isAfterLast()) {
             workoutMemo = cursorToWorkoutMemo(cursor);
-            workoutMemoList.add(workoutMemo.toStringWO());
+            workoutMemoList.add(workoutMemo.toStringWO(c));
             //Log.i(LOG_TAG, "ID: " + workoutMemo.getId() + ", Inhalt: " + workoutMemo.toStringWO());
             //Log.d(LOG_TAG, "ID: " + workoutMemo.getId() + ", Inhalt: " + workoutMemo.toStringWO());
             cursor.moveToNext();

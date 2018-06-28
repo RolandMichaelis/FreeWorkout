@@ -1,6 +1,8 @@
 package de.spas.freeworkout;
 
 
+import android.content.Context;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -136,7 +138,7 @@ public class WorkoutMemo extends BaseGameActivity {
     }
     public void setUpload (boolean upload) { this.upload = upload; }
 
-    public String toStringWO() {
+    public String toStringWO(Context c) { // Context muss für R.string... übergeben werden, sonst findet Java die strings.xml nicht
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         long ts = startTime;
         Date resultdate = new Date(ts);
@@ -158,7 +160,6 @@ public class WorkoutMemo extends BaseGameActivity {
         }
 
         if (r!=0) rOut = " " +String.valueOf(r); else rOut="";
-        //Resources.getSystem().getString(R.string.text_am)
         String s = formattedTime;
         int n = s.indexOf(" ");
         String s1 = "";
@@ -167,7 +168,8 @@ public class WorkoutMemo extends BaseGameActivity {
             s1 = s.substring(0, n); //kompletter String bis |
             s2 = s.substring(n+1, s.length()); //kompletter String ab |
         }
-        String output = timeFormat((int)(duration/1000))+ " am " + s1 + " um " + s2;
+        //String output = timeFormat((int)(duration/1000))+ " "+c.getResources().getString(R.string.text_on)+" " + s1 + " "+c.getResources().getString(R.string.text_at)+" " + s2;
+        String output = timeFormat((int)(duration/1000))+ " "+c.getResources().getString(R.string. text_time_output,s1,s2);
 
         return output;
     }

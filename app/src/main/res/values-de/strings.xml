@@ -147,6 +147,6 @@
     <string name="profile_username">Benutzername:</string>
     <string name="dialog_button_cancel">ABBRECHEN</string>
     <string name="dialog_button_save">SPEICHERN</string>
-    <string name="text_am">am</string>
+    <string name="text_time_output">am %1$s um %2$s</string>
 
 </resources>

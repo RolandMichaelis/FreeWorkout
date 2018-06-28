@@ -57,12 +57,14 @@ public class FragmentStrength extends Fragment{
     private WorkoutMemoDataSource dataSource;
     private ListView mWorkoutMemosListView;
     public static final String LOG_TAG = FragmentStrength.class.getSimpleName();
+    Context c;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_strength, container, false);
+        c=getContext();  // Context zum Übergeben an andere Klassen speichern (z.B) an workotMemeDataSource
 
         //Log.i(LOG_TAG, "Die Datenbank wird geöffnet.");
         dataSource = new WorkoutMemoDataSource(getContext());
@@ -246,44 +248,13 @@ public class FragmentStrength extends Fragment{
                 android.R.layout.simple_list_item_1,
                 emptyListForInitialization) {
 
-            // Wird immer dann aufgerufen, wenn der übergeordnete ListView die Zeile neu zeichnen muss
-/*            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                View view =  super.getView(position, convertView, parent);
-                TextView textView = (TextView) view;
-
-                WorkoutMemo memo = (WorkoutMemo) mWorkoutMemosListView.getItemAtPosition(position);
-
-                if (memo.isChecked()) {
-                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    textView.setTextColor(Color.rgb(175,175,175));
-                }
-                else {
-                    textView.setPaintFlags( textView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    textView.setTextColor(Color.DKGRAY);
-                }
-
-                return view;
-            }*/
         };
 
         mWorkoutMemosListView.setAdapter(shoppingMemoArrayAdapter);
-/*
-        mWorkoutMemosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                WorkoutMemo memo = (WorkoutMemo) adapterView.getItemAtPosition(position);
-
-                WorkoutMemo updatedWorkoutMemo = dataSource.updateWorkoutMemo(memo.getId(), memo.getWore(), memo.getNumber(),  memo.getName(), memo.getType(),  memo.getQuantity(),  memo.getRounds(),  memo.getStartTime(),  memo.getEndTime(),  memo.getDuration(),   memo.getExTimes(),  memo.getStar(),  memo.isUpload(), (!memo.isChecked()));
-                Log.d(LOG_TAG, "Checked-Status von Eintrag: " + updatedWorkoutMemo.toString() + " ist: " + updatedWorkoutMemo.isChecked());
-                showAllListEntries();
-            }
-        });*/
 
     }
     private void showAllListEntries (int q,String n,int t) {
-        List<WorkoutMemo> workoutMemoList = dataSource.getWorkoutMemos(q,n,t);
+        List<WorkoutMemo> workoutMemoList = dataSource.getWorkoutMemos(q,n,t,c);  // Quantity,Name,type,Context
 
         ArrayAdapter<WorkoutMemo> adapter = (ArrayAdapter<WorkoutMemo>) mWorkoutMemosListView.getAdapter();
         adapter.clear();

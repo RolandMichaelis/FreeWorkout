@@ -57,13 +57,14 @@ public class FragmentEndurance extends Fragment{
     private WorkoutMemoDataSource dataSource;
     private ListView mWorkoutMemosListView;
     public static final String LOG_TAG = FragmentEndurance.class.getSimpleName();
+    Context c;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_endurance, container, false);
-
+        c=getContext(); // Context zum Übergeben an andere Klassen speichern (z.B) an workotMemeDataSource
         //Log.i(LOG_TAG, "Die Datenbank wird geöffnet.");
         dataSource = new WorkoutMemoDataSource(getContext());
         //dataSource.open();
@@ -283,7 +284,7 @@ public class FragmentEndurance extends Fragment{
 
     }
     private void showAllListEntries (int q,String n,int t) {
-        List<WorkoutMemo> workoutMemoList = dataSource.getWorkoutMemos(q,n,t);
+        List<WorkoutMemo> workoutMemoList = dataSource.getWorkoutMemos(q,n,t,c); // Quantity,Name,type,Context
 
         ArrayAdapter<WorkoutMemo> adapter = (ArrayAdapter<WorkoutMemo>) mWorkoutMemosListView.getAdapter();
         adapter.clear();
