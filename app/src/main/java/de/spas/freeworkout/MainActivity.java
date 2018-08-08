@@ -58,6 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private de.spas.freeworkout.workoutPack workoutPack;
+    private de.spas.freeworkout.workoutNewPack workoutNewPack;
     private de.spas.freeworkout.specialPack specialPack;
     private de.spas.freeworkout.exercisePack exercisePack;
     private int workoutCount;
@@ -185,6 +186,15 @@ Binärwerte für Skills:
             //Toast.makeText(this, "Wow! Klappt!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             //Toast.makeText(this, "Oh oh! workoutPack", Toast.LENGTH_LONG).show();
+            Log.e(getClass().getSimpleName(), "loading levels threw exception", e);
+        }
+        try {
+            InputStream source = getAssets().open("workouts_new.xml");
+            Serializer serializer = new Persister();
+            workoutNewPack = serializer.read(de.spas.freeworkout.workoutNewPack.class, source);
+            Toast.makeText(this, "Wow! Klappt!", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Oh oh! workoutNewPack", Toast.LENGTH_LONG).show();
             Log.e(getClass().getSimpleName(), "loading levels threw exception", e);
         }
         try {
