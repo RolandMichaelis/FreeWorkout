@@ -30,6 +30,11 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_workouts_2018"
+        android:title="@string/menu_workouts_2018"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_exercises"
         android:title="@string/menu_exercises"
         android:orderInCategory="100"

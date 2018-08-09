@@ -1383,7 +1383,91 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-
-
+        <workout name="Typhon" duration="1" difficulty="1" type="1" skill="0" points="420">
+            <round>
+                <practice name="Squat Jumps" quantity="20"/>
+                <practice name="Pushups" quantity="10"/>
+                <practice name="Rest" quantity="20"/>
+                <practice name="High Knees" quantity="30"/>
+                <practice name="Burpees" quantity="10"/>
+                <practice name="Rest" quantity="30"/>
+            </round>
+            <round>
+                <practice name="Squat Jumps" quantity="20"/>
+                <practice name="Pushups" quantity="10"/>
+                <practice name="Rest" quantity="20"/>
+                <practice name="High Knees" quantity="30"/>
+                <practice name="Burpees" quantity="10"/>
+                <practice name="Rest" quantity="30"/>
+            </round>
+            <round>
+                <practice name="Squat Jumps" quantity="20"/>
+                <practice name="Pushups" quantity="10"/>
+                <practice name="Rest" quantity="20"/>
+                <practice name="High Knees" quantity="30"/>
+                <practice name="Burpees" quantity="10"/>
+                <practice name="Rest" quantity="30"/>
+            </round>
+            <round>
+                <practice name="Squat Jumps" quantity="20"/>
+                <practice name="Pushups" quantity="10"/>
+                <practice name="Rest" quantity="20"/>
+                <practice name="High Knees" quantity="30"/>
+                <practice name="Burpees" quantity="10"/>
+                <practice name="Rest" quantity="30"/>
+            </round>
+        </workout>
+        <workout name="Venus 2018" duration="2" difficulty="3" type="1" skill="0" points="525">
+            <round>
+                <practice name="Pushups" quantity="50"/>
+                <practice name="Crunches" quantity="20"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+            <round>
+                <practice name="Pushups" quantity="50"/>
+                <practice name="Crunches" quantity="20"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+            <round>
+                <practice name="Pushups" quantity="50"/>
+                <practice name="Crunches" quantity="20"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+            <round>
+                <practice name="Pushups" quantity="50"/>
+                <practice name="Crunches" quantity="20"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+        </workout>
+        <workout name="Zeus 2018" duration="3" difficulty="3" type="1" skill="0" points="575">
+            <round>
+                <practice name="HS Pushups" quantity="10"/>
+                <practice name="Pullups" quantity="20"/>
+                <practice name="Pushups" quantity="30"/>
+                <practice name="Situps" quantity="40"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+            <round>
+                <practice name="HS Pushups" quantity="10"/>
+                <practice name="Pullups" quantity="20"/>
+                <practice name="Pushups" quantity="30"/>
+                <practice name="Situps" quantity="40"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+            <round>
+                <practice name="HS Pushups" quantity="10"/>
+                <practice name="Pullups" quantity="20"/>
+                <practice name="Pushups" quantity="30"/>
+                <practice name="Situps" quantity="40"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+            <round>
+                <practice name="HS Pushups" quantity="10"/>
+                <practice name="Pullups" quantity="20"/>
+                <practice name="Pushups" quantity="30"/>
+                <practice name="Situps" quantity="40"/>
+                <practice name="Squats" quantity="50"/>
+            </round>
+        </workout>
     </workouts>
 </workoutPack>

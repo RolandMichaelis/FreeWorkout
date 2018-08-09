@@ -2873,6 +2873,11 @@ Binärwerte für Skills:
             startActivity(in);
             return true;
         }
+        if (id == R.id.action_workouts_2018) {
+            Intent in = new Intent(MainActivity.this,Workouts2018Activity.class);
+            startActivity(in);
+            return true;
+        }
         if (id == R.id.action_exercises) {
             Intent in = new Intent(MainActivity.this,ExercisesActivity.class);
             startActivity(in);

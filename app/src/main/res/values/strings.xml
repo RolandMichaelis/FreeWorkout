@@ -19,6 +19,7 @@
     <string name="menu_history">History</string>
     <string name="menu_matrix">Matrix</string>
     <string name="menu_workouts">Workouts</string>
+    <string name="menu_workouts_2018">Workouts 2018</string>
     <string name="menu_exercises">Exercises</string>
     <string name="menu_logout">Sign out</string>
     <string name="dialog_title_login">Log in or create new account</string>

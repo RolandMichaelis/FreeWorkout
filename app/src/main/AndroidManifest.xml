@@ -61,6 +61,15 @@
                 android:value="de.spas.freeworkout.MainActivity" />
         </activity>
         <activity
+            android:name=".Workouts2018Activity"
+            android:label="Workouts 2018 Overview"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.spas.freeworkout.MainActivity" />
+        </activity>
+        <activity
             android:name=".ExercisesActivity"
             android:label="Exercises Overview"
             android:parentActivityName=".MainActivity"
