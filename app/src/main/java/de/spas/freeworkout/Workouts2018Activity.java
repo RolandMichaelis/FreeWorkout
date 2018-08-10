@@ -59,7 +59,7 @@ public class Workouts2018Activity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
-                Intent workoutFragmentIntent = new Intent(Workouts2018Activity.this, WorkoutChooseActivity.class);
+                Intent workoutFragmentIntent = new Intent(Workouts2018Activity.this, WorkoutNewChooseActivity.class);
                 workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(position));
                 startActivity(workoutFragmentIntent);
                 //Toast.makeText(getApplicationContext(), "Click: "+String.valueOf(position), Toast.LENGTH_SHORT).show();

@@ -80,7 +80,16 @@
         </activity>
         <activity
             android:name=".WorkoutChooseActivity"
-             android:label="Workout Choose"
+            android:label="Workout Choose"
+            android:parentActivityName=".WorkoutsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.spas.freeworkout.MainActivity" />
+        </activity>
+        <activity
+            android:name=".WorkoutNewChooseActivity"
+            android:label="Workout 2018 Choose"
             android:parentActivityName=".WorkoutsActivity"
             android:screenOrientation="portrait">
             <meta-data

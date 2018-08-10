@@ -87,7 +87,7 @@ public class WorkoutChooseActivity extends FragmentActivity  implements ActionBa
         }
 
     }
-    public void generalList() {
+/*    public void generalList() {
         // Erstellung der Liste aller  Workouts nach Type
         WorkoutListArray0.clear();
         workoutCount = workoutPack.getWorkouts().size();
@@ -98,7 +98,7 @@ public class WorkoutChooseActivity extends FragmentActivity  implements ActionBa
             WorkoutListArray0.add(String.valueOf(i) + ",0," + w.getDuration() + "," + w.getDifficulty() + "," +w.getEndurance().getPoints());
             WorkoutListArrayPrint0.add(w.getName());
 
-/*            for (int j = 0; j < 3; j++) {
+*//*            for (int j = 0; j < 3; j++) {
                 if (j == 0) {
                     //Workoutindex, Workouttyp, Duration, Difficulty,Punkte
                     WorkoutListArray0.add(String.valueOf(i) + ",0," + w.getDuration() + "," + w.getDifficulty() + "," +w.getEndurance().getPoints());
@@ -114,8 +114,8 @@ public class WorkoutChooseActivity extends FragmentActivity  implements ActionBa
                     }
                 }*/
 
-        }
-    }
+/*        }
+    }*/
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // on tab selected
