@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<workoutPack name="A">
+<!--
+Werte für body:
+Ganzer Körper 		0
+Unterkörper		    1
+Unterkörper, Rumpf	2
+Rumpf, Unterkörper	3
+Rumpf			    4
+Rumpf, Oberkörper	5
+Oberkörper, Rumpf	6
+Oberkörper	    	7
+
+Binärwerte für Skills:
+1 Pullups
+2 HS Pushups
+4 OH Pushups
+8 Toes to Bar
+16 Pistol Squats
+32 Muscleups
+-->
+
+<workoutPack name="2016">
     <workouts>
         <workout name="Aphrodite" duration="2" difficulty="2" type="1">
             <endurance skill="0" points="350">

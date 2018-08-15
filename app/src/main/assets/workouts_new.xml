@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<workoutPack name="A">
+<!--
+Werte für body:
+Ganzer Körper 		0
+Unterkörper		    1
+Unterkörper, Rumpf	2
+Rumpf, Unterkörper	3
+Rumpf			    4
+Rumpf, Oberkörper	5
+Oberkörper, Rumpf	6
+Oberkörper	    	7
+
+Binärwerte für Skills:
+1 Pullups
+2 HS Pushups
+4 OH Pushups
+8 Toes to Bar
+16 Pistol Squats
+32 Muscleups
+
+Werte für type:
+0 Endurance alt
+1 Standard alt
+2 Strength alt
+3 neues Workup (2018er)
+
+-->
+<workoutPack name="2018">
     <workouts>
-        <workout name="Achilles" duration="2" difficulty="2" type="1" skill="1" points="450">
+        <workout name="Achilles"  duration="2" difficulty="2" type="3" skill="1" points="450" body="0">
             <round>
                 <practice name="Pullups" quantity="10"/>
                 <practice name="Burpees" quantity="20"/>
@@ -28,7 +54,7 @@
                 <practice name="Squats" quantity="30"/>
             </round>
         </workout>
-        <workout name="Adonis" duration="2" difficulty="2" type="1" skill="0" points="440">
+        <workout name="Adonis"  duration="2" difficulty="2" type="3" skill="0" points="440" body="0">
             <round>
                 <practice name="Burpees" quantity="40"/>
                 <practice name="Split Lunges" quantity="40"/>
@@ -50,7 +76,7 @@
                 <practice name="Crunches" quantity="10"/>
             </round>
         </workout>
-        <workout name="Agon" duration="1" difficulty="1" type="1" skill="0" points="400">
+        <workout name="Agon"  duration="1" difficulty="1" type="3" skill="0" points="400" body="0">
             <round>
                 <practice name="Pushups" quantity="5"/>
                 <practice name="Hanging Leg Raises" quantity="10"/>
@@ -72,14 +98,14 @@
                 <practice name="Squats" quantity="20"/>
             </round>
         </workout>
-        <workout name="Aias" duration="1" difficulty="2" type="1" skill="44" points="650">
+        <workout name="Aias"  duration="1" difficulty="3" type="3" skill="44" points="650" body="0">
             <round>
                 <practice name="Muscleups" quantity="7"/>
                 <practice name="OH Pushups" quantity="14"/>
                 <practice name="Strict Toes to Bar" quantity="21"/>
             </round>
         </workout>
-        <workout name="Amazona" duration="1" difficulty="2" type="1" skill="0" points="400">
+        <workout name="Amazona"  duration="3" difficulty="2" type="3" skill="0" points="400" body="2">
             <round>
                 <practice name="Lunges" quantity="20"/>
                 <practice name="Cossack Squats" quantity="20"/>
@@ -97,11 +123,11 @@
                 <practice name="Plank Leg Lifts" quantity="100"/>
             </round>
         </workout>
-        <workout name="Aphrodite" duration="2" difficulty="1" type="1" skill="0" points="500">
+        <workout name="Aphrodite" duration="2" difficulty="2" type="1" skill="0" points="500" body="3">
             <round>
-                <practice name="Burpee Squat Jumps" quantity="50"/>
-                <practice name="Pistol Squats" quantity="50"/>
-                <practice name="Jackknifes" quantity="50"/>
+                <practice name="Burpees" quantity="50"/>
+                <practice name="Squats" quantity="50"/>
+                <practice name="Situps" quantity="50"/>
             </round>
             <round>
                 <practice name="Burpees" quantity="40"/>
@@ -124,7 +150,7 @@
                 <practice name="Situps" quantity="10"/>
             </round>
         </workout>
-        <workout name="Apollon 2018" duration="2" difficulty="2" type="0" skill="0" points="525">
+        <workout name="Apollon 2018"  duration="2" difficulty="2" type="3" skill="0" points="525" body="0">
             <round>
                 <practice name="Burpees" quantity="20"/>
                 <practice name="Sprint" quantity="400"/>
@@ -144,7 +170,7 @@
                 <practice name="Rest" quantity="90"/>
             </round>
         </workout>
-        <workout name="Arachne" duration="1" difficulty="2" type="1" skill="0" points="440">
+        <workout name="Arachne"  duration="2" difficulty="2" type="3" skill="0" points="440" body="0">
             <round>
                 <practice name="Spiderman Pushups" quantity="20"/>
                 <practice name="Squats" quantity="20"/>
@@ -166,7 +192,7 @@
                 <practice name="Plank Switches" quantity="10"/>
             </round>
         </workout>
-        <workout name="Ares" duration="1" difficulty="3" type="1" skill="0" points="345">
+        <workout name="Ares" duration="1" difficulty="3" type="1" skill="0" points="345" body="0">
             <round>
                 <practice name="Pullups" quantity="7"/>
                 <practice name="Situps" quantity="7"/>
@@ -198,7 +224,7 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-        <workout name="Artemis" duration="2" difficulty="3" type="1" skill="1" points="525">
+        <workout name="Artemis" duration="2" difficulty="3" type="1" skill="1" points="525" body="0">
             <round>
                 <practice name="Burpees" quantity="50"/>
                 <practice name="Pullups" quantity="50"/>
@@ -207,7 +233,7 @@
                 <practice name="Burpees" quantity="50"/>
             </round>
         </workout>
-        <workout name="Atalanta" duration="3" difficulty="3" type="1" skill="0" points="650">
+        <workout name="Atalanta"  duration="3" difficulty="3" type="3" skill="0" points="650" body="0">
             <round>
                 <practice name="Sprint" quantity="400"/>
                 <practice name="Pushups" quantity="20"/>
@@ -239,7 +265,7 @@
                 <practice name="Rest" quantity="180"/>
             </round>
         </workout>
-        <workout name="Athena" duration="1" difficulty="1" type="1" skill="0" points="305">
+        <workout name="Athena" duration="1" difficulty="1" type="1" skill="0" points="305" body="3">
             <round>
                 <practice name="Climbers" quantity="25"/>
                 <practice name="Situps" quantity="25"/>
@@ -271,7 +297,7 @@
                 <practice name="Rest" quantity="5"/>
             </round>
         </workout>
-        <workout name="Aura" duration="1" difficulty="1" type="1" skill="0" points="360">
+        <workout name="Aura"  duration="1" difficulty="1" type="3" skill="0" points="360" body="1">
             <round>
                 <practice name="Jumpimg Jacks" quantity="10"/>
                 <practice name="Squats" quantity="20"/>
@@ -289,7 +315,7 @@
                 <practice name="Squats" quantity="10"/>
             </round>
         </workout>
-        <workout name="Charon" duration="2" difficulty="2" type="1" skill="0" points="450">
+        <workout name="Charon"  duration="2" difficulty="2" type="3" skill="0" points="450" body="0">
             <round>
                 <practice name="Burpees" quantity="10"/>
                 <practice name="High Knees" quantity="20"/>
@@ -326,7 +352,7 @@
                 <practice name="Rest" quantity="30"/>
             </round>
         </workout>
-        <workout name="Chimera" duration="3" difficulty="3" type="1" skill="1" points="540">
+        <workout name="Chimera"  duration="3" difficulty="3" type="3" skill="1" points="540" body="0">
             <round>
                 <practice name="Strict Pullups" quantity="15"/>
                 <practice name="Strict Toes to Bar" quantity="20"/>
@@ -352,7 +378,7 @@
                 <practice name="Jumping Jacks" quantity="30"/>
             </round>
         </workout>
-        <workout name="Demeter" duration="3" difficulty="1" type="1" skill="0" points="450">
+        <workout name="Demeter"  duration="3" difficulty="1" type="3" skill="0" points="450" body="0">
             <round>
                 <practice name="Plank Switches" quantity="5"/>
                 <practice name="Burpees" quantity="10"/>
@@ -384,7 +410,7 @@
                 <practice name="Mountain Climbers" quantity="30"/>
             </round>
         </workout>
-        <workout name="Dione" duration="3" difficulty="3" type="1" skill="0" points="500">
+        <workout name="Dione" duration="3" difficulty="3" type="1" skill="0" points="500" body="4">
             <round>
                 <practice name="Jumping Jacks" quantity="75"/>
                 <practice name="Burpees" quantity="25"/>
@@ -410,7 +436,7 @@
                 <practice name="Burpees" quantity="25"/>
             </round>
         </workout>
-        <workout name="Echo" duration="1" difficulty="1" type="1" skill="0" points="300">
+        <workout name="Echo"  duration="1" difficulty="1" type="3" skill="0" points="300" body="0">
             <round>
                 <practice name="Sprawls" quantity="40"/>
                 <practice name="High Knees" quantity="40"/>
@@ -424,7 +450,7 @@
                 <practice name="High Knees" quantity="20"/>
             </round>
         </workout>
-        <workout name="Elektra" duration="1" difficulty="3" type="1" skill="10" points="600">
+        <workout name="Elektra"  duration="1" difficulty="3" type="3" skill="10" points="600" body="0">
             <round>
                 <practice name="HS Pushups" quantity="12"/>
                 <practice name="Pistol Squats" quantity="24"/>
@@ -442,7 +468,7 @@
                 <practice name="Pistol Squats" quantity="6"/>
             </round>
         </workout>
-        <workout name="Erebos" duration="3" difficulty="3" type="1" skill="8" points="600">
+        <workout name="Erebos"  duration="3" difficulty="3" type="3" skill="8" points="600" body="0">
             <round>
                 <practice name="Passive Hang" quantity="60"/>
                 <practice name="Strict Toes to Bar" quantity="10"/>
@@ -468,7 +494,7 @@
                 <practice name="Burpees" quantity="25"/>
             </round>
         </workout>
-        <workout name="Eris" duration="2" difficulty="3" type="1" skill="18" points="600">
+        <workout name="Eris"  duration="2" difficulty="3" type="3" skill="18" points="600" body="0">
             <round>
                 <practice name="HS Pushups" quantity="5"/>
                 <practice name="Pushups" quantity="10"/>
@@ -495,7 +521,7 @@
                 <practice name="Pistol Squats" quantity="10"/>
             </round>
         </workout>
-        <workout name="Hades" duration="2" difficulty="2" type="1" skill="1" points="425">
+        <workout name="Hades" duration="2" difficulty="2" type="1" skill="1" points="425" body="0">
             <round>
                 <practice name="Burpees" quantity="25"/>
                 <practice name="Pullups" quantity="15"/>
@@ -518,7 +544,7 @@
                 <practice name="Sprint" quantity="80"/>
             </round>
         </workout>
-        <workout name="Hebe" duration="1" difficulty="1" type="1" skill="0" points="330">
+        <workout name="Hebe"  duration="1" difficulty="1" type="3" skill="0" points="330" body="0">
             <round>
                 <practice name="Squat Jumps" quantity="10"/>
                 <practice name="Squats" quantity="15"/>
@@ -538,7 +564,7 @@
                 <practice name="Pushups" quantity="10"/>
             </round>
         </workout>
-        <workout name="Hekate" duration="1" difficulty="3" type="1" skill="16" points="475">
+        <workout name="Hekate"  duration="1" difficulty="3" type="3" skill="16" points="475" body="0">
             <round>
                 <practice name="Clapping Pushups" quantity="16"/>
                 <practice name="Pistol Squats" quantity="16"/>
@@ -560,7 +586,7 @@
                 <practice name="Pistol Squats" quantity="4"/>
             </round>
         </workout>
-        <workout name="Helios" duration="3" difficulty="3" type="1" skill="0" points="625">
+        <workout name="Helios" duration="3" difficulty="3" type="1" skill="0" points="625" body="3">
             <round>
                 <practice name="Burpees" quantity="100"/>
                 <practice name="Lunges" quantity="125"/>
@@ -571,7 +597,7 @@
                 <practice name="Burpees" quantity="100"/>
             </round>
         </workout>
-        <workout name="Herakles" duration="1" difficulty="2" type="1" skill="1" points="390">
+        <workout name="Herakles"  duration="1" difficulty="2" type="3" skill="1" points="390" body="6">
             <round>
                 <practice name="Commando Pullups Left" quantity="5"/>
                 <practice name="Straight Bar Dips" quantity="10"/>
@@ -594,7 +620,7 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-        <workout name="Hermes" duration="2" difficulty="1" type="1" skill="0" points="480">
+        <workout name="Hermes" duration="2" difficulty="1" type="1" skill="0" points="480" body="0">
             <round>
                 <practice name="Sprint" quantity="40"/>
                 <practice name="Pushups" quantity="10"/>
@@ -636,7 +662,7 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-        <workout name="Kadmos" duration="2" difficulty="2" type="1" skill="0" points="400">
+        <workout name="Kadmos"  duration="2" difficulty="2" type="3" skill="0" points="400" body="0">
             <round>
                 <practice name="Sprint" quantity="40"/>
                 <practice name="Burpees" quantity="10"/>
@@ -663,7 +689,7 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-        <workout name="Kentauros" duration="3" difficulty="3" type="1" skill="0" points="605">
+        <workout name="Kentauros" duration="3" difficulty="3" type="1" skill="0" points="605" body="3">
             <round>
                 <practice name="Lunge Walk" quantity="40"/>
                 <practice name="Jumps" quantity="10"/>
@@ -701,7 +727,7 @@
                 <practice name="Jumps" quantity="10"/>
             </round>
         </workout>
-        <workout name="Kerberos" duration="2" difficulty="3" type="1" skill="0" points="480">
+        <workout name="Kerberos"  duration="2" difficulty="3" type="3" skill="0" points="480" body="0">
             <round>
                 <practice name="Plank Hold" quantity="60"/>
                 <practice name="Plank Switches" quantity="10"/>
@@ -718,7 +744,7 @@
                 <practice name="Squats" quantity="30"/>
             </round>
         </workout>
-        <workout name="Krios" duration="1" difficulty="3" type="1" skill="1" points="375">
+        <workout name="Krios" duration="1" difficulty="3" type="1" skill="1" points="375" body="0">
             <round>
                 <practice name="Pullups" quantity="10"/>
                 <practice name="Squats" quantity="10"/>
@@ -735,7 +761,7 @@
                 <practice name="Situps" quantity="10"/>
             </round>
         </workout>
-        <workout name="Kyklops" duration="3" difficulty="3" type="1" skill="9" points="450">
+        <workout name="Kyklops"  duration="3" difficulty="3" type="3" skill="9" points="450" body="0">
             <round>
                 <practice name="Jumping Jacks" quantity="100"/>
                 <practice name="High Knees" quantity="50"/>
@@ -752,7 +778,7 @@
                 <practice name="Jumping Jacks" quantity="100"/>
             </round>
         </workout>
-        <workout name="Mania" duration="2" difficulty="3" type="1" skill="0" points="420">
+        <workout name="Mania"  duration="2" difficulty="3" type="3" skill="0" points="420" body="0">
             <round>
                 <practice name="Clapping Pushups" quantity="6"/>
                 <practice name="Squat Jumps" quantity="6"/>
@@ -778,7 +804,7 @@
                 <practice name="Squats" quantity="18"/>
             </round>
         </workout>
-        <workout name="Medusa" duration="2" difficulty="3" type="1" skill="2" points="600">
+        <workout name="Medusa"  duration="2" difficulty="3" type="3" skill="2" points="600" body="0">
             <round>
                 <practice name="HS Pushups" quantity="3"/>
                 <practice name="Squat Jumps" quantity="6"/>
@@ -830,51 +856,51 @@
                 <practice name="Pushups" quantity="9"/>
             </round>
         </workout>
-        <workout name="Metis" duration="1" difficulty="1" type="1" skill="0" points="325">
+        <workout name="Metis" duration="1" difficulty="1" type="1" skill="0" points="325" body="3">
             <round>
-                <practice name="Sprawls" quantity="10"/>
-                <practice name="Mountain Climbers" quantity="10"/>
-                <practice name="High Knees" quantity="10"/>
+                <practice name="Burpees" quantity="10"/>
+                <practice name="Climbers" quantity="10"/>
+                <practice name="Jumps" quantity="10"/>
             </round>
             <round>
-                <practice name="Sprawls" quantity="25"/>
-                <practice name="Mountain Climbers" quantity="25"/>
-                <practice name="High Knees" quantity="25"/>
+                <practice name="Burpees" quantity="25"/>
+                <practice name="Climbers" quantity="25"/>
+                <practice name="Jumps" quantity="25"/>
             </round>
             <round>
-                <practice name="Sprawls" quantity="10"/>
-                <practice name="Mountain Climbers" quantity="10"/>
-                <practice name="High Knees" quantity="10"/>
-            </round>
-        </workout>
-        <workout name="Minotaurus" duration="2" difficulty="2" type="1" skill="0" points="450">
-            <round>
-                <practice name="High Knees" quantity="20"/>
-                <practice name="Lunge Walk" quantity="40"/>
-                <practice name="Burpees" quantity="20"/>
-            </round>
-            <round>
-                <practice name="High Knees" quantity="20"/>
-                <practice name="Lunge Walk" quantity="40"/>
-                <practice name="Burpees" quantity="20"/>
-            </round>
-            <round>
-                <practice name="High Knees" quantity="20"/>
-                <practice name="Lunge Walk" quantity="40"/>
-                <practice name="Burpees" quantity="20"/>
-            </round>
-            <round>
-                <practice name="High Knees" quantity="20"/>
-                <practice name="Lunge Walk" quantity="40"/>
-                <practice name="Burpees" quantity="20"/>
-            </round>
-            <round>
-                <practice name="High Knees" quantity="20"/>
-                <practice name="Lunge Walk" quantity="40"/>
-                <practice name="Burpees" quantity="20"/>
+                <practice name="Burpees" quantity="10"/>
+                <practice name="Climbers" quantity="10"/>
+                <practice name="Jumps" quantity="10"/>
             </round>
         </workout>
-        <workout name="Morpheus" duration="1" difficulty="2" type="1" skill="0" points="240">
+        <workout name="Minotaurus"  duration="2" difficulty="2" type="3" skill="0" points="450" body="0">
+            <round>
+                <practice name="High Knees" quantity="20"/>
+                <practice name="Lunge Walk" quantity="40"/>
+                <practice name="Burpees" quantity="20"/>
+            </round>
+            <round>
+                <practice name="High Knees" quantity="20"/>
+                <practice name="Lunge Walk" quantity="40"/>
+                <practice name="Burpees" quantity="20"/>
+            </round>
+            <round>
+                <practice name="High Knees" quantity="20"/>
+                <practice name="Lunge Walk" quantity="40"/>
+                <practice name="Burpees" quantity="20"/>
+            </round>
+            <round>
+                <practice name="High Knees" quantity="20"/>
+                <practice name="Lunge Walk" quantity="40"/>
+                <practice name="Burpees" quantity="20"/>
+            </round>
+            <round>
+                <practice name="High Knees" quantity="20"/>
+                <practice name="Lunge Walk" quantity="40"/>
+                <practice name="Burpees" quantity="20"/>
+            </round>
+        </workout>
+        <workout name="Morpheus" duration="1" difficulty="2" type="1" skill="0" points="240" body="0">
             <round>
                 <practice name="Pushups" quantity="5"/>
                 <practice name="Lunges" quantity="10"/>
@@ -901,7 +927,7 @@
                 <practice name="Jumping Jacks" quantity="20"/>
             </round>
         </workout>
-        <workout name="Nemesis 2018" duration="1" difficulty="1" type="1" skill="0" points="270">
+        <workout name="Nemesis" duration="1" difficulty="1" type="0" skill="0" points="270" body="2">
             <round>
                 <practice name="Crunches" quantity="50"/>
                 <practice name="Mountain Climbers" quantity="10"/>
@@ -923,7 +949,7 @@
                 <practice name="Mountain Climbers" quantity="50"/>
             </round>
         </workout>
-        <workout name="Nyx" duration="1" difficulty="2" type="1" skill="0" points="275">
+        <workout name="Nyx" duration="1" difficulty="2" type="1" skill="0" points="275" body="3">
             <round>
                 <practice name="Situps" quantity="10"/>
                 <practice name="Leg Raises" quantity="10"/>
@@ -940,7 +966,7 @@
                 <practice name="Standups" quantity="10"/>
             </round>
         </workout>
-        <workout name="Odysses" duration="3" difficulty="2" type="1" skill="0" points="600">
+        <workout name="Odysses"  duration="3" difficulty="2" type="3" skill="0" points="600" body="0">
             <round>
                 <practice name="Burpees" quantity="5"/>
                 <practice name="Lunge Walk" quantity="40"/>
@@ -1012,7 +1038,7 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-        <workout name="Orion" duration="2" difficulty="3" type="1" skill="17" points="525">
+        <workout name="Orion"  duration="2" difficulty="3" type="3" skill="17" points="525" body="0">
             <round>
                 <practice name="Strict Pullups" quantity="12"/>
                 <practice name="Pistol Squats" quantity="16"/>
@@ -1039,7 +1065,7 @@
                 <practice name="Pushups" quantity="10"/>
             </round>
         </workout>
-        <workout name="Orpheus" duration="1" difficulty="1" type="1" skill="0" points="400">
+        <workout name="Orpheus"  duration="1" difficulty="1" type="3" skill="0" points="400" body="0">
             <round>
                 <practice name="Sprawls" quantity="30"/>
                 <practice name="Passive Hang" quantity="30"/>
@@ -1057,7 +1083,7 @@
                 <practice name="Passive Hang" quantity="30"/>
             </round>
         </workout>
-        <workout name="Pegasos" duration="1" difficulty="3" type="1" skill="19" points="660">
+        <workout name="Pegasos"  duration="1" difficulty="3" type="3" skill="19" points="660" body="6">
             <round>
                 <practice name="HS Pushups" quantity="7"/>
                 <practice name="Strict Pullups" quantity="14"/>
@@ -1074,7 +1100,7 @@
                 <practice name="Strict Toes to Bar" quantity="21"/>
             </round>
         </workout>
-        <workout name="Persephone" duration="1" difficulty="2" type="1" skill="0" points="310">
+        <workout name="Persephone" duration="1" difficulty="2" type="1" skill="0" points="310" body="3">
             <round>
                 <practice name="Lunges" quantity="30"/>
                 <practice name="Burpees" quantity="30"/>
@@ -1094,7 +1120,7 @@
                 <practice name="Rest" quantity="10"/>
             </round>
         </workout>
-        <workout name="Perseus" duration="2" difficulty="3" type="1" skill="1" points="400">
+        <workout name="Perseus"  duration="2" difficulty="3" type="3" skill="1" points="400" body="0">
             <round>
                 <practice name="Strict Pullups" quantity="5"/>
                 <practice name="Mountain Climbers" quantity="40"/>
@@ -1126,7 +1152,7 @@
                 <practice name="High Knees" quantity="40"/>
             </round>
         </workout>
-        <workout name="Poseidon" duration="1" difficulty="3" type="1" skill="1" points="365">
+        <workout name="Poseidon" duration="1" difficulty="3" type="1" skill="1" points="365" body="7">
             <round>
                 <practice name="Pullups" quantity="20"/>
                 <practice name="Pushups" quantity="20"/>
@@ -1144,7 +1170,7 @@
                 <practice name="Pushups" quantity="5"/>
             </round>
         </workout>
-        <workout name="Prometheus" duration="2" difficulty="2" type="1" skill="0" points="370">
+        <workout name="Prometheus" duration="2" difficulty="2" type="1" skill="0" points="370" body="3">
             <round>
                 <practice name="Climbers" quantity="30"/>
                 <practice name="Pushups" quantity="10"/>
@@ -1187,7 +1213,7 @@
             </round>
 
         </workout>
-        <workout name="Rhea" duration="1" difficulty="1" type="1" skill="0" points="300">
+        <workout name="Rhea"  duration="1" difficulty="1" type="3" skill="0" points="300" body="2">
             <round>
                 <practice name="High Knees" quantity="20"/>
                 <practice name="Crunches" quantity="20"/>
@@ -1204,7 +1230,7 @@
                 <practice name="Squats" quantity="10"/>
             </round>
         </workout>
-        <workout name="Selene" duration="2" difficulty="1" type="1" skill="0" points="450">
+        <workout name="Selene"  duration="2" difficulty="1" type="3" skill="0" points="450" body="0">
             <round>
                 <practice name="Jumping Jacks" quantity="50"/>
                 <practice name="Crunches" quantity="20"/>
@@ -1236,7 +1262,7 @@
                 <practice name="Burpees" quantity="20"/>
             </round>
         </workout>
-        <workout name="Skylla" duration="2" difficulty="2" type="1" skill="9" points="400">
+        <workout name="Skylla"  duration="2" difficulty="2" type="3" skill="9" points="400" body="0">
             <round>
                 <practice name="Pullups" quantity="5"/>
                 <practice name="Strict Toes to Bar" quantity="10"/>
@@ -1263,7 +1289,7 @@
                 <practice name="Squat Jumps" quantity="15"/>
             </round>
         </workout>
-        <workout name="Styx" duration="3" difficulty="2" type="1" skill="0" points="400">
+        <workout name="Styx"  duration="3" difficulty="2" type="3" skill="0" points="400" body="0">
             <round>
                 <practice name="Burpees" quantity="10"/>
                 <practice name="Squats" quantity="20"/>
@@ -1289,7 +1315,7 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-        <workout name="Tantalus" duration="3" difficulty="3" type="1" skill="25" points="600">
+        <workout name="Tantalus"  duration="3" difficulty="3" type="3" skill="25" points="600" body="0">
             <round>
                 <practice name="Chest to Bar Pullups" quantity="6"/>
                 <practice name="Archer Pullups" quantity="6"/>
@@ -1327,7 +1353,7 @@
                 <practice name="Pistol Squats" quantity="6"/>
             </round>
         </workout>
-        <workout name="Thalassa" duration="2" difficulty="2" type="1" skill="0" points="450">
+        <workout name="Thalassa"  duration="2" difficulty="2" type="3" skill="0" points="450" body="0">
             <round>
                 <practice name="Jumping Jacks" quantity="50"/>
                 <practice name="Burpees" quantity="20"/>
@@ -1353,7 +1379,7 @@
                 <practice name="Burpees" quantity="20"/>
             </round>
         </workout>
-        <workout name="Theseus" duration="2" difficulty="2" type="1" skill="0" points="400">
+        <workout name="Theseus"  duration="2" difficulty="2" type="3" skill="0" points="400" body="0">
             <round>
                 <practice name="Clapping Pushups" quantity="5"/>
                 <practice name="High Knees" quantity="20"/>
@@ -1383,7 +1409,7 @@
                 <practice name="Rest" quantity="60"/>
             </round>
         </workout>
-        <workout name="Typhon" duration="1" difficulty="1" type="1" skill="0" points="420">
+        <workout name="Typhon"  duration="1" difficulty="1" type="3" skill="0" points="420" body="0">
             <round>
                 <practice name="Squat Jumps" quantity="20"/>
                 <practice name="Pushups" quantity="10"/>
@@ -1417,7 +1443,7 @@
                 <practice name="Rest" quantity="30"/>
             </round>
         </workout>
-        <workout name="Venus 2018" duration="2" difficulty="3" type="1" skill="0" points="525">
+        <workout name="Venus 2018"  duration="2" difficulty="3" type="3" skill="0" points="525" body="0">
             <round>
                 <practice name="Pushups" quantity="50"/>
                 <practice name="Crunches" quantity="20"/>
@@ -1439,7 +1465,7 @@
                 <practice name="Squats" quantity="50"/>
             </round>
         </workout>
-        <workout name="Zeus 2018" duration="3" difficulty="3" type="1" skill="0" points="575">
+        <workout name="Zeus 2018"  duration="3" difficulty="3" type="3" skill="0" points="575" body="0">
             <round>
                 <practice name="HS Pushups" quantity="10"/>
                 <practice name="Pullups" quantity="20"/>

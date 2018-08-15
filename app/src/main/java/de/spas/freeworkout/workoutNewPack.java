@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 import java.util.List;
 
 /**
- * Created by uwe on 24.09.13.
+ *
  */
 @Root
 public class workoutNewPack {
@@ -15,6 +15,12 @@ public class workoutNewPack {
     private String name;
     @ElementList
     private List<WorkoutNew> workouts;
+
+    public workoutNewPack() {
+    }
+    public String getName() {
+        return name;
+    }
 
     public List<WorkoutNew> getWorkouts() {
         return workouts;

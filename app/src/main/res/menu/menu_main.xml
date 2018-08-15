@@ -25,6 +25,11 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_matrix2018"
+        android:title="@string/menu_matrix2018"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_workouts"
         android:title="@string/menu_workouts"
         android:orderInCategory="100"

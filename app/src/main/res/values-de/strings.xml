@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">FreeWorkout V0.15</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Passwort</string>
     <string name="prompt_vorname">Vorname</string>
@@ -97,6 +96,16 @@
     <string name="points">%1$d</string>
     <string name="text_points">Punkte:</string>
     <string name="text_rounds">Runden:</string>
+    <string-array name="bodyListType">
+        <item>Ganzer Körper</item>
+        <item>Unterkörper</item>
+        <item>Unterkörper, Rumpf</item>
+        <item>Rumpf, Unterkörper</item>
+        <item>Rumpf</item>
+        <item>Rumpf, Oberkörper</item>
+        <item>Oberkörper, Rumpf</item>
+        <item>Oberkörper</item>
+    </string-array>
     <string-array name="spinnerQuantityListType">
         <item>10x</item>
         <item>20x</item>

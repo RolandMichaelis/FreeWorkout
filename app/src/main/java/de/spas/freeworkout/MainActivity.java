@@ -192,9 +192,9 @@ Binärwerte für Skills:
             InputStream source = getAssets().open("workouts_new.xml");
             Serializer serializer = new Persister();
             workoutNewPack = serializer.read(de.spas.freeworkout.workoutNewPack.class, source);
-            Toast.makeText(this, "Wow! Klappt!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Wow! Klappt!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Oh oh! workoutNewPack", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Oh oh! workoutNewPack", Toast.LENGTH_LONG).show();
             Log.e(getClass().getSimpleName(), "loading levels threw exception", e);
         }
         try {
@@ -2651,8 +2651,8 @@ Binärwerte für Skills:
                         }
                         else {ListText = u.getQuantity() + xmeter + u.getName();}
                         Log.i(LOG_TAG, "exWorkoutList Exercise: "+"completedWorkouts"+(d-1)+counter+"|"+sp.getString("completedWorkouts"+(d-1)+counter, "")+"|"+exChecked(checked[d-1],counter)+"|"+ListText);
-
                         ListTextShadow = "1,"+u.getExercise()+",3,"+u.getQuantity()+",0"; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (MainActivity)
+                        //ListTextShadow = "1,1,3,"+u.getQuantity()+",0"; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (MainActivity)
                         WorkoutListArrayP.add(ListText);
                         WorkoutListArrayPShadow.add(ListTextShadow);
                         counter++;
@@ -2865,6 +2865,11 @@ Binärwerte für Skills:
         }
         if (id == R.id.action_matrix) {
             Intent in = new Intent(MainActivity.this,MatrixActivity.class);
+            startActivity(in);
+            return true;
+        }
+        if (id == R.id.action_matrix2018) {
+            Intent in = new Intent(MainActivity.this,Matrix2018Activity.class);
             startActivity(in);
             return true;
         }

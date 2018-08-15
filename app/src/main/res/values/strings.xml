@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FreeWorkout V0.17</string>
+    <string name="app_name">FreeWorkout V0.18</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Passwort</string>
@@ -18,6 +18,7 @@
     <string name="menu_profile">Profile</string>
     <string name="menu_history">History</string>
     <string name="menu_matrix">Matrix</string>
+    <string name="menu_matrix2018">Matrix 2018</string>
     <string name="menu_workouts">Workouts</string>
     <string name="menu_workouts_2018">Workouts 2018</string>
     <string name="menu_exercises">Exercises</string>
@@ -99,6 +100,16 @@
     <string name="cab_change">Change entry</string>
     <string name="points">%1$d</string>
     <string name="text_points">Points:</string>
+    <string-array name="bodyListType">
+        <item>Full Body</item>
+        <item>Lower</item>
+        <item>Lower, Core</item>
+        <item>Core, Lower</item>
+        <item>Core</item>
+        <item>Core, Upper</item>
+        <item>Upper, Core</item>
+        <item>Upper</item>
+    </string-array>
     <string-array name="spinnerQuantityListType">
         <item>10x</item>
         <item>20x</item>

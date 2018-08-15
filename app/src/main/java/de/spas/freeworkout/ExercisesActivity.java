@@ -89,7 +89,7 @@ public class ExercisesActivity extends Activity {
             if(w.getQuantHidden()==1){
                 q=1;
             }
-            ExerciseListArray.add(new ExerciseClass(w.getName(),i,"1,"+String.valueOf(i)+",3,"+String.valueOf(q)+",1"));//Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (ExercisesActivity))
+            ExerciseListArray.add(new ExerciseClass(w.getName(),i,"1,"+String.valueOf(i)+",3,"+String.valueOf(q)+",1,-1,-1"));//Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,FromWhere (ExercisesActivity))
          /*   msg.insert(0, "Add: "+ExerciseListArray.get(i).name+ "\n");
             light_text.setText(msg);
             light_text.invalidate();*/

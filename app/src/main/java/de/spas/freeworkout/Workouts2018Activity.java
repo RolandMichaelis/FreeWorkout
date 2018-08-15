@@ -73,12 +73,13 @@ public class Workouts2018Activity extends Activity {
         // Erstellung der Liste aller  Workouts
         WorkoutListArray0.clear();
         workoutCount = workoutNewPack.getWorkouts().size();
+        String bodyListType[] = getResources().getStringArray(R.array.bodyListType);
 
         for(int i=0; i<workoutCount; i++)
         {
             WorkoutNew w = workoutNewPack.getWorkouts().get(i);
             //WorkoutListArray0.add(String.valueOf(i) + ",0," + w.getDuration() + "," + w.getDifficulty() + "," +w.getPoints());
-            WorkoutListArrayPrint0.add(w.getName());
+            WorkoutListArrayPrint0.add(w.getName()+" ("+bodyListType[Integer.valueOf(w.getBody())]+")");
 
 /*            for (int j = 0; j < 3; j++) {
                 if (j == 0) {

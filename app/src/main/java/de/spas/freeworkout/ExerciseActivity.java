@@ -144,7 +144,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
             n = s1.indexOf(",");
             checked_day = Integer.valueOf(s1.substring(0,n));
             s1=s1.substring(n+1,s1.length());
-            checked_pos = Integer.valueOf(s1.substring(0,s1.length()));
+            n = s1.indexOf(",");
+            checked_pos = Integer.valueOf(s1.substring(0,n));
             //Toast.makeText(this, String.valueOf(type)+"|"+String.valueOf(quantity)+"|"+String.valueOf(fromWhere) , Toast.LENGTH_LONG).show();
         }
         Exercise w = exercisePack.getExercises().get(number);
@@ -270,7 +271,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
 
             // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
             // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
-            // der StringArray gefüllt mit Beispieldaten
+            // der StringArray gefüllt mit Daten
             hideView(R.id.time_pb);
             hideView(R.id.time_lt);
             text_pb="";

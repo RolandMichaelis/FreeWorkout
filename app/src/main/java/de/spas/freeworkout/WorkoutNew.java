@@ -27,6 +27,10 @@ public class WorkoutNew {
 
     @Attribute
     private int points;
+    @Attribute
+
+    private int body;
+
     @ElementList(required=false,entry="round", inline = true)
     List<Round> round;
 
@@ -56,6 +60,10 @@ public class WorkoutNew {
 
     public int getPoints() {
         return points;
+    }
+
+    public int getBody() {
+        return body;
     }
 
 

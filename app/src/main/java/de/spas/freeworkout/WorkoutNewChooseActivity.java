@@ -37,7 +37,7 @@ public class WorkoutNewChooseActivity extends Activity {
     View rootView;
     int points;
     int rounds;
-    int type=1;
+    int type;
     String wName;
     String printRounds ;
     int quantity=1;
@@ -77,6 +77,7 @@ public class WorkoutNewChooseActivity extends Activity {
             wo_choose = Integer.valueOf(empfangenerIntent.getStringExtra(Intent.EXTRA_TEXT));
             WorkoutNew w = workoutNewPack.getWorkouts().get(wo_choose);
             this.setTitle(w.getName());
+            type=w.getType(); // type ist bei den 2018ern in type gespeichert, -1 wenn keine alten Endurance oder Standard WO vorhanden sind
         }
         //Toast.makeText(this, String.valueOf(s), Toast.LENGTH_LONG).show();
         initializeWorkoutMemosListView();
@@ -212,7 +213,7 @@ public class WorkoutNewChooseActivity extends Activity {
                             roundsValue=0;
                         }
                         Intent workoutFragmentIntent = new Intent(WorkoutNewChooseActivity.this, WorkoutActivity.class);
-                        String ListTextShadow = "0,"+String.valueOf(wo_choose)+","+type+","+String.valueOf(quantity)+",-1,-1,"+roundsValue; //Workout/Special,Workoutnummer,Type(Strth,Std,End.),Anzahl,checked_day,checked_pos (-1 da nicht über Coach gewählt),gewählte Rundenanzahl
+                        String ListTextShadow = "2,"+String.valueOf(wo_choose)+","+type+","+String.valueOf(quantity)+",-1,-1,"+roundsValue; //Workout(0)/Special(1)/Workout2018(2),Workoutnummer,Type(Strth,Std,End.),Anzahl,checked_day,checked_pos (-1 da nicht über Coach gewählt),gewählte Rundenanzahl
 
                         workoutFragmentIntent.putExtra(Intent.EXTRA_TEXT, ListTextShadow);
                         startActivity(workoutFragmentIntent);
