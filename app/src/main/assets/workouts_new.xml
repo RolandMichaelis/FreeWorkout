@@ -299,19 +299,19 @@ Werte für type:
         </workout>
         <workout name="Aura"  duration="1" difficulty="1" type="3" skill="0" points="360" body="1">
             <round>
-                <practice name="Jumpimg Jacks" quantity="10"/>
+                <practice name="Jumping Jacks" quantity="10"/>
                 <practice name="Squats" quantity="20"/>
             </round>
             <round>
-                <practice name="Jumpimg Jacks" quantity="20"/>
+                <practice name="Jumping Jacks" quantity="20"/>
                 <practice name="Squats" quantity="40"/>
             </round>
             <round>
-                <practice name="Jumpimg Jacks" quantity="40"/>
+                <practice name="Jumping Jacks" quantity="40"/>
                 <practice name="Squats" quantity="20"/>
             </round>
             <round>
-                <practice name="Jumpimg Jacks" quantity="20"/>
+                <practice name="Jumping Jacks" quantity="20"/>
                 <practice name="Squats" quantity="10"/>
             </round>
         </workout>
