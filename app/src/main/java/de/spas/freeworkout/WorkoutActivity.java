@@ -772,8 +772,9 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                 .setNeutralButton("+", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         theEnd=false;
-                        workout_add();
+                        //Toast.makeText(WorkoutActivity.this, "quantElements: "+quantElements, Toast.LENGTH_LONG).show();
                         wo_pointer++;start_pointer++;
+                        workout_add();
                         workoutOrRound();
                         showView(R.id.button_wo_back);
                         if(quantity<3 && rounds==0)showView(R.id.button_wo_add);
@@ -788,8 +789,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
         // show it
         alertDialog.show();
         Button neutralButton = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
-        if(quantity>2)((AlertDialog)alertDialog).getButton(AlertDialog.BUTTON_NEUTRAL).setVisibility(View.GONE);
-
+        if(quantity>2 || rounds!=0)((AlertDialog)alertDialog).getButton(AlertDialog.BUTTON_NEUTRAL).setVisibility(View.GONE);
     }
 
     public void onClick(final View view) {
@@ -1465,10 +1465,12 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             super.onDraw(canvas);
             left=tvList.get(wo_pointer-start_pointer).getLeft();
             Paint paint=new Paint();
+
             if(quantElements>0){
                 int quant=8;
                 if(quantElements<8) quant=quantElements;
                 for(int tvx = 0; tvx < quant; tvx++){
+                    //Log.i(getClass().getSimpleName(), "quantElements: "+quantElements+" start_pointer: "+start_pointer+" wo_pointer: "+wo_pointer+" tvx: "+tvx);
                     if(ghostList.get(start_pointer+tvx)>0){
 
                         lengthElement= (int) (secondWidth*(ghostList.get(start_pointer+tvx)/1000));
