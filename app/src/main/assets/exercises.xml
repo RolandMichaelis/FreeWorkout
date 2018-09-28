@@ -349,5 +349,61 @@
             <standard skill="0"/>
             <strength skill="0"/>
         </exercise>
+        <exercise name="Pushup back of hand" duration="1" difficulty="2" quantHidden="0" time="0" nr="69">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Archer Pullups" duration="1" difficulty="2" quantHidden="0" time="0" nr="70">
+            <endurance skill="1"/>
+            <standard skill="1"/>
+            <strength skill="1"/>
+        </exercise>
+        <exercise name="Archer Pushups" duration="1" difficulty="2" quantHidden="0" time="0" nr="71">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Arm and Leg Lifts Left" duration="1" difficulty="1" quantHidden="0" time="0" nr="72">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Arm and Leg Lifts Left" duration="1" difficulty="1" quantHidden="0" time="0" nr="73">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Assisted Pistol Squats" duration="3" difficulty="3" quantHidden="0" time="0" nr="74">
+            <endurance skill="16"/>
+            <standard skill="16"/>
+            <strength skill="16"/>
+        </exercise>
+        <exercise name="Bicycle Crunches" duration="1" difficulty="1" quantHidden="0" time="0" nr="75">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Calf Raises" duration="1" difficulty="1" quantHidden="0" time="0" nr="76">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+        <exercise name="Chest to Bar Pullups" duration="1" difficulty="3" quantHidden="0" time="0" nr="77">
+            <endurance skill="1"/>
+            <standard skill="1"/>
+            <strength skill="1"/>
+        </exercise>
+        <exercise name="Clapping Pullups" duration="1" difficulty="3" quantHidden="0" time="0" nr="78">
+            <endurance skill="1"/>
+            <standard skill="1"/>
+            <strength skill="1"/>
+        </exercise>
+        <exercise name="Clapping Pushups" duration="1" difficulty="3" quantHidden="0" time="0" nr="79">
+            <endurance skill="0"/>
+            <standard skill="0"/>
+            <strength skill="0"/>
+        </exercise>
+
     </exercises>
 </exercisePack>
