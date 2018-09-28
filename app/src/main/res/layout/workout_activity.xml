@@ -615,6 +615,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
+                android:textColor="#333"
                 android:id="@+id/clock"
                 android:textSize="64sp"
                 android:paddingTop="20dp"
@@ -623,14 +624,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/time_lt"
-                android:visibility="gone"
+                android:textColor="#333"
                 android:layout_gravity="center_horizontal|top" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:id="@+id/time_pb"
-                android:visibility="gone"
+                android:textColor="#333"
                 android:layout_gravity="center_horizontal|top" />
 
             <TextView

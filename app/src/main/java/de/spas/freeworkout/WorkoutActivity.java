@@ -1059,6 +1059,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
             int cup= (int) ((System.currentTimeMillis()-timestampStart)/1000);
             ((TextView) findViewById(R.id.clock)).setText(timeFormat(cup));
             if(countup==0){
+                //checkRest();
                 list_view();
                 calc_view();
                 doSpeech(0);
@@ -1104,6 +1105,7 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
     private void checkRest() {
         String s=runList.get(wo_pointer);
         String s1 = s.substring(s.length()-4,s.length());
+        Log.i(LOG_TAG, "checkRest: "+s1);
 
         if ((s1.equals("Rest")) || (s1.equals("Hang")) || (s1.equals("Hold"))){
             int n = s.indexOf(" ");
@@ -1228,8 +1230,23 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                 String s="";
                 String sr=String.valueOf(roundList[rLx].get(wox));
                 String s1 = sr.substring(sr.length()-4,sr.length());
-                if(ghostList.size()>0 && !s1.equals("Rest"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
+                if(ghostList.size()>0) {
+                    if((s1.equals("Rest"))||(s1.equals("Hold")||(s1.equals("Hang")))){
+                        s="";
+                        Log.i(LOG_TAG, "s1 equals Rest||Hold||Hang");
+                    }
+                    else {
+                        s=" "+timeFormat(ghostList.get(runList.size())/1000);
+                        Log.i(LOG_TAG, "ELSE s1 equals Rest||Hold||Hang");
+                    }
+
+                }
+               // if(ghostList.size()>0 && !s1.equals("Rest"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
+                //if(ghostList.size()>0 && !s1.equals("Hang"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
+                //if(ghostList.size()>0 && !s1.equals("Hold"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
                 runList.add(String.valueOf(roundList[rLx].get(wox))+s);
+                Log.i(LOG_TAG, "runList s: "+s);
+                Log.i(LOG_TAG, "runList s1: "+s1);
                 propList.add(0);
                 statList.add((long) 0);
                 timeList.add((long) 0);
