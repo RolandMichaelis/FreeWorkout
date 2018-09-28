@@ -1241,9 +1241,6 @@ public class WorkoutActivity extends Activity implements View.OnClickListener {
                     }
 
                 }
-               // if(ghostList.size()>0 && !s1.equals("Rest"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
-                //if(ghostList.size()>0 && !s1.equals("Hang"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
-                //if(ghostList.size()>0 && !s1.equals("Hold"))  s=" "+timeFormat(ghostList.get(runList.size())/1000);
                 runList.add(String.valueOf(roundList[rLx].get(wox))+s);
                 Log.i(LOG_TAG, "runList s: "+s);
                 Log.i(LOG_TAG, "runList s1: "+s1);
